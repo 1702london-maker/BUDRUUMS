@@ -131,8 +131,9 @@ export default function PortfolioPage() {
         </motion.div>
 
         {/* Network graph — represents cross-industry connections Budruum has built */}
-        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8]"
-          className="h-[260px] sm:h-[320px] lg:h-[400px]" style={{ boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
+        <motion.div
+          className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8] h-[260px] sm:h-[320px] lg:h-[400px]"
+          style={{ boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
           initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}>
           <NetworkGraph />
@@ -210,8 +211,8 @@ export default function PortfolioPage() {
         </motion.div>
 
         {/* Bar chart — represents portfolio growth across ventures */}
-        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8]"
-          className="h-[260px] sm:h-[300px] lg:h-[340px]"
+        <motion.div
+          className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8] h-[260px] sm:h-[300px] lg:h-[340px]"
           initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}>
           <PortfolioChart />

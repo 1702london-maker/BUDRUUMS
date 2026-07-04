@@ -43,32 +43,35 @@ export default function HomePage() {
   return (
     <main>
       {/* ─── HERO ─────────────────────────────────────────────────────── */}
-      <section className="min-h-[92vh] flex items-center bg-white relative overflow-hidden">
+      <section className="min-h-[calc(100svh-70px)] lg:min-h-[92vh] flex items-center bg-white relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gs rounded-full translate-x-1/3 -translate-y-1/3 opacity-60" />
           <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gs rounded-full -translate-x-1/2 translate-y-1/2 opacity-40" />
         </div>
-        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center py-12 lg:py-20 relative z-10">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center py-10 sm:py-14 lg:py-20 relative z-10">
           <div>
-            <p className="eyebrow mb-6">UK Business Consultancy</p>
-            <h1 className="font-display text-[42px] sm:text-[54px] md:text-[64px] lg:text-[80px] leading-[1.02] font-light text-t1 mb-6 lg:mb-8 text-balance">
+            <p className="eyebrow mb-4 lg:mb-6">UK Business Consultancy</p>
+            <h1 className="font-display text-[clamp(42px,12vw,56px)] md:text-[64px] lg:text-[80px] leading-[1.02] font-light text-t1 mb-5 lg:mb-8 text-balance">
               Build Your Business <em className="not-italic text-ac">Properly.</em>
             </h1>
-            <p className="text-[16.5px] text-t2 max-w-[480px] leading-relaxed mb-10">
+            <p className="text-[15.5px] sm:text-[16.5px] text-t2 max-w-[480px] leading-relaxed mb-7 lg:mb-10">
               From brand identity to investor-ready business plans — Budruum gives founders the strategy, structure, and execution support to build with confidence.
             </p>
-            <div className="flex flex-wrap items-center gap-4">
-              <Link href="/booking" className="inline-flex items-center gap-2 bg-ac hover:bg-ach text-white text-[14px] font-medium px-8 py-4 rounded transition-all duration-200 hover:-translate-y-px">
+            <div className="lg:hidden mb-8">
+              <VentureConstellation compact />
+            </div>
+            <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 sm:gap-4">
+              <Link href="/booking" className="inline-flex items-center justify-center gap-2 bg-ac hover:bg-ach text-white text-[14px] font-medium px-7 sm:px-8 py-4 rounded transition-all duration-200 hover:-translate-y-px">
                 Book a Free Discovery Call
               </Link>
-              <Link href="/services" className="inline-flex items-center gap-2 text-[14px] text-t1 font-medium border border-t1/20 hover:border-t1/50 px-8 py-4 rounded transition-all duration-200">
+              <Link href="/services" className="inline-flex items-center justify-center gap-2 text-[14px] text-t1 font-medium border border-t1/20 hover:border-t1/50 px-7 sm:px-8 py-4 rounded transition-all duration-200">
                 Explore Services
               </Link>
             </div>
-            <div className="flex flex-wrap gap-8 mt-12 pt-10 border-t border-br">
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-x-6 gap-y-6 sm:gap-8 mt-9 lg:mt-12 pt-8 lg:pt-10 border-t border-br">
               {STATS.map((s) => (
                 <div key={s.label}>
-                  <div className="font-display text-[32px] font-light text-t1">{s.value}</div>
+                  <div className="font-display text-[28px] sm:text-[32px] font-light text-t1">{s.value}</div>
                   <div className="text-[12px] text-t2 mt-0.5">{s.label}</div>
                 </div>
               ))}
@@ -81,11 +84,11 @@ export default function HomePage() {
       </section>
 
       {/* ─── SERVICES ────────────────────────────────────────────────── */}
-      <section className="py-28 bg-gl">
+      <section className="py-20 lg:py-28 bg-gl">
         <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <div className="mb-16 max-w-[580px]">
             <p className="eyebrow mb-4">What We Do</p>
-            <h2 className="font-display text-[46px] lg:text-[56px] leading-[1.06] font-light text-t1">
+            <h2 className="font-display text-[38px] sm:text-[46px] lg:text-[56px] leading-[1.06] font-light text-t1">
               Services Built for Founders
             </h2>
           </div>
@@ -115,11 +118,11 @@ export default function HomePage() {
       </section>
 
       {/* ─── WHY BUDRUUM ──────────────────────────────────────────────── */}
-      <section className="py-28 bg-white">
-        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-2 gap-20 items-center">
+      <section className="py-20 lg:py-28 bg-white">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div>
             <p className="eyebrow mb-6">Why Budruum</p>
-            <h2 className="font-display text-[46px] lg:text-[56px] leading-[1.06] font-light text-t1 mb-8">
+            <h2 className="font-display text-[38px] sm:text-[46px] lg:text-[56px] leading-[1.06] font-light text-t1 mb-8">
               Most Businesses Fail on Foundations
             </h2>
             <p className="text-[15.5px] text-t2 leading-relaxed mb-6">
@@ -132,7 +135,7 @@ export default function HomePage() {
               Our Story <span className="group-hover:translate-x-1 transition-transform inline-block">→</span>
             </Link>
           </div>
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid sm:grid-cols-2 gap-5 lg:gap-6">
             {PILLARS.map((c) => (
               <div key={c.title} className="bg-gl rounded-xl p-6 border border-br hover:border-ac/30 transition-colors duration-300">
                 <h4 className="font-display text-[18px] font-medium text-t1 mb-2">{c.title}</h4>
@@ -147,11 +150,11 @@ export default function HomePage() {
       <EngagementPipeline />
 
       {/* ─── TESTIMONIALS ────────────────────────────────────────────── */}
-      <section className="py-28 bg-white">
+      <section className="py-20 lg:py-28 bg-white">
         <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <div className="mb-16 max-w-[480px]">
             <p className="eyebrow mb-4">Client Stories</p>
-            <h2 className="font-display text-[46px] lg:text-[56px] leading-[1.06] font-light text-t1">
+            <h2 className="font-display text-[38px] sm:text-[46px] lg:text-[56px] leading-[1.06] font-light text-t1">
               What Founders Say
             </h2>
           </div>
@@ -171,7 +174,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── SINGLE BLACK CTA — only black section on the page ────────── */}
-      <section className="py-24 bg-t1 text-center">
+      <section className="py-20 lg:py-24 bg-t1 text-center">
         <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <h2 className="font-display text-[clamp(40px,5vw,64px)] font-light text-white italic mb-5">
             Ready to build something real?

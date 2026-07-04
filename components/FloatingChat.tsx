@@ -48,8 +48,8 @@ export default function FloatingChat() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed z-50 w-[340px] bg-white rounded-xl shadow-2xl border border-[#E8E8E8] flex flex-col overflow-hidden"
-            style={{ bottom: "160px", right: "24px", maxHeight: "500px" }}
+            className="fixed z-50 w-[calc(100vw-32px)] sm:w-[340px] bg-white rounded-xl shadow-2xl border border-[#E8E8E8] flex flex-col overflow-hidden"
+            style={{ bottom: "148px", right: "16px", maxHeight: "min(500px, calc(100svh - 180px))" }}
           >
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-3 bg-[#1A1A1A]">
@@ -66,7 +66,7 @@ export default function FloatingChat() {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3" style={{ minHeight: "200px", maxHeight: "340px" }}>
+            <div className="flex-1 overflow-y-auto p-4 space-y-3" style={{ minHeight: "180px", maxHeight: "min(340px, calc(100svh - 330px))" }}>
               {messages.map((m, i) => (
                 <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
                   {m.role === "assistant" && (
@@ -123,7 +123,7 @@ export default function FloatingChat() {
       </AnimatePresence>
 
       {/* Floating buttons — WhatsApp on top, Jen below, stacked vertically */}
-      <div className="fixed z-50 flex flex-col items-end gap-3" style={{ bottom: "28px", right: "24px" }}>
+      <div className="fixed z-50 flex flex-col items-end gap-3" style={{ bottom: "max(20px, env(safe-area-inset-bottom))", right: "16px" }}>
 
         {/* WhatsApp */}
         <motion.a

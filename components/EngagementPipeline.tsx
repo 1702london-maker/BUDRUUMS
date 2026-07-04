@@ -56,11 +56,11 @@ const STAGES = [
 
 export default function EngagementPipeline() {
   return (
-    <section className="py-28 bg-gl">
+    <section className="py-20 lg:py-28 bg-gl">
       <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 lg:mb-16">
           <p className="eyebrow mb-4">How It Works</p>
-          <h2 className="font-display text-[46px] lg:text-[56px] leading-[1.06] font-light text-t1">
+          <h2 className="font-display text-[38px] sm:text-[46px] lg:text-[56px] leading-[1.06] font-light text-t1">
             From Discovery to Launch
           </h2>
         </div>
@@ -76,7 +76,7 @@ export default function EngagementPipeline() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: i * 0.13, ease: [0.22, 1, 0.36, 1] }}
-              className="relative z-10 bg-white border border-br rounded-xl p-7 flex flex-col items-start hover:border-ac/40 hover:shadow-md transition-all duration-300 group"
+              className="relative z-10 bg-white border border-br rounded-xl p-6 lg:p-7 flex flex-col items-start hover:border-ac/40 hover:shadow-md transition-all duration-300 group"
             >
               {/* Step number badge */}
               <div className="w-11 h-11 rounded-full bg-ac/10 border border-ac/20 flex items-center justify-center mb-5 group-hover:bg-ac group-hover:border-ac transition-all duration-300">
