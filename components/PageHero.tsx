@@ -35,11 +35,13 @@ export default function PageHero({ eyebrow, title, titleAccent, subtitle, bg = "
           {subtitle && <p className="text-[15px] lg:text-[15.5px] text-[#6B6B6B] leading-[1.82] max-w-[480px]">{subtitle}</p>}
         </motion.div>
 
-        {/* Panel — hidden on mobile, visible lg+ */}
-        <motion.div className="hidden lg:block relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8]"
-          style={{ height: "400px", boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
-          initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}>
+        {/* Panel — visible on all screen sizes */}
+        <motion.div
+          className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8] w-full h-[260px] sm:h-[320px] lg:h-[400px]"
+          style={{ boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
+          initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.25, ease: EASE }}
+        >
           {panel}
         </motion.div>
       </section>

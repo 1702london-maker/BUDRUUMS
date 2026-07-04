@@ -49,7 +49,7 @@ export default function FloatingChat() {
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
             className="fixed z-50 w-[340px] bg-white rounded-xl shadow-2xl border border-[#E8E8E8] flex flex-col overflow-hidden"
-            style={{ bottom: "88px", right: "24px", maxHeight: "500px" }}
+            style={{ bottom: "160px", right: "24px", maxHeight: "500px" }}
           >
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-3 bg-[#1A1A1A]">
@@ -122,8 +122,8 @@ export default function FloatingChat() {
         )}
       </AnimatePresence>
 
-      {/* Floating buttons — WhatsApp left, Chat right, both raised from bottom */}
-      <div className="fixed z-50 flex items-center gap-3" style={{ bottom: "28px", right: "24px" }}>
+      {/* Floating buttons — WhatsApp on top, Jen below, stacked vertically */}
+      <div className="fixed z-50 flex flex-col items-end gap-3" style={{ bottom: "28px", right: "24px" }}>
 
         {/* WhatsApp */}
         <motion.a
