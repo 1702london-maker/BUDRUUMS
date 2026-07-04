@@ -157,11 +157,11 @@ export default function ContactPage() {
           </motion.div>
 
           {/* FORM */}
-          <motion.div className="bg-[#F8F8F8] rounded-[2px]" style={{ padding: "48px" }}
+          <motion.div className="bg-[#F8F8F8] rounded-[2px] p-6 sm:p-8 lg:p-12"
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}>
             <h3 className="font-display text-[28px] font-light text-[#1A1A1A] mb-8">Send us a message</h3>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", marginBottom: "20px" }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
               <div className="flex flex-col gap-2">
                 <label className="text-[12px] font-medium tracking-[.1em] uppercase text-[#6B6B6B]">First Name</label>
                 <input type="text" placeholder="John" value={form.fname} onChange={e => setForm(f => ({...f, fname: e.target.value}))}

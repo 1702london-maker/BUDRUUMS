@@ -107,7 +107,7 @@ export default function BusinessPlanPage() {
 
       {/* 1. WHAT IT ACTUALLY IS */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <div className="grid lg:grid-cols-2 gap-20 items-start mb-16">
             <motion.div initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
               <p className="eyebrow mb-4">What It Actually Is</p>
@@ -132,7 +132,7 @@ export default function BusinessPlanPage() {
 
       {/* 2. WHY MOST PLANS FAIL */}
       <section className="py-24 bg-gl border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14 grid lg:grid-cols-2 gap-20 items-start">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-2 gap-20 items-start">
           <motion.div initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">The Problem</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Why most business<br/>plans do not work.</h2>
@@ -157,7 +157,7 @@ export default function BusinessPlanPage() {
 
       {/* 3. WHAT WE BUILD */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <motion.div className="max-w-[600px] mb-14" initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">What We Build</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Every component, built with intention.</h2>
@@ -180,7 +180,7 @@ export default function BusinessPlanPage() {
 
       {/* 4. WHO THIS IS FOR */}
       <section className="py-24 bg-gl border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14 grid lg:grid-cols-2 gap-20 items-center">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-2 gap-20 items-center">
           <motion.div initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">Who This Is For</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Built for anyone who needs their idea taken seriously.</h2>
@@ -204,7 +204,7 @@ export default function BusinessPlanPage() {
 
       {/* 5. WHAT YOU RECEIVE */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <motion.div className="max-w-[560px] mb-14" initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">What You Receive</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">A complete, polished business plan — ready to use.</h2>
@@ -233,7 +233,7 @@ export default function BusinessPlanPage() {
 
       {/* 6. OUR PROCESS */}
       <section className="py-24 bg-gl border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <div className="text-center max-w-[520px] mx-auto mb-16">
             <p className="eyebrow mb-4">Our Process</p>
             <h2 className="font-display text-[38px] font-light text-t1 mb-4">Six stages. One clear outcome.</h2>

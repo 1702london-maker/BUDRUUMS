@@ -117,7 +117,7 @@ export default function StartupConsultancyPage() {
 
       {/* 1. WHAT THIS SERVICE REALLY IS */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14 grid lg:grid-cols-2 gap-20 items-start">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-2 gap-20 items-start">
           <motion.div initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">What This Service Really Is</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Not advice. A structured pathway to a real business.</h2>
@@ -144,7 +144,7 @@ export default function StartupConsultancyPage() {
 
       {/* 2. HIGH-LEVEL OVERVIEW */}
       <section className="py-24 bg-gl border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <motion.div className="max-w-[600px] mb-14" initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">High-Level Overview</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Every part of building a business — covered.</h2>
@@ -164,7 +164,7 @@ export default function StartupConsultancyPage() {
 
       {/* 3. THE REALITY */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14 grid lg:grid-cols-2 gap-20 items-start">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-2 gap-20 items-start">
           <motion.div initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">The Reality</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Most businesses are built backwards.</h2>
@@ -190,7 +190,7 @@ export default function StartupConsultancyPage() {
 
       {/* 4. THE JOURNEY — 10 STEPS */}
       <section className="py-24 bg-gl border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <motion.div className="max-w-[600px] mb-14 mx-auto text-center" initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">The Journey</p>
             <h2 className="font-display text-[38px] font-light text-t1 mb-4">Ten stages. One coherent build.</h2>
@@ -211,7 +211,7 @@ export default function StartupConsultancyPage() {
 
       {/* 5. OWNERSHIP & CONTROL */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14 grid lg:grid-cols-2 gap-20 items-start">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-2 gap-20 items-start">
           <motion.div initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">Ownership & Control</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Share structure is not a legal formality. It is a business decision.</h2>
@@ -221,7 +221,7 @@ export default function StartupConsultancyPage() {
               <p className="text-[13px] text-t2 leading-relaxed"><strong className="text-t1">Note:</strong> Budruum provides strategic guidance on share structure and ownership logic. For legally binding shareholder agreements and formal legal documents, we work alongside qualified solicitors and advise clients on when that engagement is required.</p>
             </div>
           </motion.div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {SHARE_CARDS.map((card, i) => (
               <motion.div key={i} className="bg-gs rounded-xl p-6 border border-br hover:bg-white hover:shadow-sm transition-all"
                 initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{duration:0.4, delay:i*0.1}}>
@@ -235,7 +235,7 @@ export default function StartupConsultancyPage() {
 
       {/* 6. BUSINESS AS A SYSTEM */}
       <section className="py-24 bg-gl border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <motion.div className="max-w-[680px] mb-14 mx-auto text-center" initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">Business as a System</p>
             <h2 className="font-display text-[38px] font-light text-t1 mb-4">Every part has to work. And they all have to work together.</h2>
@@ -277,7 +277,7 @@ export default function StartupConsultancyPage() {
 
       {/* 7. WHO THIS IS FOR */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14 grid lg:grid-cols-2 gap-20 items-start">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-2 gap-20 items-start">
           <motion.div initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">Who This Is For</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">For anyone serious about building properly.</h2>

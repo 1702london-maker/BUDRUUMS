@@ -52,7 +52,7 @@ export default function MentorshipPage() {
 
       {/* Tiers */}
       <section className="py-24 bg-gl">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <p className="eyebrow mb-4">Mentorship Tiers</p>
           <h2 className="font-display text-[38px] font-light text-t1 mb-12">Choose the Level of Support You Need</h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -81,7 +81,7 @@ export default function MentorshipPage() {
 
       {/* Topics */}
       <section className="py-20 bg-white">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <p className="eyebrow mb-4">What We Cover</p>
           <h2 className="font-display text-[38px] font-light text-t1 mb-10">Topics Across Every Session</h2>
           <div className="flex flex-wrap gap-3">

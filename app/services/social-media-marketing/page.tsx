@@ -137,7 +137,7 @@ export default function SocialMediaMarketingPage() {
 
       {/* 1. WHAT IT ACTUALLY MEANS */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <div className="grid lg:grid-cols-2 gap-20 items-start mb-16">
             <motion.div initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
               <p className="eyebrow mb-4">What It Actually Means</p>
@@ -162,7 +162,7 @@ export default function SocialMediaMarketingPage() {
 
       {/* 2. THE REAL PROBLEM */}
       <section className="py-24 bg-gl border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14 grid lg:grid-cols-2 gap-20 items-start">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-2 gap-20 items-start">
           <motion.div initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Posting consistently is not the same as marketing.</h2>
             <p className="text-[14.5px] text-t2 leading-relaxed mb-6">Most businesses with active social media accounts are not doing social media marketing. They are doing social media maintenance — keeping accounts alive, filling grids, generating activity that feels productive but generates very little commercial return.</p>
@@ -186,7 +186,7 @@ export default function SocialMediaMarketingPage() {
 
       {/* 3. INFLUENCERS & CREATORS */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14 grid lg:grid-cols-2 gap-20 items-start">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-2 gap-20 items-start">
           <motion.div initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">Influencers & Creators</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">The right creator reaches the right room.</h2>
@@ -215,7 +215,7 @@ export default function SocialMediaMarketingPage() {
 
       {/* 4. FIGURES & ALGORITHMS */}
       <section className="py-24 bg-gl border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <motion.div className="max-w-[560px] mb-14" initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">Figures & Algorithms</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">The numbers tell you everything — if you know what to read.</h2>
@@ -235,7 +235,7 @@ export default function SocialMediaMarketingPage() {
 
       {/* 5. TIMING, TRENDS & PLACEMENT */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14 grid lg:grid-cols-2 gap-20 items-start">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-2 gap-20 items-start">
           <motion.div initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">Timing, Trends & Placement</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">When you post matters as much as what you post.</h2>
@@ -262,7 +262,7 @@ export default function SocialMediaMarketingPage() {
 
       {/* 6. WHAT YOU RECEIVE */}
       <section className="py-24 bg-gl border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <motion.div className="max-w-[560px] mb-14" initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">What You Receive</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Strategy, direction and execution — not just posting.</h2>
@@ -285,7 +285,7 @@ export default function SocialMediaMarketingPage() {
 
       {/* 7. PLATFORMS WE SUPPORT */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <motion.div className="max-w-[560px] mb-14" initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">Platforms We Support</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">The right platform for the right brand.</h2>
@@ -306,7 +306,7 @@ export default function SocialMediaMarketingPage() {
 
       {/* 8. OUR PROCESS */}
       <section className="py-24 bg-gl border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <div className="text-center max-w-[520px] mx-auto mb-16">
             <p className="eyebrow mb-4">Our Process</p>
             <h2 className="font-display text-[38px] font-light text-t1 mb-4">Six stages from understanding to growth.</h2>
@@ -329,7 +329,7 @@ export default function SocialMediaMarketingPage() {
 
       {/* 9. WHO THIS IS FOR */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <motion.div className="max-w-[560px] mb-14" initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">Who This Is For</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">For brands that are done posting without results.</h2>

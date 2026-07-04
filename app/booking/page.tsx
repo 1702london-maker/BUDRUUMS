@@ -539,7 +539,7 @@ export default function BookingPage() {
       </section>
 
       {/* ── Payment note ──────────────────────────────────────── */}
-      <section style={{ padding:"48px 56px", textAlign:"center" }}>
+      <section className="text-center px-5 sm:px-8 lg:px-14 py-10 sm:py-12 lg:py-[48px]">
         <div style={{ background:"#F8F8F8", border:"1px solid #E8E8E8", borderRadius:"4px", padding:"40px", maxWidth:"560px", margin:"0 auto", display:"flex", alignItems:"center", gap:"20px" }}>
           <div style={{ width:"48px", height:"48px", background:"#fff", border:"1px solid #E8E8E8", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A88F84" strokeWidth="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>

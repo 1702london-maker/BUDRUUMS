@@ -69,7 +69,7 @@ export default function FounderBlueprintPage() {
         panel={<BlueprintPanel />} />
 
       <section className="py-10 bg-ac/10 border-y border-ac/20">
-        <div className="max-w-screen-2xl mx-auto px-14 flex flex-wrap items-center justify-between gap-4">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 flex flex-wrap items-center justify-between gap-4">
           <p className="font-display text-[20px] text-t1 italic">From £4,500 · Basic to Fully Bespoke · 4–10 week delivery</p>
           <a href="/booking" className="inline-flex items-center gap-2 bg-ac hover:bg-ach text-white text-[13.5px] font-medium px-6 py-3 rounded transition-all">Book a Discovery Call</a>
         </div>
@@ -77,7 +77,7 @@ export default function FounderBlueprintPage() {
 
       {/* What's inside */}
       <section className="py-24 bg-gl">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <p className="eyebrow mb-4">What's Inside</p>
           <h2 className="font-display text-[38px] font-light text-t1 mb-12">Six modules. One complete foundation.</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -95,7 +95,7 @@ export default function FounderBlueprintPage() {
 
       {/* Tiers */}
       <section className="py-24 bg-white">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <p className="eyebrow mb-4">Pricing</p>
           <h2 className="font-display text-[38px] font-light text-t1 mb-12">Choose Your Tier</h2>
           <div className="grid md:grid-cols-2 gap-8 max-w-[800px]">

@@ -61,7 +61,7 @@ export default function InnovatorVisaPage() {
         panel={<VisaPanel />} />
 
       <section className="py-16 bg-ac/10 border-y border-ac/20">
-        <div className="max-w-screen-2xl mx-auto px-14 grid grid-cols-3 gap-6 text-center">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
           {[{v:"From £1,500",l:"Service Fee"},{v:"3–6 months",l:"Typical Timeline"},{v:"5+ years",l:"Visa Duration"},{v:"Global",l:"Applicants Supported"},{v:"Endorsed",l:"Business Required"},{v:"No cap",l:"On Investments"} ].slice(0,3).map((s,i)=>(
             <motion.div key={s.l} initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} transition={{duration:0.4,delay:i*0.1}}>
               <div className="font-display text-[36px] font-light text-ac">{s.v}</div>
@@ -72,7 +72,7 @@ export default function InnovatorVisaPage() {
       </section>
 
       <section className="py-24 bg-gl">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <p className="eyebrow mb-4">How We Support You</p>
           <h2 className="font-display text-[38px] font-light text-t1 mb-12">End-to-End Visa Support</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">

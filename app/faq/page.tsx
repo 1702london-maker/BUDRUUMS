@@ -50,9 +50,7 @@ export default function FAQPage() {
   return (
     <main>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[#F8F8F8] border-b border-[#E8E8E8]"
-        style={{ padding: "92px 56px 84px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "72px", alignItems: "center" }}>
-        {/* Animated decorative circle */}
+      <section className="relative overflow-hidden bg-[#F8F8F8] border-b border-[#E8E8E8] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[72px] items-center px-5 sm:px-8 lg:px-14 py-16 sm:py-20 lg:py-[92px]">
         <motion.div className="absolute top-[-80px] right-[-80px] w-[360px] h-[360px] rounded-full pointer-events-none"
           style={{ background: "radial-gradient(circle,rgba(168,143,132,.07) 0%,transparent 65%)" }}
           animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
@@ -75,13 +73,12 @@ export default function FAQPage() {
           </div>
         </motion.div>
 
-        {/* Live Q&A conversation animation — relatable, like a real chat */}
-        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8]"
-          style={{ height: "400px", boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
-          initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
+        {/* Live Q&A animation */}
+        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8] h-[260px] sm:h-[320px] lg:h-[400px]"
+          style={{ boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
+          initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>
           <div className="absolute inset-0 flex flex-col justify-center gap-4 px-8 py-6">
-            {/* Chat bubbles — Q on left, A on right, appearing sequentially */}
             {[
               { side: "left",  label: "Q", text: "How long does a project take?", delay: 0.2 },
               { side: "right", label: "A", text: "Most are delivered within 5–10 working days.", delay: 0.8 },
@@ -103,7 +100,6 @@ export default function FAQPage() {
                 </div>
               </motion.div>
             ))}
-            {/* Typing indicator — loops after all messages appear */}
             <motion.div className="flex items-end gap-2"
               initial={{ opacity: 0 }} animate={{ opacity: [0, 1, 1, 0] }}
               transition={{ duration: 1.5, delay: 3.8, repeat: Infinity, repeatDelay: 3 }}>
@@ -120,10 +116,10 @@ export default function FAQPage() {
       </section>
 
       {/* MAIN LAYOUT */}
-      <div style={{ maxWidth: "1120px", margin: "0 auto", padding: "80px 56px 100px", display: "grid", gridTemplateColumns: "240px 1fr", gap: "80px", alignItems: "start" }}>
+      <div className="px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px] grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-10 lg:gap-20 items-start max-w-[1120px] mx-auto">
 
-        {/* SIDEBAR */}
-        <aside style={{ position: "sticky", top: "90px" }}>
+        {/* SIDEBAR — hidden on mobile */}
+        <aside className="hidden lg:block" style={{ position: "sticky", top: "90px" }}>
           <div className="text-[11px] font-medium tracking-[.16em] uppercase text-[#6B6B6B] mb-4">Browse by topic</div>
           <div className="flex flex-col gap-[2px]">
             {[
@@ -172,8 +168,7 @@ export default function FAQPage() {
           </div>
 
           {/* PILLARS BAND */}
-          <motion.div className="mb-[72px] rounded-[10px] overflow-hidden border border-[#E8E8E8]"
-            style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "1px", backgroundColor: "#E8E8E8" }}
+          <motion.div className="mb-[72px] rounded-[10px] overflow-hidden border border-[#E8E8E8] grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#E8E8E8]"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
             {[
               { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#A88F84" strokeWidth="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>, title: "Clarity First", desc: "Every engagement begins with deep understanding before any action is taken." },
@@ -255,8 +250,7 @@ export default function FAQPage() {
       </div>
 
       {/* CTA */}
-      <motion.section className="text-center border-t border-[#E8E8E8]"
-        style={{ padding: "88px 56px" }}
+      <motion.section className="text-center border-t border-[#E8E8E8] px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[88px]"
         initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
         <p className="eyebrow">Still have a question?</p>
         <h2 className="font-display font-light text-[#1A1A1A] mb-[14px]" style={{ fontSize: "clamp(28px,3vw,42px)" }}>Let&apos;s talk it through</h2>
@@ -267,8 +261,7 @@ export default function FAQPage() {
       </motion.section>
 
       {/* CONTACT STRIP */}
-      <section className="bg-[#F8F8F8] border-t border-b border-[#E8E8E8] flex items-center justify-center gap-14 flex-wrap"
-        style={{ padding: "40px 56px" }}>
+      <section className="bg-[#F8F8F8] border-t border-b border-[#E8E8E8] flex items-center justify-center gap-10 flex-wrap px-5 sm:px-8 lg:px-14 py-8 lg:py-10">
         {[
           { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#25D366" strokeWidth="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>, label: "WhatsApp", sub: "Quick replies via WhatsApp" },
           { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007AFF" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>, label: "iMessage", sub: "Message us on iMessage" },

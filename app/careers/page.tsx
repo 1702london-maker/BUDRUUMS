@@ -32,8 +32,7 @@ export default function CareersPage() {
   return (
     <main>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[#F8F8F8] border-b border-[#E8E8E8]"
-        style={{ padding: "92px 56px 84px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "72px", alignItems: "center" }}>
+      <section className="relative overflow-hidden bg-[#F8F8F8] border-b border-[#E8E8E8] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[72px] items-center px-5 sm:px-8 lg:px-14 py-16 sm:py-20 lg:py-[92px]">
         <motion.div className="absolute top-[-80px] right-[-80px] w-[360px] h-[360px] rounded-full pointer-events-none"
           style={{ background: "radial-gradient(circle,rgba(168,143,132,.07) 0%,transparent 65%)" }}
           animate={{ scale: [1,1.1,1] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} />
@@ -55,13 +54,11 @@ export default function CareersPage() {
           </div>
         </motion.div>
 
-        {/* Hiring board animation — role cards being built up, like a real team forming */}
-        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8]"
-          style={{ height: "400px", boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
-          initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
+        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8] h-[260px] sm:h-[320px] lg:h-[400px]"
+          style={{ boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
+          initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}>
           <div className="absolute inset-0 flex flex-col justify-center gap-[10px] px-7 py-6">
-            {/* Header row */}
             <motion.div className="flex items-center gap-2 mb-1"
               initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }}>
               <div className="w-2 h-2 rounded-full bg-[#A88F84]" />
@@ -84,8 +81,7 @@ export default function CareersPage() {
                 <span className="text-[12.5px] font-medium text-[#1A1A1A] flex-1">{r.role}</span>
                 <span className="text-[11px] text-[#6B6B6B]">{r.type}</span>
                 <span className={`text-[10px] px-2 py-[2px] rounded font-medium ${r.status === "Open" ? "bg-[#A88F84]/10 text-[#A88F84]" : "bg-amber-50 text-amber-600"}`}>{r.status}</span>
-                <motion.div
-                  animate={{ x: [0, 3, 0] }} transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.3 }}>
+                <motion.div animate={{ x: [0, 3, 0] }} transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.3 }}>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#A88F84" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </motion.div>
               </motion.div>
@@ -95,7 +91,7 @@ export default function CareersPage() {
       </section>
 
       {/* ABOUT */}
-      <section style={{ padding: "80px 56px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center", borderBottom: "1px solid #E8E8E8" }}>
+      <section className="border-b border-[#E8E8E8] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="eyebrow">Why Budruum</p>
           <h2 className="font-display font-light text-[#1A1A1A] mb-5" style={{ fontSize: "clamp(28px,3vw,40px)", lineHeight: 1.2 }}>
@@ -108,7 +104,7 @@ export default function CareersPage() {
             At Budruum, you are not filling a seat. You are contributing to something that is designed to last. That distinction shapes everything — how we communicate, how we plan, how we deliver and how we grow together.
           </p>
         </motion.div>
-        <motion.div className="bg-[#F8F8F8] border border-[#E8E8E8] rounded-[12px] flex flex-col gap-6" style={{ padding: "40px" }}
+        <motion.div className="bg-[#F8F8F8] border border-[#E8E8E8] rounded-[12px] flex flex-col gap-6 p-8 lg:p-10"
           initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.15 }}>
           {[
             { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A88F84" strokeWidth="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, title: "Small Team", sub: "Everyone's contribution is felt and valued" },
@@ -128,14 +124,14 @@ export default function CareersPage() {
       </section>
 
       {/* TEAM */}
-      <section className="bg-[#F8F8F8] border-b border-[#E8E8E8]" style={{ padding: "80px 56px" }}>
+      <section className="bg-[#F8F8F8] border-b border-[#E8E8E8] px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div className="max-w-[580px] mb-[52px]"
           initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="eyebrow">The Team</p>
           <h2 className="font-display font-light text-[#1A1A1A] mb-4" style={{ fontSize: "clamp(28px,3vw,40px)", lineHeight: 1.2 }}>Surrounded by people who get it.</h2>
           <p className="text-[14.5px] text-[#6B6B6B] leading-[1.85]">Our team spans disciplines — but everyone speaks the same language: structure, intention and execution. No silos. No politics. Just people doing focused work, together.</p>
         </motion.div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: "16px", marginBottom: "40px" }}>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-10">
           {[
             { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A88F84" strokeWidth="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>, title: "Web Developers", desc: "Building digital experiences that perform and impress." },
             { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A88F84" strokeWidth="1.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>, title: "App Developers", desc: "Turning product visions into functional, scalable apps." },
@@ -146,7 +142,7 @@ export default function CareersPage() {
             <motion.div key={i} className="bg-white border border-[#E8E8E8] rounded-[10px] text-center transition-all duration-200 hover:border-[#A88F84] hover:shadow-sm"
               style={{ padding: "24px 20px" }}
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: i*0.07 }}>
-              <div className="w-11 h-11 rounded-full bg-[#A88F84]/8 flex items-center justify-center mx-auto mb-4">{r.icon}</div>
+              <div className="w-11 h-11 rounded-full bg-[#A88F84]/10 flex items-center justify-center mx-auto mb-4">{r.icon}</div>
               <h4 className="text-[13px] font-medium text-[#1A1A1A] mb-2">{r.title}</h4>
               <p className="text-[12px] text-[#6B6B6B] leading-[1.6]">{r.desc}</p>
             </motion.div>
@@ -158,7 +154,7 @@ export default function CareersPage() {
       </section>
 
       {/* HOW WE WORK */}
-      <section className="border-b border-[#E8E8E8]" style={{ padding: "80px 56px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "start" }}>
+      <section className="border-b border-[#E8E8E8] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="eyebrow">How We Work</p>
           <h2 className="font-display font-light text-[#1A1A1A] mb-4" style={{ fontSize: "clamp(28px,3vw,40px)", lineHeight: 1.2 }}>Direction before execution. Always.</h2>
@@ -185,14 +181,14 @@ export default function CareersPage() {
       </section>
 
       {/* CULTURE */}
-      <section className="bg-[#F8F8F8] border-b border-[#E8E8E8]" style={{ padding: "80px 56px" }}>
+      <section className="bg-[#F8F8F8] border-b border-[#E8E8E8] px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div className="text-center max-w-[540px] mx-auto mb-[56px]"
           initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="eyebrow">Culture & Experience</p>
           <h2 className="font-display font-light text-[#1A1A1A] mb-4" style={{ fontSize: "clamp(28px,3vw,40px)", lineHeight: 1.2 }}>A place worth being part of.</h2>
           <p className="text-[14.5px] text-[#6B6B6B] leading-[1.85]">We believe the environment shapes the output. So we invest in making Budruum a place where thoughtful people actually want to work.</p>
         </motion.div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: "20px" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {[
             { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A88F84" strokeWidth="1.5"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19.5 2.5c-1.5-1.5-3.5-1.5-5 0l-3.5 3.5L3 6 2 19l3.5-.5 4-4 7 1.8c.5.1 1.2-.1 1.3-.6z"/></svg>, title: "Quarterly Retreats", desc: "Team bonding, strategy sessions and travel. We invest in time together — away from screens and inside real conversations about where we are going." },
             { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A88F84" strokeWidth="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>, title: "Remote-Friendly", desc: "Work from where you work best. We operate with structured collaboration that keeps everyone aligned — without requiring everyone in the same room." },
@@ -202,7 +198,7 @@ export default function CareersPage() {
             <motion.div key={i} className="bg-white border border-[#E8E8E8] rounded-[12px] transition-all duration-200 hover:shadow-[0_6px_28px_rgba(0,0,0,.09)] hover:border-[#A88F84]/30"
               style={{ padding: "32px 30px" }}
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: i*0.08 }}>
-              <div className="w-12 h-12 rounded-[10px] bg-[#A88F84]/8 flex items-center justify-center mb-[18px]">{c.icon}</div>
+              <div className="w-12 h-12 rounded-[10px] bg-[#A88F84]/10 flex items-center justify-center mb-[18px]">{c.icon}</div>
               <h4 className="font-display text-[19px] font-light text-[#1A1A1A] mb-[10px]">{c.title}</h4>
               <p className="text-[13.5px] text-[#6B6B6B] leading-[1.8]">{c.desc}</p>
             </motion.div>
@@ -211,7 +207,7 @@ export default function CareersPage() {
       </section>
 
       {/* WHO WE LOOK FOR */}
-      <section className="border-b border-[#E8E8E8]" style={{ padding: "80px 56px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "start" }}>
+      <section className="border-b border-[#E8E8E8] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="eyebrow">Who We Look For</p>
           <h2 className="font-display font-light text-[#1A1A1A] mb-4" style={{ fontSize: "clamp(28px,3vw,40px)", lineHeight: 1.2 }}>People who think before they act.</h2>
@@ -238,7 +234,7 @@ export default function CareersPage() {
       </section>
 
       {/* OPEN ROLES */}
-      <section className="bg-[#F8F8F8] border-b border-[#E8E8E8]" style={{ padding: "80px 56px" }}>
+      <section className="bg-[#F8F8F8] border-b border-[#E8E8E8] px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div className="max-w-[520px] mb-11" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="eyebrow">Open Roles</p>
           <h2 className="font-display font-light text-[#1A1A1A] mb-4" style={{ fontSize: "clamp(28px,3vw,40px)", lineHeight: 1.2 }}>Current opportunities.</h2>
@@ -254,7 +250,7 @@ export default function CareersPage() {
                   <span className="text-[12.5px] text-[#6B6B6B]">Full-time · Remote-friendly</span>
                 </div>
               </div>
-              <button onClick={() => setApplyOpen(true)} className="px-[14px] py-[5px] rounded-[20px] text-[11.5px] font-medium text-[#A88F84] border border-[#A88F84]/20 bg-[#A88F84]/8 cursor-pointer transition-colors hover:bg-[#A88F84]/15">
+              <button onClick={() => setApplyOpen(true)} className="px-[14px] py-[5px] rounded-[20px] text-[11.5px] font-medium text-[#A88F84] border border-[#A88F84]/20 bg-[#A88F84]/10 cursor-pointer transition-colors hover:bg-[#A88F84]/20">
                 Apply
               </button>
             </div>
@@ -267,7 +263,7 @@ export default function CareersPage() {
       </section>
 
       {/* APPLICATION */}
-      <section className="border-b border-[#E8E8E8]" style={{ padding: "80px 56px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
+      <section className="border-b border-[#E8E8E8] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="eyebrow">Apply</p>
           <h2 className="font-display font-light text-[#1A1A1A] mb-4" style={{ fontSize: "clamp(28px,3vw,40px)", lineHeight: 1.2 }}>If you believe you can contribute to the way we build.</h2>
@@ -282,7 +278,7 @@ export default function CareersPage() {
             <a href="mailto:career@budruum.co.uk" className="btn-outline">Email Us Directly</a>
           </div>
         </motion.div>
-        <motion.div className="bg-[#F8F8F8] border border-[#E8E8E8] rounded-[12px]" style={{ padding: "36px" }}
+        <motion.div className="bg-[#F8F8F8] border border-[#E8E8E8] rounded-[12px] p-8 lg:p-9"
           initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.15 }}>
           <h4 className="font-display text-[18px] font-light text-[#1A1A1A] mb-5">What to expect</h4>
           <div className="flex flex-col gap-[18px]">
@@ -305,7 +301,7 @@ export default function CareersPage() {
       </section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden bg-[#F2F2F2] border-t border-[#E8E8E8] text-center" style={{ padding: "96px 56px" }}>
+      <section className="relative overflow-hidden bg-[#F2F2F2] border-t border-[#E8E8E8] text-center px-5 sm:px-8 lg:px-14 py-16 sm:py-20 lg:py-[96px]">
         <motion.div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
           style={{ background: "radial-gradient(circle,rgba(168,143,132,.06) 0%,transparent 65%)" }}
           animate={{ scale: [1,1.15,1] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }} />
@@ -326,7 +322,7 @@ export default function CareersPage() {
       </section>
 
       {/* CONTACT STRIP */}
-      <section className="bg-[#F8F8F8] border-t border-b border-[#E8E8E8]" style={{ padding: "40px 56px", display: "flex", alignItems: "center", justifyContent: "center", gap: "56px", flexWrap: "wrap" }}>
+      <section className="bg-[#F8F8F8] border-t border-b border-[#E8E8E8] flex items-center justify-center gap-10 flex-wrap px-5 sm:px-8 lg:px-14 py-8 lg:py-10">
         {[
           { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#25D366" strokeWidth="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>, label: "WhatsApp", sub: "Quick replies via WhatsApp" },
           { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007AFF" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>, label: "iMessage", sub: "Message us on iMessage" },
@@ -361,7 +357,7 @@ export default function CareersPage() {
               </div>
             ) : (
               <div className="p-[28px_32px]">
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "16px" }}>
+                <div className="grid grid-cols-2 gap-4 mb-4">
                   <div className="flex flex-col gap-[6px]">
                     <label className="text-[12.5px] font-medium text-[#1A1A1A]">First Name</label>
                     <input value={form.fname} onChange={e=>setForm(f=>({...f,fname:e.target.value}))} className="px-[14px] py-[10px] border border-[#E8E8E8] rounded text-[13.5px] outline-none focus:border-[#A88F84] transition-colors" />

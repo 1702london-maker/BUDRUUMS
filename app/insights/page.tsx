@@ -26,8 +26,7 @@ export default function InsightsPage() {
   return (
     <main>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[#F8F8F8] border-b border-[#E8E8E8]"
-        style={{ padding: "92px 56px 84px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "72px", alignItems: "center" }}>
+      <section className="relative overflow-hidden bg-[#F8F8F8] border-b border-[#E8E8E8] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[72px] items-center px-5 sm:px-8 lg:px-14 py-16 sm:py-20 lg:py-[92px]">
 
         {/* Left — text */}
         <motion.div className="relative z-10"
@@ -47,7 +46,7 @@ export default function InsightsPage() {
 
         {/* Right — floating article snippets rising upward, like knowledge flowing */}
         <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8]"
-          style={{ height: "400px", boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
+          className="h-[260px] sm:h-[320px] lg:h-[400px]" style={{ boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
           initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}>
           {/* Faint top/bottom fade masks */}
@@ -78,7 +77,7 @@ export default function InsightsPage() {
       </section>
 
       {/* FILTER BAR */}
-      <div className="sticky top-[70px] z-30 bg-[#F8F8F8] border-b border-[#E8E8E8]" style={{ padding: "14px 56px" }}>
+      <div className="sticky top-[70px] z-30 bg-[#F8F8F8] border-b border-[#E8E8E8] px-5 sm:px-8 lg:px-14 py-[14px]">
         <div className="flex items-center gap-3 overflow-x-auto">
           {FILTERS.map(f => (
             <button key={f} onClick={() => setActive(f)}
@@ -90,8 +89,8 @@ export default function InsightsPage() {
       </div>
 
       {/* ARTICLES GRID */}
-      <section style={{ padding: "80px 56px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "28px" }}>
+      <section className="px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
           {filtered.map((a, i) => (
             <motion.a key={i} href={a.href}
               className="flex flex-col border border-[#E8E8E8] rounded-[10px] overflow-hidden bg-white transition-all duration-300 hover:border-[#A88F84]/50 hover:shadow-[0_6px_28px_rgba(0,0,0,.09)] no-underline group"
@@ -111,7 +110,7 @@ export default function InsightsPage() {
       </section>
 
       {/* DEEP READS STRIP */}
-      <section className="text-center bg-[#F2F2F2] border-t border-b border-[#E8E8E8]" style={{ padding: "72px 56px" }}>
+      <section className="text-center bg-[#F2F2F2] border-t border-b border-[#E8E8E8] px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[72px]">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <h2 className="font-display font-light text-[#1A1A1A] mb-4" style={{ fontSize: "clamp(28px,3.5vw,44px)" }}>Deeper thinking for serious founders.</h2>
           <p className="text-[15px] text-[#6B6B6B] max-w-[500px] mx-auto mb-8 leading-[1.85]">Strategy, branding, finance, growth, mindset and networking — longer-form perspectives for founders building with intention.</p>
@@ -120,7 +119,7 @@ export default function InsightsPage() {
       </section>
 
       {/* CTA */}
-      <section className="text-center" style={{ padding: "96px 56px" }}>
+      <section className="text-center px-5 sm:px-8 lg:px-14 py-16 sm:py-20 lg:py-[96px]">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="eyebrow">Work With Budruum</p>
           <h2 className="font-display font-light text-[#1A1A1A] mb-4" style={{ fontSize: "clamp(32px,4vw,52px)", lineHeight: 1.1 }}>
@@ -137,7 +136,7 @@ export default function InsightsPage() {
       </section>
 
       {/* CONTACT STRIP */}
-      <div className="bg-[#F8F8F8] border-t border-b border-[#E8E8E8]" style={{ padding: "28px 56px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
+      <div className="bg-[#F8F8F8] border-t border-b border-[#E8E8E8] flex items-center justify-between flex-wrap gap-4 px-5 sm:px-8 lg:px-14 py-7">
         <span className="text-[14px] text-[#6B6B6B]">Questions? <Link href="/contact" className="text-[#A88F84] hover:underline">Get in touch</Link> — we respond within 24 hours.</span>
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2 text-[13.5px] text-[#6B6B6B]">

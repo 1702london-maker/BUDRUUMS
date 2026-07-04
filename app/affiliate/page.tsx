@@ -33,8 +33,7 @@ export default function AffiliatePage() {
   return (
     <main>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[#F8F8F8] border-b border-[#E8E8E8]"
-        style={{ padding: "92px 56px 84px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "72px", alignItems: "center" }}>
+      <section className="relative overflow-hidden bg-[#F8F8F8] border-b border-[#E8E8E8] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[72px] items-center px-5 sm:px-8 lg:px-14 py-16 sm:py-20 lg:py-[92px]">
         <motion.div className="absolute top-[-80px] right-[-80px] w-[360px] h-[360px] rounded-full pointer-events-none"
           style={{ background: "radial-gradient(circle,rgba(168,143,132,.07) 0%,transparent 65%)" }}
           animate={{ scale: [1,1.1,1] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} />
@@ -57,7 +56,7 @@ export default function AffiliatePage() {
 
         {/* Animated dashboard panel */}
         <motion.div className="relative"
-          initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}>
           <div className="bg-white border border-[#E8E8E8] rounded-[8px] overflow-hidden" style={{ boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}>
             <div className="flex items-center gap-[10px] px-5 py-4 border-b border-[#E8E8E8]">
@@ -67,7 +66,7 @@ export default function AffiliatePage() {
               <span className="text-[11.5px] text-[#6B6B6B] tracking-[.06em]">Affiliate Dashboard</span>
             </div>
             <div className="p-5 flex flex-col gap-4">
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+              <div className="grid grid-cols-2 gap-3">
                 <motion.div className="bg-[#F8F8F8] rounded-[6px] p-[14px_16px]"
                   animate={{ opacity: [0.7, 1, 0.7] }} transition={{ duration: 3, repeat: Infinity }}>
                   <div className="text-[10px] tracking-[.12em] uppercase text-[#6B6B6B] mb-[6px]">Earnings</div>
@@ -101,7 +100,7 @@ export default function AffiliatePage() {
       </section>
 
       {/* STAT BAR */}
-      <div className="bg-white border-b border-[#E8E8E8]" style={{ padding: "36px 56px", display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "24px", textAlign: "center" }}>
+      <div className="bg-white border-b border-[#E8E8E8] grid grid-cols-2 lg:grid-cols-4 gap-6 text-center px-5 sm:px-8 lg:px-14 py-8 lg:py-9">
         {[
           { n:"10%", l:"Commission Per Sale" },
           { n:"30", l:"Day Cookie Window" },
@@ -116,13 +115,13 @@ export default function AffiliatePage() {
       </div>
 
       {/* HOW IT WORKS */}
-      <section id="how-it-works" style={{ padding: "80px 56px", borderBottom: "1px solid #E8E8E8" }}>
+      <section id="how-it-works" className="border-b border-[#E8E8E8] px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div className="mb-12" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="eyebrow">The Process</p>
           <h2 className="font-display font-light text-[#1A1A1A] mb-4" style={{ fontSize: "clamp(28px,3.5vw,44px)" }}>Simple to start. <em className="not-italic text-[#A88F84]">Simple to earn.</em></h2>
           <p className="text-[14.5px] text-[#6B6B6B] leading-[1.85] max-w-[500px]">Three steps between you and your first commission. No technical setup needed — just a link and an audience that trusts you.</p>
         </motion.div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "24px" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {[
             { n:"01", t:"Apply & Get Approved", d:"Fill in the short application form. We review within 48 hours and approve partners whose audience aligns with UK founders, startups, or business owners." },
             { n:"02", t:"Share Your Unique Link", d:"You receive a personal tracking link and a dashboard showing clicks, conversions and earnings in real time. Share via email, content, social or directly with clients." },
@@ -139,7 +138,7 @@ export default function AffiliatePage() {
       </section>
 
       {/* EARNINGS BREAKDOWN */}
-      <section className="bg-[#F8F8F8] border-b border-[#E8E8E8]" style={{ padding: "80px 56px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "start" }}>
+      <section className="bg-[#F8F8F8] border-b border-[#E8E8E8] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="eyebrow">Earnings</p>
           <h2 className="font-display font-light text-[#1A1A1A] mb-4" style={{ fontSize: "clamp(28px,3vw,40px)" }}>10% on every sale. <em className="not-italic text-[#A88F84]">No cap. No tiers.</em></h2>
@@ -172,40 +171,42 @@ export default function AffiliatePage() {
       </section>
 
       {/* SERVICES TABLE */}
-      <section className="border-b border-[#E8E8E8]" style={{ padding: "80px 56px" }}>
+      <section className="border-b border-[#E8E8E8] px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div className="mb-10" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="eyebrow">What You Are Promoting</p>
           <h2 className="font-display font-light text-[#1A1A1A] mb-3" style={{ fontSize: "clamp(28px,3.5vw,44px)" }}>Premium services. <em className="not-italic text-[#A88F84]">Real prices.</em></h2>
           <p className="text-[14.5px] text-[#6B6B6B] leading-[1.85]">These are the services your referrals will purchase. High-ticket, high-quality — founders take this seriously.</p>
         </motion.div>
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="border-b border-[#E8E8E8]">
-              {["Service","Who Buys It","Price Range","Your Commission"].map(h => (
-                <th key={h} className="text-left text-[11px] font-medium tracking-[.15em] uppercase text-[#6B6B6B] pb-4 pr-6">{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {SVC_TABLE.map((r,i) => (
-              <tr key={i} className="border-b border-[#E8E8E8]">
-                <td className="py-4 pr-6 text-[14px] font-medium text-[#1A1A1A]">{r.s}</td>
-                <td className="py-4 pr-6 text-[13.5px] text-[#6B6B6B]">{r.w}</td>
-                <td className="py-4 pr-6 text-[14px] text-[#1A1A1A]">{r.p}</td>
-                <td className="py-4 text-[14px] font-medium text-[#A88F84]">{r.c}</td>
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse min-w-[540px]">
+            <thead>
+              <tr className="border-b border-[#E8E8E8]">
+                {["Service","Who Buys It","Price Range","Your Commission"].map(h => (
+                  <th key={h} className="text-left text-[11px] font-medium tracking-[.15em] uppercase text-[#6B6B6B] pb-4 pr-6">{h}</th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {SVC_TABLE.map((r,i) => (
+                <tr key={i} className="border-b border-[#E8E8E8]">
+                  <td className="py-4 pr-6 text-[14px] font-medium text-[#1A1A1A]">{r.s}</td>
+                  <td className="py-4 pr-6 text-[13.5px] text-[#6B6B6B]">{r.w}</td>
+                  <td className="py-4 pr-6 text-[14px] text-[#1A1A1A]">{r.p}</td>
+                  <td className="py-4 text-[14px] font-medium text-[#A88F84]">{r.c}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </section>
 
       {/* WHO IS THIS FOR */}
-      <section className="bg-[#F8F8F8] border-b border-[#E8E8E8]" style={{ padding: "80px 56px" }}>
+      <section className="bg-[#F8F8F8] border-b border-[#E8E8E8] px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div className="mb-12" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="eyebrow">Is This For You?</p>
           <h2 className="font-display font-light text-[#1A1A1A]" style={{ fontSize: "clamp(28px,3.5vw,44px)" }}>Best suited for people with <em className="not-italic text-[#A88F84]">trusted audiences.</em></h2>
         </motion.div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "20px" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {WHO.map((w,i) => (
             <motion.div key={i} className="bg-white border border-[#E8E8E8] rounded-[10px]" style={{ padding: "28px" }}
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: i*0.07 }}>
@@ -217,12 +218,12 @@ export default function AffiliatePage() {
       </section>
 
       {/* FAQ */}
-      <section className="border-b border-[#E8E8E8]" style={{ padding: "80px 56px" }}>
+      <section className="border-b border-[#E8E8E8] px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div className="mb-10" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="eyebrow">Common Questions</p>
           <h2 className="font-display font-light text-[#1A1A1A]" style={{ fontSize: "clamp(28px,3.5vw,44px)" }}>Everything you need <em className="not-italic text-[#A88F84]">to know.</em></h2>
         </motion.div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: "20px" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {FAQS.map((f,i) => (
             <motion.div key={i} className="border border-[#E8E8E8] rounded-[8px] bg-white" style={{ padding: "24px" }}
               initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: i*0.07 }}>
@@ -234,7 +235,7 @@ export default function AffiliatePage() {
       </section>
 
       {/* CTA */}
-      <section className="text-center bg-[#1A1A1A]" style={{ padding: "80px 56px" }}>
+      <section className="text-center bg-[#1A1A1A] px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <h2 className="font-display font-light text-white mb-4" style={{ fontSize: "clamp(32px,4vw,52px)" }}>Ready to start <em className="not-italic text-[#A88F84]">earning?</em></h2>
           <p className="text-[15px] text-white/60 max-w-[420px] mx-auto mb-9 leading-[1.85]">Join Budruum&apos;s affiliate programme today. Applications take under 2 minutes and we approve within 48 hours.</p>
@@ -246,9 +247,9 @@ export default function AffiliatePage() {
       </section>
 
       {/* CONTACT STRIP */}
-      <div className="bg-[#F8F8F8] border-t border-b border-[#E8E8E8]" style={{ padding: "28px 56px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
+      <div className="bg-[#F8F8F8] border-t border-b border-[#E8E8E8] flex items-center justify-between flex-wrap gap-4 px-5 sm:px-8 lg:px-14 py-5">
         <span className="text-[14px] text-[#6B6B6B]">Questions? Reach us at <a href="mailto:booking@budruum.co.uk" className="text-[#A88F84]">booking@budruum.co.uk</a></span>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6 flex-wrap">
           {["booking@budruum.co.uk","Response within 24 hours","Available globally"].map((t,i) => (
             <span key={i} className="text-[13.5px] text-[#6B6B6B]">{t}</span>
           ))}

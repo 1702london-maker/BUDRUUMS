@@ -44,7 +44,7 @@ export default function AffiliatePortalPage() {
       />
 
       <section className="py-16 bg-ac/10 border-y border-ac/20">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
             {STATS.map((s, i) => (
               <motion.div key={s.l} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: i * 0.1 }}>
@@ -57,7 +57,7 @@ export default function AffiliatePortalPage() {
       </section>
 
       <section className="py-24 bg-gl">
-        <div className="max-w-screen-2xl mx-auto px-14 flex flex-col lg:flex-row gap-16 items-start">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 flex flex-col lg:flex-row gap-16 items-start">
 
           <motion.div className="flex-1 max-w-[480px]"
             initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.55 }}>

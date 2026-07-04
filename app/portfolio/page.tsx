@@ -106,8 +106,7 @@ export default function PortfolioPage() {
   return (
     <main>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[#F8F8F8] border-b border-[#E8E8E8]"
-        style={{ padding: "92px 56px 84px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "72px", alignItems: "center" }}>
+      <section className="relative overflow-hidden bg-[#F8F8F8] border-b border-[#E8E8E8] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[72px] items-center px-5 sm:px-8 lg:px-14 py-16 sm:py-20 lg:py-[92px]">
         <motion.div className="absolute top-[-80px] right-[-80px] w-[360px] h-[360px] rounded-full pointer-events-none"
           style={{ background: "radial-gradient(circle,rgba(168,143,132,.07) 0%,transparent 65%)" }}
           animate={{ scale: [1, 1.12, 1] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} />
@@ -133,7 +132,7 @@ export default function PortfolioPage() {
 
         {/* Network graph — represents cross-industry connections Budruum has built */}
         <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8]"
-          style={{ height: "400px", boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
+          className="h-[260px] sm:h-[320px] lg:h-[400px]" style={{ boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
           initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}>
           <NetworkGraph />
@@ -144,8 +143,8 @@ export default function PortfolioPage() {
       </section>
 
       {/* STATS — counting up feel */}
-      <section className="bg-white border-b border-[#E8E8E8]" style={{ padding: "56px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "24px", textAlign: "center" }}>
+      <section className="bg-white border-b border-[#E8E8E8] px-5 sm:px-8 lg:px-14 py-10 sm:py-12 lg:py-14">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
           {STATS.map((s, i) => (
             <motion.div key={s.label}
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
@@ -162,13 +161,13 @@ export default function PortfolioPage() {
       </section>
 
       {/* VENTURES — animated cards with growing accent bar */}
-      <section style={{ padding: "80px 56px", borderBottom: "1px solid #E8E8E8" }}>
+      <section className="border-b border-[#E8E8E8] px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div className="mb-[52px]" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="eyebrow">Selected Work</p>
           <h2 className="font-display text-[42px] font-light text-[#1A1A1A] mb-3">Ventures We&apos;ve Built With</h2>
           <p className="text-[14px] text-[#6B6B6B] max-w-[480px]">Category-level labels are used to protect client confidentiality. Full case studies available on request.</p>
         </motion.div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "20px" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {VENTURES.map((v, i) => (
             <motion.div key={v.category}
               className="group bg-[#F8F8F8] rounded-[10px] border border-[#E8E8E8] hover:border-[#A88F84]/40 hover:shadow-md transition-all duration-300 overflow-hidden"
@@ -196,7 +195,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* IMPACT CHART SECTION */}
-      <section className="bg-[#F8F8F8] border-b border-[#E8E8E8]" style={{ padding: "80px 56px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
+      <section className="bg-[#F8F8F8] border-b border-[#E8E8E8] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="eyebrow">The Difference</p>
           <h2 className="font-display font-light text-[#1A1A1A] mb-5" style={{ fontSize: "clamp(28px,3vw,40px)", lineHeight: 1.2 }}>
@@ -212,7 +211,7 @@ export default function PortfolioPage() {
 
         {/* Bar chart — represents portfolio growth across ventures */}
         <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8]"
-          style={{ height: "340px" }}
+          className="h-[260px] sm:h-[300px] lg:h-[340px]"
           initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}>
           <PortfolioChart />
@@ -220,7 +219,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#F8F8F8] border-b border-[#E8E8E8]" style={{ padding: "64px 56px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "32px", flexWrap: "wrap" }}>
+      <section className="bg-[#F8F8F8] border-b border-[#E8E8E8] flex items-center justify-between gap-8 flex-wrap px-5 sm:px-8 lg:px-14 py-12 lg:py-16">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <h3 className="font-display text-[32px] font-light text-[#1A1A1A] mb-2">Want the full picture?</h3>
           <p className="text-[14.5px] text-[#6B6B6B]">Detailed case studies are available under NDA. Book a discovery call to request access.</p>

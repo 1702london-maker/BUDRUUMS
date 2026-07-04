@@ -142,7 +142,7 @@ export default function WebDevPage() {
 
       {/* 1. WHAT THIS SERVICE COVERS */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <motion.div className="max-w-[600px] mb-14" initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">What This Service Covers</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Every type of digital build, handled properly.</h2>
@@ -162,7 +162,7 @@ export default function WebDevPage() {
 
       {/* 2. CHOOSING THE RIGHT PLATFORM */}
       <section className="py-24 bg-gl border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <motion.div className="max-w-[560px] mb-14" initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">Choosing the Right Platform</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Website. Web app. Mobile app.<br/>They are not interchangeable.</h2>
@@ -197,7 +197,7 @@ export default function WebDevPage() {
 
       {/* 3. WHY IT MATTERS */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14 grid lg:grid-cols-2 gap-20 items-start">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-2 gap-20 items-start">
           <motion.div initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">A digital platform is<br/>a business decision.</h2>
             <p className="text-[14.5px] text-t2 leading-relaxed mb-4">Your website or application is not a marketing tool that sits alongside your business. For most companies, it is the primary mechanism through which clients find you, evaluate you and decide whether to engage. That makes it a commercial asset — and it should be treated as one.</p>
@@ -223,7 +223,7 @@ export default function WebDevPage() {
 
       {/* 4. WHAT YOU RECEIVE */}
       <section className="py-24 bg-gl border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <motion.div className="max-w-[560px] mb-14" initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">What You Receive</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Direction, design and delivery — structured from start to launch.</h2>
@@ -246,7 +246,7 @@ export default function WebDevPage() {
 
       {/* 5. OUR PROCESS */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <div className="text-center max-w-[520px] mx-auto mb-16">
             <p className="eyebrow mb-4">Our Process</p>
             <h2 className="font-display text-[38px] font-light text-t1 mb-4">Seven stages. One coherent build.</h2>
@@ -269,7 +269,7 @@ export default function WebDevPage() {
 
       {/* 6. KEY FEATURES */}
       <section className="py-24 bg-gl border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <motion.div className="max-w-[520px] mb-14" initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">Key Features We Build</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">The components that make a platform work.</h2>
@@ -289,7 +289,7 @@ export default function WebDevPage() {
 
       {/* 7. APP-READY THINKING */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14 grid lg:grid-cols-2 gap-20 items-start">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-2 gap-20 items-start">
           <motion.div initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">App-Ready Thinking</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Building your website with the app already in mind.</h2>
@@ -318,7 +318,7 @@ export default function WebDevPage() {
 
       {/* 8. WHO THIS IS FOR */}
       <section className="py-24 bg-gl border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <motion.div className="max-w-[560px] mb-14" initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">Who This Is For</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Built for any business that takes its digital presence seriously.</h2>

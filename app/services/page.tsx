@@ -28,8 +28,7 @@ export default function ServicesPage() {
   return (
     <main>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[#F8F8F8] border-b border-[#E8E8E8]"
-        style={{ padding: "92px 56px 84px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "72px", alignItems: "center" }}>
+      <section className="relative overflow-hidden bg-[#F8F8F8] border-b border-[#E8E8E8] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[72px] items-center px-5 sm:px-8 lg:px-14 py-16 sm:py-20 lg:py-[92px]">
         <motion.div className="absolute top-[-80px] right-[-80px] w-[360px] h-[360px] rounded-full pointer-events-none"
           style={{ background: "radial-gradient(circle,rgba(168,143,132,.07) 0%,transparent 65%)" }}
           animate={{ scale: [1,1.1,1] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} />
@@ -52,8 +51,8 @@ export default function ServicesPage() {
         </motion.div>
 
         {/* Animated panel replacing hero image */}
-        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8]"
-          style={{ height: "400px", boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
+        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8] h-[260px] sm:h-[320px] lg:h-[400px]"
+          style={{ boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
           initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}>
           <div className="absolute inset-0 flex items-center justify-center flex-col gap-3">
@@ -71,11 +70,11 @@ export default function ServicesPage() {
       </section>
 
       {/* SERVICE PILLARS */}
-      <section className="bg-[#F8F8F8] border-b border-[#E8E8E8]" style={{ padding: "80px 56px" }}>
+      <section className="bg-[#F8F8F8] border-b border-[#E8E8E8] px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div className="mb-12 text-center" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="eyebrow">Service Pillars</p>
         </motion.div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "24px" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {PILLARS.map((p, i) => (
             <motion.div key={i} className="bg-white border border-[#E8E8E8] rounded-[10px]" style={{ padding: "32px" }}
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: i*0.1 }}>
@@ -95,13 +94,13 @@ export default function ServicesPage() {
       </section>
 
       {/* FEATURED SERVICES */}
-      <section style={{ padding: "80px 56px", borderBottom: "1px solid #E8E8E8" }}>
+      <section className="border-b border-[#E8E8E8] px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div className="mb-[52px]" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="eyebrow">Featured Services</p>
           <h2 className="font-display font-light text-[#1A1A1A] mb-4" style={{ fontSize: "clamp(28px,3.5vw,44px)" }}>Everything a serious business needs.</h2>
           <p className="text-[14.5px] text-[#6B6B6B] leading-[1.85]">Each service is delivered with the same standard — considered, thorough, and built to last.</p>
         </motion.div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "24px" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {FEATURED.map((s, i) => (
             <motion.div key={i} className="border border-[#E8E8E8] rounded-[10px] bg-white transition-all duration-300 hover:border-[#A88F84]/50 hover:shadow-[0_4px_20px_rgba(0,0,0,.07)]" style={{ padding: "28px" }}
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: i*0.07 }}>
@@ -117,10 +116,9 @@ export default function ServicesPage() {
       </section>
 
       {/* HOW WE WORK */}
-      <section className="border-b border-[#E8E8E8]" style={{ padding: "80px 56px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "start" }}>
+      <section className="border-b border-[#E8E8E8] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         {/* Animated panel replacing image */}
-        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8]"
-          style={{ height: "380px" }}
+        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8] h-[260px] sm:h-[320px] lg:h-[380px]"
           initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
           <div className="absolute inset-0 flex items-center justify-center">
             {[60, 100, 145].map((r, i) => (
@@ -156,7 +154,7 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section className="text-center bg-[#1A1A1A]" style={{ padding: "80px 56px" }}>
+      <section className="text-center bg-[#1A1A1A] px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <h2 className="font-display font-light text-white mb-4" style={{ fontSize: "clamp(32px,4vw,48px)" }}>Not sure what service you need?</h2>
           <p className="text-[15px] text-white/60 max-w-[420px] mx-auto mb-9 leading-[1.85]">Start with a consultation. We&apos;ll identify exactly what your business requires and where to begin.</p>
@@ -168,7 +166,7 @@ export default function ServicesPage() {
       </section>
 
       {/* CONTACT STRIP */}
-      <div className="bg-[#F8F8F8] border-t border-b border-[#E8E8E8]" style={{ padding: "28px 56px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
+      <div className="bg-[#F8F8F8] border-t border-b border-[#E8E8E8] flex items-center justify-between flex-wrap gap-4 px-5 sm:px-8 lg:px-14 py-7">
         <span className="text-[14px] text-[#6B6B6B]">Questions? Reach us at <a href="mailto:booking@budruum.co.uk" className="text-[#A88F84]">booking@budruum.co.uk</a></span>
         <div className="flex items-center gap-6">
           {[

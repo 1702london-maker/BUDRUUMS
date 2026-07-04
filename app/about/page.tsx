@@ -7,7 +7,7 @@ export default function AboutPage() {
   return (
     <main>
       {/* ABOUT HERO */}
-      <section style={{ minHeight: "70vh", display: "grid", gridTemplateColumns: "1fr 1fr", alignItems: "center", gap: "80px", padding: "100px 56px" }}>
+      <section className="grid grid-cols-1 lg:grid-cols-2 items-center gap-10 lg:gap-20 px-5 sm:px-8 lg:px-14 py-16 sm:py-20 lg:py-[100px]" style={{ minHeight: "70vh" }}>
         <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
           <p className="eyebrow">Who We Are</p>
           <h1 className="font-display font-light text-[#1A1A1A] mb-6" style={{ fontSize: "clamp(44px,5vw,68px)", lineHeight: 1.1 }}>
@@ -21,27 +21,23 @@ export default function AboutPage() {
           </Link>
         </motion.div>
 
-        {/* Animated panel — Budruum logo at the centre, orbit represents global reach */}
         <motion.div className="relative"
-          initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>
-          <div className="w-full bg-[#F2F2F2] border border-[#E8E8E8] rounded-[2px] overflow-hidden flex items-center justify-center" style={{ height: "500px" }}>
+          <div className="w-full bg-[#F2F2F2] border border-[#E8E8E8] rounded-[2px] overflow-hidden flex items-center justify-center h-[320px] sm:h-[400px] lg:h-[500px]">
             <div className="relative w-full h-full flex items-center justify-center">
-              {/* Outer slow rings */}
               {[180, 130, 80].map((r, i) => (
                 <motion.div key={i} className="absolute border border-[#A88F84]/20 rounded-full"
                   style={{ width: r * 2, height: r * 2 }}
                   animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
                   transition={{ duration: 22 + i * 9, repeat: Infinity, ease: "linear" }} />
               ))}
-              {/* Orbiting dots at r=130 */}
               {[0, 60, 120, 180, 240, 300].map((angle, i) => (
                 <motion.div key={i} className="absolute w-[7px] h-[7px] rounded-full bg-[#A88F84]"
                   style={{ left: `calc(50% + ${130 * Math.cos((angle - 90) * Math.PI / 180)}px - 3.5px)`, top: `calc(50% + ${130 * Math.sin((angle - 90) * Math.PI / 180)}px - 3.5px)` }}
                   animate={{ opacity: [0.2, 1, 0.2], scale: [0.8, 1.3, 0.8] }}
                   transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.4, ease: "easeInOut" }} />
               ))}
-              {/* Logo centre — actual Budruum logo image */}
               <motion.div className="relative flex items-center justify-center"
                 animate={{ scale: [1, 1.05, 1] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -50,14 +46,13 @@ export default function AboutPage() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/logo.png" alt="Budruum" style={{ width: 72, height: "auto", position: "relative", zIndex: 1, objectFit: "contain" }} />
               </motion.div>
-              {/* Pulse ring from logo */}
               <motion.div className="absolute rounded-full border border-[#A88F84]/30"
                 animate={{ width: [110, 160, 110], height: [110, 160, 110], opacity: [0.5, 0, 0.5] }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut" }} />
             </div>
           </div>
           <motion.div className="absolute bg-white border border-[#E8E8E8] rounded-[4px] p-5"
-            style={{ bottom: "40px", left: "-40px", boxShadow: "0 8px 32px rgba(0,0,0,.08)" }}
+            style={{ bottom: "40px", left: "-20px", boxShadow: "0 8px 32px rgba(0,0,0,.08)" }}
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}>
             <div className="font-display text-[36px] font-light text-[#1A1A1A]">50+</div>
@@ -67,8 +62,8 @@ export default function AboutPage() {
       </section>
 
       {/* STORY */}
-      <section className="bg-[#F8F8F8]" style={{ padding: "100px 56px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "start" }}>
+      <section className="bg-[#F8F8F8] px-5 sm:px-8 lg:px-14 py-16 sm:py-20 lg:py-[100px]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <p className="eyebrow">Our Story</p>
             <h2 className="font-display font-light text-[#1A1A1A] mb-7" style={{ fontSize: "clamp(36px,4vw,52px)", lineHeight: 1.2 }}>
@@ -85,9 +80,7 @@ export default function AboutPage() {
             </p>
           </motion.div>
 
-          {/* Animated panel replacing story image */}
-          <motion.div className="bg-white border border-[#E8E8E8] rounded-[2px] overflow-hidden flex items-center justify-center"
-            style={{ height: "480px" }}
+          <motion.div className="bg-white border border-[#E8E8E8] rounded-[2px] overflow-hidden flex items-center justify-center h-[280px] sm:h-[380px] lg:h-[480px]"
             initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}>
             <div className="relative w-full h-full flex items-center justify-center p-10">
@@ -118,13 +111,13 @@ export default function AboutPage() {
       </section>
 
       {/* VALUES */}
-      <section style={{ padding: "100px 56px" }}>
+      <section className="px-5 sm:px-8 lg:px-14 py-16 sm:py-20 lg:py-[100px]">
         <div className="text-center mb-16">
           <p className="eyebrow">What We Stand For</p>
           <h2 className="font-display font-light text-[#1A1A1A] mb-4" style={{ fontSize: "clamp(36px,4vw,52px)", lineHeight: 1.2 }}>Principles that guide every engagement.</h2>
           <p className="text-[15px] text-[#6B6B6B] max-w-[520px] mx-auto">Our values are not decorative. They shape how we work, who we work with, and what we deliver.</p>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "2px" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-[2px]">
           {[
             { n: "01", title: "Structure over guesswork", desc: "Every decision we make and every recommendation we give is grounded in research, analysis, and experience — never assumption." },
             { n: "02", title: "Strategy before execution", desc: "Moving fast without direction is expensive. We invest time in understanding your position before we build anything." },
@@ -143,11 +136,9 @@ export default function AboutPage() {
       </section>
 
       {/* WHAT MAKES US DIFFERENT */}
-      <section className="bg-[#F8F8F8]" style={{ padding: "100px 56px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
-          {/* Animated panel replacing diff image */}
-          <motion.div className="bg-white border border-[#E8E8E8] rounded-[2px] overflow-hidden"
-            style={{ height: "460px" }}
+      <section className="bg-[#F8F8F8] px-5 sm:px-8 lg:px-14 py-16 sm:py-20 lg:py-[100px]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+          <motion.div className="bg-white border border-[#E8E8E8] rounded-[2px] overflow-hidden h-[280px] sm:h-[360px] lg:h-[460px]"
             initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}>
             <div className="relative w-full h-full flex items-center justify-center">
@@ -194,13 +185,13 @@ export default function AboutPage() {
       </section>
 
       {/* WHO WE WORK WITH */}
-      <section style={{ padding: "100px 56px" }}>
+      <section className="px-5 sm:px-8 lg:px-14 py-16 sm:py-20 lg:py-[100px]">
         <div className="text-center mb-14">
           <p className="eyebrow">Who We Work With</p>
           <h2 className="font-display font-light text-[#1A1A1A] mb-4" style={{ fontSize: "clamp(36px,4vw,52px)" }}>Built for builders.</h2>
           <p className="text-[15px] text-[#6B6B6B] max-w-[520px] mx-auto">Budruum works with a specific kind of client — one who values quality, moves with intention, and understands that the right foundation changes everything.</p>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "24px" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             { title: "Founders", desc: "Individuals with a clear vision who need the structure, strategy, and assets to bring it to life properly." },
             { title: "Startups", desc: "Early-stage businesses that need to move from concept to credibility — fast, but without cutting corners." },
@@ -219,7 +210,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <motion.section className="text-center bg-[#1A1A1A]" style={{ padding: "100px 56px" }}
+      <motion.section className="text-center bg-[#1A1A1A] px-5 sm:px-8 lg:px-14 py-16 sm:py-20 lg:py-[100px]"
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
         <h2 className="font-display font-light text-white mb-5" style={{ fontSize: "clamp(40px,5vw,60px)", fontStyle: "italic" }}>Build it right from the start.</h2>
         <p className="text-[15px] max-w-[460px] mx-auto mb-9 leading-[1.85]" style={{ color: "rgba(255,255,255,.6)" }}>
@@ -231,7 +222,7 @@ export default function AboutPage() {
       </motion.section>
 
       {/* CONTACT STRIP */}
-      <div className="bg-[#F8F8F8] border-t border-b border-[#E8E8E8] flex items-center justify-between gap-6 flex-wrap" style={{ padding: "28px 56px" }}>
+      <div className="bg-[#F8F8F8] border-t border-b border-[#E8E8E8] flex items-center justify-between gap-6 flex-wrap px-5 sm:px-8 lg:px-14 py-5">
         <p className="text-[13.5px] text-[#6B6B6B]">Questions? Reach us at <a href="mailto:booking@budruum.co.uk" className="text-[#1A1A1A] font-medium border-b border-[#1A1A1A]">booking@budruum.co.uk</a></p>
         <div className="flex gap-10 flex-wrap">
           {[

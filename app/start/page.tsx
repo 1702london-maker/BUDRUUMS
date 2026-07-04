@@ -28,8 +28,7 @@ export default function StartPage() {
   return (
     <main>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[#F8F8F8] border-b border-[#E8E8E8]"
-        style={{ padding: "92px 56px 84px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "72px", alignItems: "center" }}>
+      <section className="relative overflow-hidden bg-[#F8F8F8] border-b border-[#E8E8E8] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[72px] items-center px-5 sm:px-8 lg:px-14 py-16 sm:py-20 lg:py-[92px]">
         <motion.div className="absolute top-[-80px] right-[-80px] w-[360px] h-[360px] rounded-full pointer-events-none"
           style={{ background: "radial-gradient(circle,rgba(168,143,132,.07) 0%,transparent 65%)" }}
           animate={{ scale: [1,1.1,1] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} />
@@ -52,8 +51,8 @@ export default function StartPage() {
         </motion.div>
 
         {/* Clock animation — represents "Begin with Intention / Time" */}
-        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8]"
-          style={{ height: "400px", boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
+        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8] h-[260px] sm:h-[320px] lg:h-[400px]"
+          style={{ boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
           initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}>
           <div className="absolute inset-0 flex items-center justify-center flex-col gap-3">
@@ -102,13 +101,13 @@ export default function StartPage() {
       </section>
 
       {/* OPTIONS */}
-      <section style={{ padding: "80px 56px", background: "#fff", borderBottom: "1px solid #E8E8E8" }}>
+      <section className="bg-white border-b border-[#E8E8E8] px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div className="text-center mb-[52px]" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="eyebrow">Choose Your Starting Point</p>
           <h2 className="font-display font-light text-[#1A1A1A] mb-4" style={{ fontSize: "clamp(28px,3.5vw,44px)" }}>The right beginning changes everything.</h2>
           <p className="text-[14.5px] text-[#6B6B6B] max-w-[500px] mx-auto leading-[1.85]">Every Budruum engagement begins with a consultation. Choose the option that best fits where you are right now.</p>
         </motion.div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "24px", maxWidth: "900px", margin: "0 auto" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-[900px] mx-auto">
           {OPTIONS.map((o, i) => (
             <motion.div key={i}
               className={`rounded-[10px] border flex flex-col relative ${o.featured ? "border-[#A88F84] bg-white shadow-[0_6px_28px_rgba(0,0,0,.09)]" : "border-[#E8E8E8] bg-white hover:border-[#A88F84]/40 hover:shadow-md"} transition-all duration-300`}
@@ -135,10 +134,9 @@ export default function StartPage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="border-b border-[#E8E8E8]" style={{ padding: "80px 56px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "start" }}>
+      <section className="border-b border-[#E8E8E8] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         {/* Animated panel replacing image */}
-        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8]"
-          style={{ height: "420px" }}
+        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8] h-[260px] sm:h-[320px] lg:h-[420px]"
           initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
           <div className="absolute inset-0 flex items-center justify-center flex-col gap-4">
             {HOW_STEPS.map((s, i) => (
@@ -172,7 +170,7 @@ export default function StartPage() {
       </section>
 
       {/* WHO THIS IS FOR */}
-      <section className="border-b border-[#E8E8E8]" style={{ padding: "80px 56px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "start" }}>
+      <section className="border-b border-[#E8E8E8] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="eyebrow">Who This Is For</p>
           <h2 className="font-display font-light text-[#1A1A1A] mb-9" style={{ fontSize: "clamp(34px,4vw,48px)", fontWeight: 300 }}>Built for those who take it seriously.</h2>
@@ -187,8 +185,7 @@ export default function StartPage() {
         </motion.div>
 
         {/* Animated panel replacing image */}
-        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8]"
-          style={{ height: "380px" }}
+        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8] h-[260px] sm:h-[320px] lg:h-[380px]"
           initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.15 }}>
           <div className="absolute inset-0 flex items-center justify-center">
             {[60, 100, 140].map((r, i) => (
@@ -207,7 +204,7 @@ export default function StartPage() {
       </section>
 
       {/* CTA */}
-      <section className="text-center bg-[#1A1A1A]" style={{ padding: "80px 56px" }}>
+      <section className="text-center bg-[#1A1A1A] px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <h2 className="font-display font-light text-white mb-4" style={{ fontSize: "clamp(32px,4vw,52px)" }}>The right beginning changes everything.</h2>
           <p className="text-[15px] text-white/60 max-w-[420px] mx-auto mb-9 leading-[1.85]">One focused session can save months of confusion and costly mistakes.</p>
@@ -219,7 +216,7 @@ export default function StartPage() {
       </section>
 
       {/* CONTACT STRIP */}
-      <div className="bg-[#F8F8F8] border-t border-b border-[#E8E8E8]" style={{ padding: "28px 56px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
+      <div className="bg-[#F8F8F8] border-t border-b border-[#E8E8E8] flex items-center justify-between flex-wrap gap-4 px-5 sm:px-8 lg:px-14 py-7">
         <span className="text-[14px] text-[#6B6B6B]">Questions? Reach us at <a href="mailto:booking@budruum.co.uk" className="text-[#A88F84]">booking@budruum.co.uk</a></span>
         <div className="flex items-center gap-6">
           {[

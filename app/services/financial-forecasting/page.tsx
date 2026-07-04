@@ -117,7 +117,7 @@ export default function FinancialForecastingPage() {
 
       {/* 1. WHAT IT ACTUALLY IS */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <div className="grid lg:grid-cols-2 gap-20 items-start mb-16">
             <motion.div initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
               <p className="eyebrow mb-4">What It Actually Is</p>
@@ -142,12 +142,12 @@ export default function FinancialForecastingPage() {
 
       {/* 2. REVENUE & INCOME */}
       <section className="py-24 bg-gl border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14 grid lg:grid-cols-2 gap-20 items-center">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-2 gap-20 items-center">
           <motion.div initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Understanding where your<br/>money comes from.</h2>
             <p className="text-[14.5px] text-t2 leading-relaxed">Revenue is not one number. It is a structure — a set of income streams, each with its own pricing logic, volume driver and timing. A financial forecast models each stream individually so the total is grounded in actual commercial logic, not an optimistic single figure.</p>
           </motion.div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
               { title: "Multiple Revenue Streams", desc: "Each income source is modelled separately — product sales, subscriptions, services, licensing — and aggregated into a total revenue figure." },
               { title: "Pricing Logic", desc: "Price points are documented and justified. Whether fixed, tiered or variable — pricing assumptions underpin every revenue calculation." },
@@ -166,7 +166,7 @@ export default function FinancialForecastingPage() {
 
       {/* 3. COST STRUCTURE */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <motion.div className="max-w-[560px] mb-14" initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Every pound spent needs<br/>to be in the model.</h2>
             <p className="text-[14.5px] text-t2 leading-relaxed">Most businesses significantly underestimate their cost base — especially in the early stages. A rigorous cost model does not miss anything: fixed overhead, variable costs that scale with revenue, and the hidden costs that only emerge once the business is running.</p>
@@ -192,7 +192,7 @@ export default function FinancialForecastingPage() {
 
       {/* 4. PROFIT EXPLAINED */}
       <section className="py-24 bg-gl border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <div className="text-center mb-14">
             <p className="eyebrow mb-4">Profit Explained</p>
             <h2 className="font-display text-[38px] font-light text-t1 mb-4">Gross, net and everything between.</h2>
@@ -214,7 +214,7 @@ export default function FinancialForecastingPage() {
 
       {/* 5. CASH FLOW */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14 grid lg:grid-cols-2 gap-20 items-start">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-2 gap-20 items-start">
           <motion.div initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Profit does not mean<br/>cash is available.</h2>
             <p className="text-[14.5px] text-t2 leading-relaxed mb-4">Cash flow and profit are not the same thing. A business can be profitable — showing positive income over expenses — while simultaneously running out of cash to pay its obligations. The mechanism is simple: timing.</p>
@@ -237,14 +237,14 @@ export default function FinancialForecastingPage() {
 
       {/* 6. ASSETS & FINANCIAL POSITION */}
       <section className="py-24 bg-gl border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <div className="grid lg:grid-cols-2 gap-20 items-start mb-12">
             <motion.div initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
               <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">What you own shapes<br/>what you are worth.</h2>
               <p className="text-[14.5px] text-t2 leading-relaxed mb-4">The balance sheet is the financial statement that most early-stage businesses ignore — and most investors immediately review. It shows what the business owns, what it owes and what is left over. That remainder is net worth.</p>
               <p className="text-[14.5px] text-t2 leading-relaxed">Understanding your balance sheet position is not just a reporting exercise. It determines how creditworthy you are, how investable you appear and whether your business is building or destroying equity over time.</p>
             </motion.div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {ASSET_CARDS.map((card, i) => (
                 <motion.div key={i} className="bg-white rounded-xl p-6 border border-br hover:shadow-sm transition-all"
                   initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{duration:0.4, delay:i*0.08}}>
@@ -275,7 +275,7 @@ export default function FinancialForecastingPage() {
 
       {/* 7. VAT & TAX */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <motion.div className="max-w-[560px] mb-14" initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Tax is not optional planning.<br/>It is financial structure.</h2>
             <p className="text-[14.5px] text-t2 leading-relaxed">VAT and corporation tax are not afterthoughts. They are built into the financial model from the outset — because failing to account for tax obligations is one of the most common reasons cash flow projections fail in practice.</p>
@@ -295,7 +295,7 @@ export default function FinancialForecastingPage() {
 
       {/* 8. WHAT YOU RECEIVE */}
       <section className="py-24 bg-gl border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <motion.div className="max-w-[560px] mb-14" initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <p className="eyebrow mb-4">What You Receive</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">A complete financial model built around your business.</h2>
@@ -326,7 +326,7 @@ export default function FinancialForecastingPage() {
 
       {/* 9. WHY IT MATTERS */}
       <section className="py-24 bg-white border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14 grid lg:grid-cols-2 gap-20 items-center">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-2 gap-20 items-center">
           <motion.div initial={{opacity:0, y:24}} animate={{opacity:1, y:0}} transition={{duration:0.5}}>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Without financial clarity,<br/>every decision is a guess.</h2>
             <p className="text-[14.5px] text-t2 leading-relaxed mb-8">Financial forecasting is not about producing an impressive-looking document. It is about giving you the ability to make informed decisions — to know whether you can afford to hire, whether your pricing works, whether the model is viable and what needs to change if it is not.</p>
@@ -360,7 +360,7 @@ export default function FinancialForecastingPage() {
 
       {/* 10. OUR PROCESS */}
       <section className="py-24 bg-gl border-b border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <div className="text-center max-w-[520px] mx-auto mb-16">
             <p className="eyebrow mb-4">Our Process</p>
             <h2 className="font-display text-[38px] font-light text-t1 mb-4">From understanding to delivery.</h2>

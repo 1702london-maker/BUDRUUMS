@@ -24,7 +24,7 @@ export default function ArticleClient({ article }: { article: Article }) {
   return (
     <main>
       {/* Hero */}
-      <section style={{ padding:"80px 56px 72px", background:"#F8F8F8", borderBottom:"1px solid #E8E8E8", textAlign:"center" }}>
+      <section className="bg-[#F8F8F8] border-b border-[#E8E8E8] text-center px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.p className="eyebrow" style={{ marginBottom:"16px" }}
           initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }}
           transition={{ duration:0.55, ease:EASE }}>
@@ -54,7 +54,7 @@ export default function ArticleClient({ article }: { article: Article }) {
       </section>
 
       {/* Body — two-column: article left, sidebar right */}
-      <div style={{ padding:"80px 56px", display:"grid", gridTemplateColumns:"1fr 320px", gap:"64px", alignItems:"start" }}>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 lg:gap-16 items-start px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px]">
         <motion.article
           className="insight-body"
           dangerouslySetInnerHTML={{ __html: article.body }}
@@ -81,14 +81,14 @@ export default function ArticleClient({ article }: { article: Article }) {
       </div>
 
       {/* Related */}
-      <section style={{ padding:"72px 56px", background:"#F8F8F8", borderTop:"1px solid #E8E8E8" }}>
+      <section className="bg-[#F8F8F8] border-t border-[#E8E8E8] px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[72px]">
         <motion.h2 className="font-display font-light text-t1"
           style={{ fontSize:"clamp(28px,3vw,40px)", marginBottom:"32px" }}
           initial={{ opacity:0, y:24 }} animate={{ opacity:1, y:0 }}
           transition={{ duration:0.6, ease:EASE }}>
           Continue <em style={{ fontStyle:"italic", color:"#A88F84" }}>reading</em>
         </motion.h2>
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:"24px" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {article.related.map((r, i) => (
             <motion.div key={i}
               initial={{ opacity:0, y:32 }} animate={{ opacity:1, y:0 }}
@@ -107,7 +107,7 @@ export default function ArticleClient({ article }: { article: Article }) {
       </section>
 
       {/* CTA */}
-      <motion.section style={{ padding:"100px 56px", textAlign:"center" }}
+      <motion.section className="text-center px-5 sm:px-8 lg:px-14 py-16 sm:py-20 lg:py-[100px]"
         initial={{ opacity:0, y:40 }} animate={{ opacity:1, y:0 }}
         transition={{ duration:0.65, delay:0.1, ease:EASE }}>
         <p className="eyebrow">Work With Budruum</p>
@@ -117,7 +117,7 @@ export default function ArticleClient({ article }: { article: Article }) {
         <p style={{ fontSize:"15px", color:"#6B6B6B", maxWidth:"420px", margin:"0 auto 36px", lineHeight:1.85 }}>
           Whether you need a business plan, a financial forecast or end-to-end startup consultancy — we help UK founders build with structure and confidence.
         </p>
-        <div style={{ display:"flex", gap:"14px", justifyContent:"center", flexWrap:"wrap" }}>
+        <div className="flex gap-[14px] justify-center flex-wrap">
           <Link href="/booking" className="btn-primary">Book a Free Consultation →</Link>
           <Link href="/services" className="btn-outline">View All Services</Link>
         </div>

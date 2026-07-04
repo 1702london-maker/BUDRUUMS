@@ -55,7 +55,7 @@ export default function BrandingPage() {
 
       {/* 1. WHAT BRANDING MEANS */}
       <section className="py-24 bg-white">
-        <div className="max-w-screen-2xl mx-auto px-14 grid lg:grid-cols-2 gap-20 items-center">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-2 gap-20 items-center">
           <motion.div className="rounded-xl border border-br bg-gs flex items-center justify-center"
             style={{minHeight:400}}
             initial={{opacity:0, x:-24}} animate={{opacity:1, x:0}} transition={{duration:0.6}}>
@@ -93,7 +93,7 @@ export default function BrandingPage() {
 
       {/* 2. WHY IT MATTERS */}
       <section className="py-24 bg-gl border-y border-br">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <div className="text-center mb-14">
             <p className="eyebrow mb-4">Why It Matters</p>
             <h2 className="font-display text-[38px] font-light text-t1 mb-5">Weak branding costs more<br/>than it saves.</h2>
@@ -127,7 +127,7 @@ export default function BrandingPage() {
 
       {/* 3. WHAT WE DELIVER */}
       <section className="py-24 bg-white">
-        <div className="max-w-screen-2xl mx-auto px-14 grid lg:grid-cols-2 gap-20 items-start">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-2 gap-20 items-start">
           <div>
             <p className="eyebrow mb-5">What We Deliver</p>
             <h2 className="font-display text-[38px] font-light text-t1 leading-tight mb-4">Everything your brand needs to operate with authority.</h2>
@@ -179,7 +179,7 @@ export default function BrandingPage() {
 
       {/* 4. OUR PROCESS */}
       <section className="py-24 bg-gs border-t border-br border-b">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <div className="text-center mb-16">
             <p className="eyebrow mb-4">Our Process</p>
             <h2 className="font-display text-[38px] font-light text-t1 mb-4">From blank page to complete identity.</h2>
