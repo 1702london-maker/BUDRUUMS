@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -37,6 +38,34 @@ function FooterLink({ label, href }: { label: string; href: string }) {
         {label}
       </Link>
     </li>
+  );
+}
+
+function NewsletterForm() {
+  const [email, setEmail] = React.useState("");
+  const [status, setStatus] = React.useState<"idle"|"sending"|"sent">("idle");
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email || status !== "idle") return;
+    setStatus("sending");
+    try { await fetch("/api/newsletter", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email }) }); } catch {}
+    setStatus("sent");
+  }
+  if (status === "sent") return <p className="text-[13px] text-[#A88F84]">You&apos;re subscribed. Welcome to Budruum Insights.</p>;
+  return (
+    <form onSubmit={submit} className="flex items-stretch border border-[#E8E8E8] rounded overflow-hidden">
+      <input type="email" required value={email} onChange={e => setEmail(e.target.value)}
+        placeholder="Your email address"
+        className="flex-1 text-[13px] px-4 py-3 bg-white outline-none text-[#1A1A1A] placeholder:text-[#6B6B6B]/60 min-w-0" />
+      <motion.button type="submit" disabled={status === "sending"}
+        className="px-4 bg-[#A88F84] text-white flex-shrink-0 flex items-center justify-center disabled:opacity-60"
+        whileHover={{ backgroundColor: "#8F7870", scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </motion.button>
+    </form>
   );
 }
 
@@ -131,19 +160,7 @@ export default function Footer() {
             <p className="text-[13px] text-[#6B6B6B] leading-relaxed mb-4">
               Insights, strategies and updates to help your business grow.
             </p>
-            <form onSubmit={(e) => e.preventDefault()} className="flex items-stretch border border-[#E8E8E8] rounded overflow-hidden">
-              <input type="email" placeholder="Your email address"
-                className="flex-1 text-[13px] px-4 py-3 bg-white outline-none text-[#1A1A1A] placeholder:text-[#6B6B6B]/60 min-w-0" />
-              <motion.button type="submit"
-                className="px-4 bg-[#A88F84] text-white flex-shrink-0 flex items-center justify-center"
-                whileHover={{ backgroundColor: "#8F7870", scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <line x1="22" y1="2" x2="11" y2="13"/>
-                  <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-                </svg>
-              </motion.button>
-            </form>
+            <NewsletterForm />
           </div>
         </div>
 

@@ -469,7 +469,25 @@ export default function BookingPage() {
                       Back
                     </button>
                     <button className="btn-primary" style={{ flex:1, justifyContent:"center", padding:"14px" }}
-                      onClick={() => goToStep(5)}>
+                      onClick={async () => {
+                        try {
+                          await fetch("/api/booking", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                              name: `${form.fname} ${form.lname}`.trim(),
+                              email: form.email,
+                              phone: form.phone,
+                              service: svc.name,
+                              stage: form.biz,
+                              message: form.msg,
+                              date: selDateStr,
+                              time: selTime,
+                            }),
+                          });
+                        } catch { /* proceed anyway */ }
+                        goToStep(5);
+                      }}>
                       {svc.isFree ? "Confirm Booking" : "Proceed to Payment"}
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </button>

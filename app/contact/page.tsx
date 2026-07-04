@@ -11,7 +11,7 @@ export default function ContactPage() {
     if (!form.fname || !form.email || !form.message) return;
     setStatus("sending");
     try {
-      const r = await fetch("https://padfgbudntpmzfnuiupt.supabase.co/functions/v1/website-handler?action=contact", {
+      const r = await fetch("/api/contact", {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: form.fname + " " + form.lname, email: form.email, service: form.service, message: form.message }),
       });

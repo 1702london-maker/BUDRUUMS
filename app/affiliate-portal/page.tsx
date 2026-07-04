@@ -22,8 +22,15 @@ export default function AffiliatePortalPage() {
     setLoginStatus("sent");
   }
 
-  function handleApply(e: React.FormEvent) {
+  async function handleApply(e: React.FormEvent) {
     e.preventDefault();
+    try {
+      await fetch("/api/affiliate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: applyForm.name, email: applyForm.email, website: applyForm.website, audience: applyForm.audience }),
+      });
+    } catch { /* still show success */ }
     setApplyStatus("sent");
   }
 
