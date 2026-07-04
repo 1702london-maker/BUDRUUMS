@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 
 const TERRACOTTA = "#A88F84";
 const DARK = "#1A1A1A";
@@ -9,7 +9,7 @@ function emailHtml(name: string, service: string, message: string) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>New Enquiry — Budruum</title></head>
+<title>New Enquiry â€” Budruum</title></head>
 <body style="margin:0;padding:0;background:#F2F2F2;font-family:'DM Sans',Helvetica,Arial,sans-serif;">
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#F2F2F2;padding:40px 0;">
 <tr><td align="center">
@@ -38,7 +38,7 @@ function emailHtml(name: string, service: string, message: string) {
   </td></tr>
   <!-- Footer -->
   <tr><td style="padding:24px 40px;border-top:1px solid #E8E8E8;text-align:center;">
-    <p style="margin:0;font-size:12px;color:#B0B0B0;letter-spacing:.04em;">Budruum Ltd · budruum.co.uk</p>
+    <p style="margin:0;font-size:12px;color:#B0B0B0;letter-spacing:.04em;">Budruum Ltd Â· budruum.co.uk</p>
   </td></tr>
 </table>
 </td></tr></table>
@@ -49,7 +49,7 @@ function autoReplyHtml(name: string) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>We received your message — Budruum</title></head>
+<title>We received your message â€” Budruum</title></head>
 <body style="margin:0;padding:0;background:#F2F2F2;font-family:'DM Sans',Helvetica,Arial,sans-serif;">
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#F2F2F2;padding:40px 0;">
 <tr><td align="center">
@@ -63,12 +63,12 @@ function autoReplyHtml(name: string) {
     <p style="margin:0 0 20px;font-size:15px;color:${GREY};line-height:1.8;">Thank you for reaching out to Budruum. A member of our team will review your enquiry and respond personally within <strong style="color:${DARK};">24 hours</strong>.</p>
     <p style="margin:0 0 32px;font-size:15px;color:${GREY};line-height:1.8;">If your matter is urgent, you can also reach us directly on WhatsApp at <a href="https://wa.me/447919643752" style="color:${TERRACOTTA};text-decoration:none;">+44 7919 643752</a>.</p>
     <table cellpadding="0" cellspacing="0"><tr><td style="border-radius:4px;background:${TERRACOTTA};">
-      <a href="https://budruum.co.uk/booking" style="display:inline-block;padding:13px 28px;font-size:13.5px;font-weight:500;color:#ffffff;text-decoration:none;letter-spacing:.03em;">Book a Free Consultation →</a>
+      <a href="https://budruum.co.uk/booking" style="display:inline-block;padding:13px 28px;font-size:13.5px;font-weight:500;color:#ffffff;text-decoration:none;letter-spacing:.03em;">Book a Free Consultation â†’</a>
     </td></tr></table>
   </td></tr>
   <tr><td style="padding:24px 40px;border-top:1px solid #E8E8E8;">
     <p style="margin:0 0 4px;font-size:13px;color:${DARK};font-weight:500;">The Budruum Team</p>
-    <p style="margin:0;font-size:12px;color:#B0B0B0;"><a href="mailto:info@budruum.co.uk" style="color:${TERRACOTTA};text-decoration:none;">info@budruum.co.uk</a> · budruum.co.uk</p>
+    <p style="margin:0;font-size:12px;color:#B0B0B0;"><a href="mailto:booking@budruum.co.uk" style="color:${TERRACOTTA};text-decoration:none;">booking@budruum.co.uk</a> Â· budruum.co.uk</p>
   </td></tr>
 </table>
 </td></tr></table>
@@ -88,10 +88,10 @@ export async function POST(req: NextRequest) {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
       body: JSON.stringify({
-        from: "Budruum Website <info@budruum.co.uk>",
-        to: ["info@budruum.co.uk"],
+        from: "Budruum Website <booking@budruum.co.uk>",
+        to: ["booking@budruum.co.uk"],
         reply_to: email,
-        subject: `New Enquiry from ${name}${service ? ` — ${service}` : ""}`,
+        subject: `New Enquiry from ${name}${service ? ` â€” ${service}` : ""}`,
         html: emailHtml(name, service, message),
       }),
     });
@@ -101,9 +101,9 @@ export async function POST(req: NextRequest) {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
       body: JSON.stringify({
-        from: "Budruum <info@budruum.co.uk>",
+        from: "Budruum <booking@budruum.co.uk>",
         to: [email],
-        subject: "We received your message — Budruum",
+        subject: "We received your message â€” Budruum",
         html: autoReplyHtml(name),
       }),
     });
