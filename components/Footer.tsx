@@ -106,7 +106,7 @@ export default function Footer() {
       `}</style>
 
       <footer style={{ background: "#fff", borderTop: "1px solid #E8E8E8" }}>
-        <div className="max-w-screen-2xl mx-auto px-14 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
 
           {/* Col 1 — Brand */}
           <div className="lg:col-span-1">
@@ -165,7 +165,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div style={{ borderTop: "1px solid #E8E8E8" }} className="max-w-screen-2xl mx-auto px-14 py-5 flex flex-wrap items-center justify-between gap-4">
+        <div style={{ borderTop: "1px solid #E8E8E8" }} className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 py-5 flex flex-wrap items-center justify-between gap-4">
           <p className="text-[12.5px] text-[#6B6B6B]">© {new Date().getFullYear()} Budruum Ltd. All Rights Reserved.</p>
           <div className="flex items-center gap-3 flex-wrap">
             <span className="px-2 py-1 border border-[#E8E8E8] rounded text-[10px] font-bold text-[#1A1F71] tracking-wider">VISA</span>

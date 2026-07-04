@@ -23,8 +23,9 @@ export default function ContactPage() {
   return (
     <main>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[#F8F8F8] border-b border-[#E8E8E8]"
-        style={{ padding: "92px 56px 84px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "72px", alignItems: "center" }}>
+      <section className="relative overflow-hidden bg-[#F8F8F8] border-b border-[#E8E8E8]
+        px-5 py-14 sm:px-8 sm:py-16 lg:px-14 lg:py-[92px]
+        grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[72px] items-center">
         <motion.div className="absolute top-[-80px] right-[-80px] w-[360px] h-[360px] rounded-full pointer-events-none"
           style={{ background: "radial-gradient(circle,rgba(168,143,132,.07) 0%,transparent 65%)" }}
           animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} />
@@ -46,8 +47,8 @@ export default function ContactPage() {
           </div>
         </motion.div>
 
-        {/* Contact flow animation — message composed → sent → delivered → replied */}
-        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8]"
+        {/* Contact flow animation — hidden on mobile */}
+        <motion.div className="hidden lg:block relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8]"
           style={{ height: "400px", boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
           initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}>
@@ -127,8 +128,8 @@ export default function ContactPage() {
       </section>
 
       {/* MAIN */}
-      <section style={{ padding: "100px 56px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: "80px", alignItems: "start" }}>
+      <section className="px-5 py-14 sm:px-8 sm:py-16 lg:px-14 lg:py-[100px]">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-12 lg:gap-[80px] items-start">
 
           {/* LEFT */}
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>

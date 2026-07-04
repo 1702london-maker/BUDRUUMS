@@ -153,7 +153,7 @@ export default function BookingPage() {
       />
 
       {/* ── Consultation Options ──────────────────────────────── */}
-      <section style={{ padding:"80px 56px" }}>
+      <section className="px-5 py-14 sm:px-8 sm:py-16 lg:px-14 lg:py-[80px]">
         <div style={{ textAlign:"center", marginBottom:"56px" }}>
           <p className="eyebrow">Consultation Options</p>
           <h2 className="font-display font-light text-t1" style={{ fontSize:"clamp(34px,4vw,48px)", marginBottom:"12px" }}>
@@ -163,7 +163,7 @@ export default function BookingPage() {
             Every consultation fee can be credited toward your project if you decide to proceed with Budruum.
           </p>
         </div>
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"24px", marginBottom:"28px" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-7">
           {OPT_CARDS.map((c, i) => (
             <motion.div key={i}
               initial={{ opacity:0, y:24 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.5, delay:i*0.1 }}
@@ -201,15 +201,15 @@ export default function BookingPage() {
       </section>
 
       {/* ── Booking Flow ──────────────────────────────────────── */}
-      <section id="booking-flow" style={{ padding:"80px 56px", background:"#F8F8F8" }}>
+      <section id="booking-flow" className="px-5 py-14 sm:px-8 sm:py-16 lg:px-14 lg:py-[80px] bg-[#F8F8F8]">
         <div style={{ textAlign:"center", marginBottom:"48px" }}>
           <p className="eyebrow">Book Your Session</p>
           <h2 className="font-display font-light text-t1" style={{ fontSize:"clamp(34px,4vw,48px)" }}>Complete your booking below.</h2>
         </div>
-        <div style={{ display:"grid", gridTemplateColumns:"280px 1fr", gap:"40px", maxWidth:"960px", margin:"0 auto" }}>
+        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8 lg:gap-10 max-w-[960px] mx-auto">
 
-          {/* Steps sidebar */}
-          <div style={{ background:"#fff", border:"1px solid #E8E8E8", borderRadius:"4px", padding:"32px", height:"fit-content" }}>
+          {/* Steps sidebar — hidden on mobile */}
+          <div className="hidden lg:block" style={{ background:"#fff", border:"1px solid #E8E8E8", borderRadius:"4px", padding:"32px", height:"fit-content" }}>
             <p style={{ fontSize:"13px", fontWeight:500, letterSpacing:".1em", textTransform:"uppercase", color:"#6B6B6B", marginBottom:"24px" }}>Booking Steps</p>
             <div style={{ display:"flex", flexDirection:"column" }}>
               {stepLabels.map((label, i) => {
@@ -552,8 +552,8 @@ export default function BookingPage() {
       </section>
 
       {/* ── Help section ──────────────────────────────────────── */}
-      <section style={{ padding:"80px 56px", background:"#F8F8F8" }}>
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1.2fr", gap:"80px", alignItems:"center", maxWidth:"1100px", margin:"0 auto" }}>
+      <section className="px-5 py-14 sm:px-8 sm:py-16 lg:px-14 lg:py-[80px] bg-[#F8F8F8]">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-10 lg:gap-[80px] items-center max-w-[1100px] mx-auto">
           <div>
             <h2 className="font-display font-light text-t1" style={{ fontSize:"clamp(36px,4vw,48px)", marginBottom:"16px" }}>
               Not sure which session is right for you?

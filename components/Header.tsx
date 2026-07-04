@@ -33,7 +33,7 @@ export default function Header() {
         scrolled ? "shadow-sm" : ""
       }`}
     >
-      <div className="flex items-center justify-between gap-6 px-14 h-[70px] max-w-screen-2xl mx-auto">
+      <div className="flex items-center justify-between gap-6 px-5 sm:px-8 lg:px-14 h-[70px] max-w-screen-2xl mx-auto">
         <Link href="/" className="flex-shrink-0">
           <Image src="/logo.png" alt="Budruum" width={220} height={56} className="h-[56px] w-auto" priority />
         </Link>

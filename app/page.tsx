@@ -48,10 +48,10 @@ export default function HomePage() {
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gs rounded-full translate-x-1/3 -translate-y-1/3 opacity-60" />
           <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gs rounded-full -translate-x-1/2 translate-y-1/2 opacity-40" />
         </div>
-        <div className="max-w-screen-2xl mx-auto px-14 w-full grid lg:grid-cols-2 gap-16 items-center py-20 relative z-10">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center py-12 lg:py-20 relative z-10">
           <div>
             <p className="eyebrow mb-6">UK Business Consultancy</p>
-            <h1 className="font-display text-[62px] md:text-[72px] lg:text-[80px] leading-[1.02] font-light text-t1 mb-8 text-balance">
+            <h1 className="font-display text-[42px] sm:text-[54px] md:text-[64px] lg:text-[80px] leading-[1.02] font-light text-t1 mb-6 lg:mb-8 text-balance">
               Build Your Business <em className="not-italic text-ac">Properly.</em>
             </h1>
             <p className="text-[16.5px] text-t2 max-w-[480px] leading-relaxed mb-10">
@@ -82,7 +82,7 @@ export default function HomePage() {
 
       {/* ─── SERVICES ────────────────────────────────────────────────── */}
       <section className="py-28 bg-gl">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <div className="mb-16 max-w-[580px]">
             <p className="eyebrow mb-4">What We Do</p>
             <h2 className="font-display text-[46px] lg:text-[56px] leading-[1.06] font-light text-t1">
@@ -116,7 +116,7 @@ export default function HomePage() {
 
       {/* ─── WHY BUDRUUM ──────────────────────────────────────────────── */}
       <section className="py-28 bg-white">
-        <div className="max-w-screen-2xl mx-auto px-14 grid lg:grid-cols-2 gap-20 items-center">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-2 gap-20 items-center">
           <div>
             <p className="eyebrow mb-6">Why Budruum</p>
             <h2 className="font-display text-[46px] lg:text-[56px] leading-[1.06] font-light text-t1 mb-8">
@@ -148,7 +148,7 @@ export default function HomePage() {
 
       {/* ─── TESTIMONIALS ────────────────────────────────────────────── */}
       <section className="py-28 bg-white">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <div className="mb-16 max-w-[480px]">
             <p className="eyebrow mb-4">Client Stories</p>
             <h2 className="font-display text-[46px] lg:text-[56px] leading-[1.06] font-light text-t1">
@@ -172,7 +172,7 @@ export default function HomePage() {
 
       {/* ─── SINGLE BLACK CTA — only black section on the page ────────── */}
       <section className="py-24 bg-t1 text-center">
-        <div className="max-w-screen-2xl mx-auto px-14">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
           <h2 className="font-display text-[clamp(40px,5vw,64px)] font-light text-white italic mb-5">
             Ready to build something real?
           </h2>
@@ -190,7 +190,7 @@ export default function HomePage() {
 
       {/* ─── CONTACT STRIP ───────────────────────────────────────────── */}
       <div className="bg-gl border-y border-br">
-        <div className="max-w-screen-2xl mx-auto px-14 py-5 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 py-5 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-[13.5px] text-t2">
             Questions? Reach us at{" "}
             <a href="mailto:booking@budruum.co.uk" className="text-t1 font-medium border-b border-t1">

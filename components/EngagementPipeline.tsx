@@ -57,7 +57,7 @@ const STAGES = [
 export default function EngagementPipeline() {
   return (
     <section className="py-28 bg-gl">
-      <div className="max-w-screen-2xl mx-auto px-14">
+      <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
         <div className="text-center mb-16">
           <p className="eyebrow mb-4">How It Works</p>
           <h2 className="font-display text-[46px] lg:text-[56px] leading-[1.06] font-light text-t1">

@@ -44,7 +44,7 @@ export default function TermsPage() {
   return (
     <main>
       {/* HERO */}
-      <section style={{ padding:"80px 56px 72px", background:"#F8F8F8", borderBottom:"1px solid #E8E8E8", textAlign:"center", position:"relative", overflow:"hidden" }}>
+      <section className="px-5 py-12 sm:px-8 sm:py-16 lg:px-14 lg:py-[80px] bg-[#F8F8F8] border-b border-[#E8E8E8] text-center relative overflow-hidden">
         <div style={{ position:"absolute", top:"-100px", left:"50%", transform:"translateX(-50%)", width:"600px", height:"600px", borderRadius:"50%", background:"radial-gradient(circle,rgba(168,143,132,.05) 0%,transparent 65%)", pointerEvents:"none" }} />
         <motion.p className="eyebrow" initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.5, ease:EASE }}>Legal</motion.p>
         <motion.h1 className="font-display font-light text-[#1A1A1A]"
@@ -71,10 +71,10 @@ export default function TermsPage() {
       </section>
 
       {/* BODY */}
-      <div style={{ padding:"72px 56px 88px", display:"grid", gridTemplateColumns:"220px 1fr", gap:"64px", alignItems:"start" }}>
+      <div className="px-5 py-12 sm:px-8 sm:py-14 lg:px-14 lg:py-[72px] grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-10 lg:gap-[64px] items-start">
 
         {/* Sidebar */}
-        <motion.aside style={{ position:"sticky", top:"90px" }}
+        <motion.aside className="hidden lg:block" style={{ position:"sticky", top:"90px" }}
           initial={{ opacity:0, x:-20 }} animate={{ opacity:1, x:0 }} transition={{ duration:0.6, delay:0.2, ease:EASE }}>
           <div style={{ fontSize:"11px", fontWeight:500, letterSpacing:".16em", textTransform:"uppercase" as const, color:"#6B6B6B", marginBottom:"16px" }}>Contents</div>
           <div style={{ display:"flex", flexDirection:"column" as const, gap:"2px" }}>
