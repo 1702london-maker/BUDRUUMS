@@ -36,5 +36,117 @@ ul { list-style: none; }
     letter-spacing: 0.2em;
     color: #A88F84;
     text-transform: uppercase;
+    margin-bottom: 14px;
+    display: block;
   }
+}
+
+@layer components {
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #A88F84;
+    color: #fff;
+    font-size: 13.5px;
+    font-weight: 500;
+    padding: 12px 26px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .btn-primary:hover {
+    background: #8F7870;
+    transform: translateY(-1px);
+  }
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: #1A1A1A;
+    font-size: 13.5px;
+    font-weight: 500;
+    padding: 12px 26px;
+    border-radius: 4px;
+    border: 1px solid #E8E8E8;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: all 0.2s;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .btn-outline:hover {
+    border-color: #A88F84;
+    color: #A88F84;
+  }
+}
+
+/* ── Insight article body ─────────────────────────────────── */
+.insight-body h2 {
+  font-family: var(--hf);
+  font-size: clamp(22px, 2.5vw, 30px);
+  font-weight: 400;
+  color: #1A1A1A;
+  margin: 48px 0 16px;
+  line-height: 1.25;
+}
+.insight-body h2 em { font-style: italic; color: #A88F84; }
+.insight-body h3 {
+  font-family: var(--hf);
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 400;
+  color: #1A1A1A;
+  margin: 32px 0 12px;
+}
+.insight-body p {
+  font-size: 15.5px;
+  color: #3A3A3A;
+  line-height: 1.85;
+  margin-bottom: 20px;
+}
+.insight-body ul {
+  margin: 16px 0 24px 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.insight-body ul li {
+  font-size: 15px;
+  color: #3A3A3A;
+  line-height: 1.75;
+  padding-left: 20px;
+  position: relative;
+}
+.insight-body ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #A88F84;
+}
+.insight-body strong { color: #1A1A1A; font-weight: 500; }
+.art-pullquote {
+  border-left: 3px solid #A88F84;
+  margin: 40px 0;
+  padding: 20px 28px;
+  background: #F8F8F8;
+  border-radius: 0 4px 4px 0;
+}
+.art-pullquote p {
+  font-family: var(--hf);
+  font-size: clamp(18px, 2vw, 22px);
+  font-style: italic;
+  color: #1A1A1A;
+  line-height: 1.55;
+  margin: 0;
 }

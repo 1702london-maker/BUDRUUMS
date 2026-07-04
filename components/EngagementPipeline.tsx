@@ -74,8 +74,7 @@ export default function EngagementPipeline() {
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: i * 0.13, ease: [0.22, 1, 0.36, 1] }}
               className="relative z-10 bg-white border border-br rounded-xl p-7 flex flex-col items-start hover:border-ac/40 hover:shadow-md transition-all duration-300 group"
             >
@@ -98,8 +97,7 @@ export default function EngagementPipeline() {
               <motion.div
                 className="absolute bottom-0 left-6 right-6 h-[2px] bg-ac rounded-full origin-left"
                 initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
+                animate={{ scaleX: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 + i * 0.13, ease: "easeOut" }}
               />
             </motion.div>

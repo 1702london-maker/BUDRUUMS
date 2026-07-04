@@ -1,100 +1,155 @@
 "use client";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import PageHero from "@/components/PageHero";
 import PageCTA from "@/components/PageCTA";
 
 const ARTICLES = [
-  { category: "Strategy",     title: "Why Most Startup Business Plans Fail Investor Scrutiny",         date: "June 2026", read: "6 min read", excerpt: "The difference between a business plan that passes and one that fails often comes down to three overlooked sections." },
-  { category: "Branding",     title: "How to Build a Brand That Survives Your First Five Years",        date: "May 2026",  read: "5 min read", excerpt: "Brand consistency isn't about rigid rules — it's about a foundation flexible enough to evolve without losing identity." },
-  { category: "Finance",      title: "The Financial Model Every Pre-Seed Founder Needs",                date: "May 2026",  read: "8 min read", excerpt: "Before you speak to a single investor, you need three working models. Here's exactly what they should contain." },
-  { category: "Visa",         title: "UK Innovator Founder Visa: A Complete 2026 Guide",               date: "April 2026", read: "10 min read", excerpt: "Everything you need to know about eligibility, endorsing bodies, and how to maximise your application's chance of success." },
-  { category: "Growth",       title: "When to Hire vs When to Outsource as a Early-Stage Founder",     date: "April 2026", read: "5 min read", excerpt: "The decision that destroys more runway than any other. A framework for making it clearly." },
-  { category: "Strategy",     title: "Building a GTM Strategy When You Have No Marketing Budget",       date: "March 2026", read: "7 min read", excerpt: "Resourcefulness beats budget almost every time in the early stages. Here's how to build reach without spending." },
+  { cat: "Practical Guides", href: "/insights/insight-business-plan-cost", title: "How Much Does a Business Plan Cost in the UK?", excerpt: "Prices range from £300 to £5,000+. Understanding what drives the cost — and what you should expect at each level — helps you make a decision based on value rather than just price.", read: "6 min read" },
+  { cat: "Strategy", href: "/insights/insight-business-plan-vs-forecast", title: "Business Plan vs Financial Forecast: What You Actually Need", excerpt: "Two different documents with two different jobs. Most founders need both — but not always at the same time, and not always at the same level of depth.", read: "5 min read" },
+  { cat: "Finance", href: "/insights/insight-cash-flow-forecast-startups", title: "Cash Flow Forecast for Startups: A Simple UK Guide", excerpt: "More businesses fail from running out of cash than from running out of customers. Here is how to build a forecast that actually protects your business.", read: "7 min read" },
+  { cat: "Investment", href: "/insights/insight-what-investors-look-for", title: "What Investors Look For in a Business Plan", excerpt: "Investors read hundreds of plans. Here is what separates the ones they fund from the ones they pass on — and how to ensure yours is on the right side of that line.", read: "7 min read" },
+  { cat: "Planning", href: "/insights/insight-startup-costs-checklist", title: "Startup Costs Checklist UK 2026", excerpt: "The costs most first-time founders underestimate — from company formation and insurance to branding, tech and professional fees. Know before you spend.", read: "8 min read" },
+  { cat: "Funding", href: "/insights/insight-how-to-write-business-plan-funding", title: "How to Write a Business Plan for Funding", excerpt: "A funding-ready business plan is not a general strategy document. It has a specific structure, a specific audience and a specific job. Here is how to build one that works.", read: "8 min read" },
+  { cat: "Finance", href: "/insights/insight-12-vs-36-month-forecast", title: "12-Month vs 36-Month Financial Forecast: Which Do You Need?", excerpt: "The answer depends on your purpose and audience. Knowing which to build — and how to build it credibly — is where most founders need the clearest guidance.", read: "6 min read" },
+  { cat: "Strategy", href: "/insights/insight-why-startup-plans-fail", title: "Why Most Startup Business Plans Fail", excerpt: "The patterns appear consistently. Understanding them does not require a business degree — it requires knowing what the reader on the other side of the table is actually looking for.", read: "6 min read" },
+  { cat: "Planning", href: "/insights/insight-business-plan-visa-funding-strategy", title: "Business Plan for Visa, Funding, or Strategy: What Changes?", excerpt: "A business plan for a UK visa, bank funding, investor pitch and internal strategy are four very different documents. Here is what changes — and what every good plan shares.", read: "6 min read" },
+  { cat: "Start Up", href: "/insights/insight-idea-to-company-structure", title: "How to Turn a Business Idea Into a Real Company", excerpt: "The practical steps that take a founder from idea to a properly structured, legally registered, trading UK business — made in the right order.", read: "8 min read" },
 ];
 
-const CATEGORIES = ["All", "Strategy", "Branding", "Finance", "Visa", "Growth"];
+const FILTERS = ["All Articles", "Practical Guides", "Strategy", "Finance", "Investment", "Planning", "Funding", "Start Up"];
 
 export default function InsightsPage() {
+  const [active, setActive] = useState("All Articles");
+  const filtered = active === "All Articles" ? ARTICLES : ARTICLES.filter(a => a.cat === active);
+
   return (
     <main>
-      <PageHero
-        eyebrow="Insights & Resources"
-        title="Knowledge That"
-        titleAccent="Moves You Forward."
-        subtitle="Practical guides, frameworks, and thinking from the Budruum team — written for founders who are building seriously."
-      />
+      {/* HERO */}
+      <section className="relative overflow-hidden bg-[#F8F8F8] border-b border-[#E8E8E8]"
+        style={{ padding: "92px 56px 84px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "72px", alignItems: "center" }}>
 
-      {/* Category filter — animated */}
-      <section className="bg-gl border-b border-br sticky top-[70px] z-30">
-        <div className="max-w-screen-2xl mx-auto px-14 py-4 flex items-center gap-3 overflow-x-auto">
-          {CATEGORIES.map((cat, i) => (
-            <motion.button
-              key={cat}
-              className={`text-[12.5px] font-medium px-4 py-2 rounded-full border transition-all duration-200 whitespace-nowrap ${cat === "All" ? "bg-ac text-white border-ac" : "bg-white text-t2 border-br hover:border-ac hover:text-ac"}`}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4, delay: i * 0.06 }}
-            >
-              {cat}
-            </motion.button>
+        {/* Left — text */}
+        <motion.div className="relative z-10"
+          initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22,1,0.36,1] }}>
+          <p className="eyebrow">Founder Insights</p>
+          <h1 className="font-display font-light text-[#1A1A1A] mb-[20px]" style={{ fontSize: "clamp(36px,5vw,64px)", lineHeight: 1.08 }}>
+            Build with knowledge.<br/><em className="not-italic text-[#A88F84]">Grow with clarity.</em>
+          </h1>
+          <p className="text-[16px] text-[#6B6B6B] leading-[1.82] mb-8">
+            Practical guides for UK founders on business planning, financial forecasting, funding, and building a properly structured business from the ground up.
+          </p>
+          <Link href="/booking" className="btn-primary inline-flex">
+            Book a Free Consultation
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </Link>
+        </motion.div>
+
+        {/* Right — floating article snippets rising upward, like knowledge flowing */}
+        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8]"
+          style={{ height: "400px", boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
+          initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}>
+          {/* Faint top/bottom fade masks */}
+          <div className="absolute inset-x-0 top-0 h-16 z-10 pointer-events-none" style={{ background: "linear-gradient(to bottom, #F2F2F2, transparent)" }} />
+          <div className="absolute inset-x-0 bottom-0 h-16 z-10 pointer-events-none" style={{ background: "linear-gradient(to top, #F2F2F2, transparent)" }} />
+          <div className="absolute inset-0 flex flex-col justify-end gap-[10px] px-6 pb-8">
+            {[
+              { cat: "Business Planning", title: "How to Write a Business Plan for Funding", delay: 0 },
+              { cat: "Finance",           title: "Cash Flow Forecast for Startups", delay: 0.15 },
+              { cat: "Strategy",          title: "Why Most Startup Business Plans Fail", delay: 0.3 },
+              { cat: "Investment",        title: "What Investors Look For in a Business Plan", delay: 0.45 },
+              { cat: "Planning",          title: "Startup Costs Checklist UK 2026", delay: 0.6 },
+            ].map((a, i) => (
+              <motion.div key={i}
+                className="bg-white border border-[#E8E8E8] rounded-[8px] px-4 py-3 flex items-center gap-3"
+                initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 + a.delay, ease: [0.22, 1, 0.36, 1] }}>
+                <div className="w-[6px] h-[6px] rounded-full bg-[#A88F84] flex-shrink-0" />
+                <div className="min-w-0">
+                  <div className="text-[9px] tracking-[.15em] uppercase text-[#A88F84] font-medium mb-[2px]">{a.cat}</div>
+                  <div className="text-[12px] text-[#1A1A1A] font-medium truncate">{a.title}</div>
+                </div>
+                <svg className="ml-auto flex-shrink-0" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#A88F84" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* FILTER BAR */}
+      <div className="sticky top-[70px] z-30 bg-[#F8F8F8] border-b border-[#E8E8E8]" style={{ padding: "14px 56px" }}>
+        <div className="flex items-center gap-3 overflow-x-auto">
+          {FILTERS.map(f => (
+            <button key={f} onClick={() => setActive(f)}
+              className={`px-5 py-[9px] rounded-[20px] text-[13px] font-medium whitespace-nowrap border transition-all ${active===f ? "bg-[#1A1A1A] text-white border-[#1A1A1A]" : "border-[#E8E8E8] text-[#6B6B6B] hover:border-[#A88F84] hover:text-[#A88F84]"}`}>
+              {f}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* ARTICLES GRID */}
+      <section style={{ padding: "80px 56px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "28px" }}>
+          {filtered.map((a, i) => (
+            <motion.a key={i} href={a.href}
+              className="flex flex-col border border-[#E8E8E8] rounded-[10px] overflow-hidden bg-white transition-all duration-300 hover:border-[#A88F84]/50 hover:shadow-[0_6px_28px_rgba(0,0,0,.09)] no-underline group"
+              initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: i*0.05 }}>
+              <div className="flex flex-col flex-1 p-7">
+                <p className="eyebrow mb-3">{a.cat}</p>
+                <h2 className="font-display text-[21px] font-light text-[#1A1A1A] leading-[1.25] mb-4 group-hover:text-[#A88F84] transition-colors">{a.title}</h2>
+                <p className="text-[13.5px] text-[#6B6B6B] leading-[1.8] flex-1">{a.excerpt}</p>
+              </div>
+              <div className="flex items-center justify-between px-7 py-4 border-t border-[#E8E8E8]">
+                <span className="text-[12.5px] text-[#6B6B6B]">{a.read}</span>
+                <span className="text-[13px] text-[#A88F84] font-medium">Read →</span>
+              </div>
+            </motion.a>
           ))}
         </div>
       </section>
 
-      {/* Articles grid */}
-      <section className="py-24 bg-white">
-        <div className="max-w-screen-2xl mx-auto px-14">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {ARTICLES.map((a, i) => (
-              <motion.article
-                key={a.title}
-                className="group border border-br rounded-xl overflow-hidden hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col"
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.55, delay: (i % 3) * 0.12 }}
-              >
-                {/* Animated colour band */}
-                <motion.div
-                  className="h-1 bg-ac origin-left"
-                  initial={{ scaleX: 0 }}
-                  whileInView={{ scaleX: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.7, delay: 0.2 + (i % 3) * 0.1 }}
-                />
-                <div className="p-7 flex flex-col flex-1">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="text-[10px] font-medium tracking-[0.18em] uppercase text-ac bg-ac/10 px-2 py-1 rounded">{a.category}</span>
-                    <span className="text-[12px] text-t2">{a.read}</span>
-                  </div>
-                  <h3 className="font-display text-[22px] font-medium text-t1 leading-snug mb-3 group-hover:text-ac transition-colors duration-200">{a.title}</h3>
-                  <p className="text-[13.5px] text-t2 leading-relaxed flex-1 mb-6">{a.excerpt}</p>
-                  <div className="flex items-center justify-between pt-4 border-t border-br">
-                    <span className="text-[12px] text-t2">{a.date}</span>
-                    <span className="text-[13px] font-medium text-ac flex items-center gap-1 group-hover:gap-2 transition-all duration-200">Read more →</span>
-                  </div>
-                </div>
-              </motion.article>
-            ))}
+      {/* DEEP READS STRIP */}
+      <section className="text-center bg-[#F2F2F2] border-t border-b border-[#E8E8E8]" style={{ padding: "72px 56px" }}>
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+          <h2 className="font-display font-light text-[#1A1A1A] mb-4" style={{ fontSize: "clamp(28px,3.5vw,44px)" }}>Deeper thinking for serious founders.</h2>
+          <p className="text-[15px] text-[#6B6B6B] max-w-[500px] mx-auto mb-8 leading-[1.85]">Strategy, branding, finance, growth, mindset and networking — longer-form perspectives for founders building with intention.</p>
+          <Link href="/resources" className="btn-primary inline-flex">Explore Deep Reads <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></Link>
+        </motion.div>
+      </section>
+
+      {/* CTA */}
+      <section className="text-center" style={{ padding: "96px 56px" }}>
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+          <p className="eyebrow">Work With Budruum</p>
+          <h2 className="font-display font-light text-[#1A1A1A] mb-4" style={{ fontSize: "clamp(32px,4vw,52px)", lineHeight: 1.1 }}>
+            Ready to build <em className="not-italic text-[#A88F84]">properly?</em>
+          </h2>
+          <p className="text-[15px] text-[#6B6B6B] max-w-[420px] mx-auto mb-9 leading-[1.85]">
+            Whether you need a business plan, a financial forecast or end-to-end startup consultancy — we are here to help you build with structure and confidence.
+          </p>
+          <div className="flex gap-[14px] justify-center flex-wrap">
+            <Link href="/booking" className="btn-primary">Book a Free Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></Link>
+            <Link href="/services" className="btn-outline">View All Services</Link>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* CONTACT STRIP */}
+      <div className="bg-[#F8F8F8] border-t border-b border-[#E8E8E8]" style={{ padding: "28px 56px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
+        <span className="text-[14px] text-[#6B6B6B]">Questions? <Link href="/contact" className="text-[#A88F84] hover:underline">Get in touch</Link> — we respond within 24 hours.</span>
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2 text-[13.5px] text-[#6B6B6B]">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            booking@budruum.co.uk
+          </div>
+          <div className="flex items-center gap-2 text-[13.5px] text-[#6B6B6B]">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.07 2.18 2 2 0 012.18 0h3a2 2 0 012 1.72 12.05 12.05 0 00.57 2.57 2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.51-.9a2 2 0 012.11-.45 12.05 12.05 0 002.57.57A2 2 0 0122 16.92z"/></svg>
+            +44 7919 643 752
           </div>
         </div>
-      </section>
-
-      {/* Newsletter inline */}
-      <section className="py-16 bg-gl">
-        <div className="max-w-screen-2xl mx-auto px-14 max-w-[600px] text-center mx-auto">
-          <p className="eyebrow mb-4">Stay Informed</p>
-          <h2 className="font-display text-[36px] font-light text-t1 mb-4">Get insights in your inbox</h2>
-          <p className="text-[14.5px] text-t2 mb-7">No fluff. Just practical thinking to help you build better.</p>
-          <form className="flex items-stretch gap-3 max-w-[420px] mx-auto" onSubmit={e => e.preventDefault()}>
-            <input type="email" placeholder="Your email address" className="flex-1 text-[13.5px] px-4 py-3 border border-br rounded bg-white outline-none focus:border-ac transition-colors" />
-            <button type="submit" className="px-5 py-3 bg-ac hover:bg-ach text-white text-[13.5px] font-medium rounded transition-colors whitespace-nowrap">Subscribe</button>
-          </form>
-        </div>
-      </section>
-
-      <PageCTA />
+      </div>
     </main>
   );
 }

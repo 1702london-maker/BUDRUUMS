@@ -3,6 +3,38 @@ import { motion } from "framer-motion";
 import PageHero from "@/components/PageHero";
 import PageCTA from "@/components/PageCTA";
 
+function MentorshipPanel() {
+  const messages = [
+    { from:"mentor", text:"What's your biggest block right now?" },
+    { from:"founder", text:"Fundraising pitch — can't land the close." },
+    { from:"mentor", text:"Let's fix your narrative arc. Open with the problem you lived, not the product you built." },
+    { from:"founder", text:"That's it. That changes everything." },
+  ];
+  return (
+    <div className="absolute inset-0 p-5 flex flex-col justify-center gap-2">
+      {/* Two avatars connected */}
+      <div className="flex items-center justify-center gap-4 mb-2">
+        <motion.div className="w-10 h-10 rounded-full bg-[#1A1A1A] flex items-center justify-center text-white text-[13px] font-display"
+          initial={{scale:0}} animate={{scale:1}} transition={{delay:0.1,type:"spring",stiffness:200}}>M</motion.div>
+        <motion.div className="flex-1 h-[2px] bg-gradient-to-r from-[#1A1A1A] to-[#A88F84]"
+          initial={{scaleX:0}} animate={{scaleX:1}} transition={{delay:0.4, duration:0.5}}
+          style={{maxWidth:60}}/>
+        <motion.div className="w-10 h-10 rounded-full bg-[#A88F84] flex items-center justify-center text-white text-[13px] font-display"
+          initial={{scale:0}} animate={{scale:1}} transition={{delay:0.3,type:"spring",stiffness:200}}>F</motion.div>
+      </div>
+      {/* Chat bubbles */}
+      {messages.map((m,i)=>(
+        <motion.div key={i}
+          className={`max-w-[80%] rounded-[10px] px-3 py-2 text-[11px] leading-[1.6] ${m.from==="mentor"?"bg-[#1A1A1A] text-white self-start":"bg-[#A88F84] text-white self-end ml-auto"}`}
+          initial={{opacity:0, y:8}} animate={{opacity:1, y:0}}
+          transition={{duration:0.4, delay:0.5+i*0.35}}>
+          {m.text}
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
 const TIERS = [
   { name: "Single Strategy Session", price: "£300", duration: "90 minutes", freq: "One-off", desc: "A focused session on one challenge — fundraising, pricing, team structure, GTM, or anything else you're working through.", includes: ["90-minute 1:1 session", "Pre-session brief review", "Written notes & action plan", "14-day follow-up by email"] },
   { name: "Monthly Founder Retainer", price: "£1,500", duration: "Monthly", freq: "Per month", desc: "Ongoing advisory access with a senior Budruum founder. Ideal for founders scaling past their first major milestone.", includes: ["2 × 60-min sessions per month", "Unlimited email access", "Priority document review", "Monthly progress check-in"] },
@@ -15,7 +47,8 @@ export default function MentorshipPage() {
   return (
     <main>
       <PageHero eyebrow="Mentorship" title="Guidance From" titleAccent="Someone Who's Done It."
-        subtitle="One-to-one mentorship from a founder with real experience building and scaling businesses across multiple sectors." />
+        subtitle="One-to-one mentorship from a founder with real experience building and scaling businesses across multiple sectors."
+        panel={<MentorshipPanel />} />
 
       {/* Tiers */}
       <section className="py-24 bg-gl">
@@ -25,8 +58,7 @@ export default function MentorshipPage() {
           <div className="grid md:grid-cols-3 gap-8">
             {TIERS.map((t, i) => (
               <motion.div key={t.name} className={`rounded-xl p-8 border flex flex-col ${i === 1 ? "border-ac bg-white shadow-lg" : "bg-white border-br"}`}
-                initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }} transition={{ duration: 0.55, delay: i * 0.15 }}>
+                initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: i * 0.15 }}>
                 {i === 1 && <span className="text-[10px] font-medium tracking-[0.15em] uppercase bg-ac text-white px-2 py-1 rounded w-fit mb-4">Most Popular</span>}
                 <p className="text-[11px] tracking-[0.15em] uppercase text-t2 mb-2">{t.freq}</p>
                 <div className="font-display text-[40px] font-light text-ac leading-none mb-1">{t.price}</div>
@@ -55,8 +87,7 @@ export default function MentorshipPage() {
           <div className="flex flex-wrap gap-3">
             {TOPICS.map((topic, i) => (
               <motion.span key={topic} className="text-[13.5px] text-t1 border border-br bg-gl px-4 py-2 rounded-full hover:border-ac hover:text-ac transition-all cursor-default"
-                initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }} transition={{ duration: 0.35, delay: i * 0.05 }}>
+                initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.35, delay: i * 0.05 }}>
                 {topic}
               </motion.span>
             ))}

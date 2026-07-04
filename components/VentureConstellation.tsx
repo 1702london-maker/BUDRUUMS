@@ -62,6 +62,9 @@ function OrbitingNodes() {
 }
 
 export default function VentureConstellation() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   return (
     <div className="relative w-full max-w-[560px] aspect-square mx-auto select-none">
       <svg
@@ -82,7 +85,7 @@ export default function VentureConstellation() {
         ))}
 
         {/* Orbiting nodes (client-only, updates every frame) */}
-        <OrbitingNodes />
+        {mounted && <OrbitingNodes />}
       </svg>
 
       {/* Centre hub */}

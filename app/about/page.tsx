@@ -1,130 +1,250 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import PageHero from "@/components/PageHero";
 import PageCTA from "@/components/PageCTA";
-
-const VALUES = [
-  { num: "01", title: "Build on Truth", body: "We only recommend what we genuinely believe will work. No upselling, no padding. Every engagement is scoped to what you actually need." },
-  { num: "02", title: "Execution Over Advice", body: "Consultants talk. We build. Every engagement ends with a tangible asset — a brand, a plan, a model, a site — not just a slide deck." },
-  { num: "03", title: "Founder First", body: "We structure our pricing, processes, and communication around the reality of being a founder — lean on time, big on ambition." },
-  { num: "04", title: "Long-Term Thinking", body: "The assets we build are designed to compound. A brand that still feels right in 10 years. A financial model you can actually maintain." },
-];
-
-const TEAM = [
-  { name: "Director", role: "Strategy & Growth", bio: "Built and scaled multiple UK ventures across tech, hospitality, and consulting. Founded Budruum to give every founder access to the support previously reserved for funded startups." },
-  { name: "Brand Lead", role: "Identity & Design", bio: "15 years shaping visual identities for startups and established brands. Specialises in translating complex ideas into clear, compelling brand systems." },
-  { name: "Finance Director", role: "Financial Modelling", bio: "Chartered accountant with deep experience in startup finance. Has supported over 60 founders with investment-grade financial models." },
-];
 
 export default function AboutPage() {
   return (
     <main>
-      <PageHero
-        eyebrow="About Budruum"
-        title="Built by Founders,"
-        titleAccent="for Founders."
-        subtitle="Budruum exists because the support most founders need — real strategy, proper structure, expert execution — shouldn't require a Series A to access."
-      />
+      {/* ABOUT HERO */}
+      <section style={{ minHeight: "70vh", display: "grid", gridTemplateColumns: "1fr 1fr", alignItems: "center", gap: "80px", padding: "100px 56px" }}>
+        <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+          <p className="eyebrow">Who We Are</p>
+          <h1 className="font-display font-light text-[#1A1A1A] mb-6" style={{ fontSize: "clamp(44px,5vw,68px)", lineHeight: 1.1 }}>
+            We build businesses with <em className="not-italic text-[#A88F84]">structure.</em>
+          </h1>
+          <p className="text-[16px] text-[#6B6B6B] leading-[1.75] max-w-[440px] mb-9">
+            Budruum was founded for one reason — too many talented founders were building on guesswork. We exist to change that by providing the strategy, systems, and support that serious businesses require.
+          </p>
+          <Link href="/booking" className="btn-primary inline-flex items-center gap-2">
+            Work With Us <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </Link>
+        </motion.div>
 
-      {/* MISSION — animated counter stats */}
-      <section className="py-24 bg-gl">
-        <div className="max-w-screen-2xl mx-auto px-14 grid lg:grid-cols-2 gap-20 items-center">
-          <div>
-            <p className="eyebrow mb-5">Our Mission</p>
-            <h2 className="font-display text-[42px] lg:text-[52px] font-light text-t1 leading-tight mb-6">
-              Every founder deserves a proper foundation.
+        {/* Animated panel — Budruum logo at the centre, orbit represents global reach */}
+        <motion.div className="relative"
+          initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>
+          <div className="w-full bg-[#F2F2F2] border border-[#E8E8E8] rounded-[2px] overflow-hidden flex items-center justify-center" style={{ height: "500px" }}>
+            <div className="relative w-full h-full flex items-center justify-center">
+              {/* Outer slow rings */}
+              {[180, 130, 80].map((r, i) => (
+                <motion.div key={i} className="absolute border border-[#A88F84]/20 rounded-full"
+                  style={{ width: r * 2, height: r * 2 }}
+                  animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
+                  transition={{ duration: 22 + i * 9, repeat: Infinity, ease: "linear" }} />
+              ))}
+              {/* Orbiting dots at r=130 */}
+              {[0, 60, 120, 180, 240, 300].map((angle, i) => (
+                <motion.div key={i} className="absolute w-[7px] h-[7px] rounded-full bg-[#A88F84]"
+                  style={{ left: `calc(50% + ${130 * Math.cos((angle - 90) * Math.PI / 180)}px - 3.5px)`, top: `calc(50% + ${130 * Math.sin((angle - 90) * Math.PI / 180)}px - 3.5px)` }}
+                  animate={{ opacity: [0.2, 1, 0.2], scale: [0.8, 1.3, 0.8] }}
+                  transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.4, ease: "easeInOut" }} />
+              ))}
+              {/* Logo centre — actual Budruum logo image */}
+              <motion.div className="relative flex items-center justify-center"
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                style={{ width: 110, height: 110 }}>
+                <div className="absolute inset-0 rounded-full bg-white border border-[#A88F84]/25" style={{ boxShadow: "0 4px 24px rgba(168,143,132,.2)" }} />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/logo.png" alt="Budruum" style={{ width: 72, height: "auto", position: "relative", zIndex: 1, objectFit: "contain" }} />
+              </motion.div>
+              {/* Pulse ring from logo */}
+              <motion.div className="absolute rounded-full border border-[#A88F84]/30"
+                animate={{ width: [110, 160, 110], height: [110, 160, 110], opacity: [0.5, 0, 0.5] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut" }} />
+            </div>
+          </div>
+          <motion.div className="absolute bg-white border border-[#E8E8E8] rounded-[4px] p-5"
+            style={{ bottom: "40px", left: "-40px", boxShadow: "0 8px 32px rgba(0,0,0,.08)" }}
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}>
+            <div className="font-display text-[36px] font-light text-[#1A1A1A]">50+</div>
+            <div className="text-[12px] text-[#6B6B6B] mt-[2px]">Businesses across 15+ countries</div>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* STORY */}
+      <section className="bg-[#F8F8F8]" style={{ padding: "100px 56px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "start" }}>
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <p className="eyebrow">Our Story</p>
+            <h2 className="font-display font-light text-[#1A1A1A] mb-7" style={{ fontSize: "clamp(36px,4vw,52px)", lineHeight: 1.2 }}>
+              Built out of frustration with the way things were done.
             </h2>
-            <p className="text-[15.5px] text-t2 leading-relaxed mb-5">
-              We started Budruum after watching too many good ideas fail — not because the market wasn't there, but because the foundations weren't. No clear brand. No financial model. No strategy document that could survive a tough investor question.
+            <p className="text-[14.5px] text-[#6B6B6B] leading-[1.8] mb-5">
+              Budruum was created after witnessing the same pattern repeat itself — founders with genuine vision, real potential, and serious ambition, being let down by a lack of structure. No clear plan. No financial model. No brand that reflected what they were actually building.
             </p>
-            <p className="text-[15.5px] text-t2 leading-relaxed mb-8">
-              We built the firm we wished existed when we were starting out. One that gives you real outputs, real expertise, and a team that treats your business like it matters — because it does.
+            <p className="text-[14.5px] text-[#6B6B6B] leading-[1.8] mb-5">
+              We built Budruum to be the partner that changes that. Not a consultancy that tells you what you want to hear, but one that gives you what your business actually needs — strategy before speed, structure before scale.
             </p>
-            <Link href="/booking" className="inline-flex items-center gap-2 bg-ac hover:bg-ach text-white text-[13.5px] font-medium px-7 py-3 rounded transition-all duration-200">
-              Book a Free Discovery Call
-            </Link>
-          </div>
-          {/* Animated stat blocks */}
-          <div className="grid grid-cols-2 gap-6">
-            {[
-              { value: "180+", label: "Founders Supported", delay: 0 },
-              { value: "£40M+", label: "Client Capital Raised", delay: 0.1 },
-              { value: "12", label: "Industry Sectors", delay: 0.2 },
-              { value: "8", label: "Portfolio Ventures", delay: 0.3 },
-            ].map((s) => (
-              <motion.div
-                key={s.label}
-                className="bg-white rounded-xl p-8 border border-br text-center"
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.55, delay: s.delay }}
-              >
-                <div className="font-display text-[42px] font-light text-ac">{s.value}</div>
-                <div className="text-[12.5px] text-t2 mt-2 tracking-wide">{s.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+            <p className="text-[14.5px] text-[#6B6B6B] leading-[1.8]">
+              Every client that comes through Budruum receives the same standard: careful, considered, and built to last. Whether you are at the idea stage or scaling an existing operation, we bring the same rigour to every engagement.
+            </p>
+          </motion.div>
 
-      {/* VALUES — staggered reveal */}
-      <section className="py-24 bg-white">
-        <div className="max-w-screen-2xl mx-auto px-14">
-          <div className="mb-14">
-            <p className="eyebrow mb-4">What We Stand For</p>
-            <h2 className="font-display text-[42px] lg:text-[52px] font-light text-t1">Our Values</h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {VALUES.map((v, i) => (
-              <motion.div
-                key={v.num}
-                className="border-t-2 border-ac pt-6"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.55, delay: i * 0.12 }}
-              >
-                <span className="text-[11px] font-medium tracking-[0.2em] text-ac uppercase">{v.num}</span>
-                <h3 className="font-display text-[22px] font-medium text-t1 mt-3 mb-3">{v.title}</h3>
-                <p className="text-[13.5px] text-t2 leading-relaxed">{v.body}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* TEAM — cards with hover lift */}
-      <section className="py-24 bg-gl">
-        <div className="max-w-screen-2xl mx-auto px-14">
-          <div className="mb-14">
-            <p className="eyebrow mb-4">The Team</p>
-            <h2 className="font-display text-[42px] lg:text-[52px] font-light text-t1">People Behind the Work</h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {TEAM.map((t, i) => (
-              <motion.div
-                key={t.name}
-                className="bg-white rounded-xl p-8 border border-br hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.55, delay: i * 0.12 }}
-              >
-                <div className="w-16 h-16 rounded-full bg-ac/10 border border-ac/20 flex items-center justify-center mb-5">
-                  <span className="font-display text-[24px] text-ac font-light">{t.name[0]}</span>
+          {/* Animated panel replacing story image */}
+          <motion.div className="bg-white border border-[#E8E8E8] rounded-[2px] overflow-hidden flex items-center justify-center"
+            style={{ height: "480px" }}
+            initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}>
+            <div className="relative w-full h-full flex items-center justify-center p-10">
+              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 480" fill="none">
+                {[0, 1, 2, 3].map(i => (
+                  <motion.path key={i}
+                    d={`M ${50 + i * 80} 0 Q ${100 + i * 60} 240 ${50 + i * 80} 480`}
+                    stroke="#A88F84" strokeWidth="0.5" strokeOpacity="0.3"
+                    initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+                    transition={{ duration: 2, delay: i * 0.3, ease: "easeInOut" }} />
+                ))}
+              </svg>
+              <div className="relative z-10 text-center">
+                <div className="font-display text-[80px] font-light leading-none" style={{ color: "rgba(26,26,26,0.05)" }}>2019</div>
+                <div className="mt-4 space-y-3">
+                  {["Strategy before speed", "Structure before scale", "Clarity before execution"].map((line, i) => (
+                    <motion.div key={i} className="text-[13px] text-[#6B6B6B] tracking-[.1em]"
+                      initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: 0.5 + i * 0.2 }}>
+                      — {line}
+                    </motion.div>
+                  ))}
                 </div>
-                <h3 className="font-display text-[22px] font-medium text-t1 mb-1">{t.name}</h3>
-                <p className="text-[12px] tracking-[0.12em] uppercase text-ac mb-4">{t.role}</p>
-                <p className="text-[13.5px] text-t2 leading-relaxed">{t.bio}</p>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      <PageCTA />
+      {/* VALUES */}
+      <section style={{ padding: "100px 56px" }}>
+        <div className="text-center mb-16">
+          <p className="eyebrow">What We Stand For</p>
+          <h2 className="font-display font-light text-[#1A1A1A] mb-4" style={{ fontSize: "clamp(36px,4vw,52px)", lineHeight: 1.2 }}>Principles that guide every engagement.</h2>
+          <p className="text-[15px] text-[#6B6B6B] max-w-[520px] mx-auto">Our values are not decorative. They shape how we work, who we work with, and what we deliver.</p>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "2px" }}>
+          {[
+            { n: "01", title: "Structure over guesswork", desc: "Every decision we make and every recommendation we give is grounded in research, analysis, and experience — never assumption." },
+            { n: "02", title: "Strategy before execution", desc: "Moving fast without direction is expensive. We invest time in understanding your position before we build anything." },
+            { n: "03", title: "Long-term growth over shortcuts", desc: "We build for businesses that want to last. That means we are not interested in tactics that look good today but create problems tomorrow." },
+          ].map((v, i) => (
+            <motion.div key={i} className="bg-[#F8F8F8] transition-colors duration-300 hover:border-t-[#A88F84]"
+              style={{ padding: "52px 40px", borderTop: "3px solid transparent" }}
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}>
+              <p className="eyebrow mb-5">{v.n}</p>
+              <h3 className="font-display text-[26px] font-light text-[#1A1A1A] mb-4">{v.title}</h3>
+              <p className="text-[14px] text-[#6B6B6B] leading-[1.75]">{v.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* WHAT MAKES US DIFFERENT */}
+      <section className="bg-[#F8F8F8]" style={{ padding: "100px 56px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
+          {/* Animated panel replacing diff image */}
+          <motion.div className="bg-white border border-[#E8E8E8] rounded-[2px] overflow-hidden"
+            style={{ height: "460px" }}
+            initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}>
+            <div className="relative w-full h-full flex items-center justify-center">
+              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 460" fill="none">
+                {Array.from({ length: 10 }).map((_, i) => (
+                  <line key={`h${i}`} x1="0" y1={46 * i} x2="400" y2={46 * i} stroke="#A88F84" strokeWidth="0.4" strokeOpacity="0.15"/>
+                ))}
+                {Array.from({ length: 9 }).map((_, i) => (
+                  <line key={`v${i}`} x1={50 * i} y1="0" x2={50 * i} y2="460" stroke="#A88F84" strokeWidth="0.4" strokeOpacity="0.15"/>
+                ))}
+              </svg>
+              <div className="relative z-10 flex flex-col gap-4 p-8 w-full">
+                {["01 We only work with founders we believe in", "02 We cover the full spectrum", "03 We deliver work that stands up"].map((item, i) => (
+                  <motion.div key={i} className="bg-white/80 border border-[#E8E8E8] rounded p-4"
+                    initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.3 + i * 0.15 }}>
+                    <p className="text-[13px] text-[#6B6B6B]">{item}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
+            <p className="eyebrow">What Makes Us Different</p>
+            <h2 className="font-display font-light text-[#1A1A1A] mb-9" style={{ fontSize: "clamp(34px,4vw,48px)" }}>We are invested in your outcome.</h2>
+            <div className="flex flex-col gap-7">
+              {[
+                { n: "01", title: "We only work with founders we believe in", desc: "Budruum is selective by design. Every client relationship begins with a consultation because the fit matters as much as the brief." },
+                { n: "02", title: "We cover the full spectrum", desc: "From brand identity to financial forecasting, we provide joined-up support rather than isolated deliverables that don't connect." },
+                { n: "03", title: "We deliver work that stands up", desc: "Every document, brand, or digital product we produce is built to a standard we would be proud to present to any investor, partner, or customer." },
+              ].map((p, i) => (
+                <div key={i} className="flex gap-5 pb-7 border-b border-[#E8E8E8] last:border-0">
+                  <div className="font-display text-[28px] font-light text-[#A88F84] flex-shrink-0 leading-[1]">{p.n}</div>
+                  <div>
+                    <h4 className="text-[15px] font-medium text-[#1A1A1A] mb-2">{p.title}</h4>
+                    <p className="text-[13.5px] text-[#6B6B6B] leading-[1.7]">{p.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* WHO WE WORK WITH */}
+      <section style={{ padding: "100px 56px" }}>
+        <div className="text-center mb-14">
+          <p className="eyebrow">Who We Work With</p>
+          <h2 className="font-display font-light text-[#1A1A1A] mb-4" style={{ fontSize: "clamp(36px,4vw,52px)" }}>Built for builders.</h2>
+          <p className="text-[15px] text-[#6B6B6B] max-w-[520px] mx-auto">Budruum works with a specific kind of client — one who values quality, moves with intention, and understands that the right foundation changes everything.</p>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "24px" }}>
+          {[
+            { title: "Founders", desc: "Individuals with a clear vision who need the structure, strategy, and assets to bring it to life properly." },
+            { title: "Startups", desc: "Early-stage businesses that need to move from concept to credibility — fast, but without cutting corners." },
+            { title: "Growing Businesses", desc: "Established operations looking to professionalise, rebrand, or build the infrastructure to support their next stage." },
+            { title: "Vision-Led Brands", desc: "Businesses that know what they stand for and need a partner who can translate that into tangible, lasting assets." },
+          ].map((c, i) => (
+            <motion.div key={i} className="border border-[#E8E8E8] rounded-[2px] transition-all duration-300 hover:shadow-[0_8px_32px_rgba(0,0,0,.08)] hover:-translate-y-1"
+              style={{ padding: "36px 32px" }}
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}>
+              <h4 className="font-display text-[22px] font-light text-[#1A1A1A] mb-3">{c.title}</h4>
+              <p className="text-[13.5px] text-[#6B6B6B] leading-[1.65]">{c.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <motion.section className="text-center bg-[#1A1A1A]" style={{ padding: "100px 56px" }}
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
+        <h2 className="font-display font-light text-white mb-5" style={{ fontSize: "clamp(40px,5vw,60px)", fontStyle: "italic" }}>Build it right from the start.</h2>
+        <p className="text-[15px] max-w-[460px] mx-auto mb-9 leading-[1.85]" style={{ color: "rgba(255,255,255,.6)" }}>
+          One focused conversation is all it takes to understand whether we are the right partner for your business.
+        </p>
+        <Link href="/booking" className="btn-primary inline-flex items-center gap-2">
+          Book a Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </Link>
+      </motion.section>
+
+      {/* CONTACT STRIP */}
+      <div className="bg-[#F8F8F8] border-t border-b border-[#E8E8E8] flex items-center justify-between gap-6 flex-wrap" style={{ padding: "28px 56px" }}>
+        <p className="text-[13.5px] text-[#6B6B6B]">Questions? Reach us at <a href="mailto:booking@budruum.co.uk" className="text-[#1A1A1A] font-medium border-b border-[#1A1A1A]">booking@budruum.co.uk</a></p>
+        <div className="flex gap-10 flex-wrap">
+          {[
+            { icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A88F84" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>, text: "booking@budruum.co.uk" },
+            { icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A88F84" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>, text: "Response within 24 hours" },
+            { icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A88F84" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>, text: "Available globally" },
+          ].map((item, i) => (
+            <div key={i} className="flex items-center gap-[10px] text-[13px] text-[#6B6B6B]">
+              {item.icon}{item.text}
+            </div>
+          ))}
+        </div>
+      </div>
     </main>
   );
 }
