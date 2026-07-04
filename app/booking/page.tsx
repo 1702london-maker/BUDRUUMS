@@ -9,10 +9,10 @@ function CalendarPanel() {
   const booked = [3,8,11,16];
   const selected = 14;
   return (
-    <div className="absolute inset-0 p-5 flex flex-col gap-3">
+    <div className="absolute inset-0 p-4 sm:p-5 flex flex-col gap-2 sm:gap-3">
       <motion.div className="flex items-center justify-between"
         initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.2}}>
-        <p className="font-display text-[16px] text-[#1A1A1A]">July 2026</p>
+        <p className="font-display text-[15px] sm:text-[16px] text-[#1A1A1A]">July 2026</p>
         <div className="flex gap-2">
           <div className="w-6 h-6 rounded border border-[#E8E8E8] flex items-center justify-center text-[10px] text-[#6B6B6B]">‹</div>
           <div className="w-6 h-6 rounded border border-[#E8E8E8] flex items-center justify-center text-[10px] text-[#6B6B6B]">›</div>
@@ -29,7 +29,7 @@ function CalendarPanel() {
           const isSel = d === selected;
           return (
             <motion.div key={d}
-              className={`aspect-square rounded-[5px] flex items-center justify-center text-[11px] font-medium cursor-pointer transition-colors
+              className={`aspect-square rounded-[5px] flex items-center justify-center text-[10px] sm:text-[11px] font-medium cursor-pointer transition-colors
                 ${isSel?"bg-[#A88F84] text-white":isBooked?"bg-[#F2F2F2] text-[#6B6B6B]":"bg-white border border-[#E8E8E8] text-[#1A1A1A] hover:border-[#A88F84]"}`}
               initial={{scale:0, opacity:0}} animate={{scale:1, opacity:1}}
               transition={{duration:0.25, delay:0.3+i*0.03, type:"spring"}}>

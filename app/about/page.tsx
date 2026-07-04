@@ -51,11 +51,10 @@ export default function AboutPage() {
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut" }} />
             </div>
           </div>
-          <motion.div className="absolute bg-white border border-[#E8E8E8] rounded-[4px] p-5"
-            style={{ bottom: "40px", left: "-20px", boxShadow: "0 8px 32px rgba(0,0,0,.08)" }}
+          <motion.div className="relative mt-4 bg-white border border-[#E8E8E8] rounded-[4px] p-4 sm:p-5 lg:absolute lg:mt-0 lg:bottom-10 lg:left-[-20px] shadow-[0_8px_32px_rgba(0,0,0,.08)]"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}>
-            <div className="font-display text-[36px] font-light text-[#1A1A1A]">50+</div>
+            <div className="font-display text-[30px] sm:text-[36px] font-light text-[#1A1A1A]">50+</div>
             <div className="text-[12px] text-[#6B6B6B] mt-[2px]">Businesses across 15+ countries</div>
           </motion.div>
         </motion.div>

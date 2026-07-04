@@ -10,32 +10,32 @@ function SocialPanel() {
     { likes: "3.8k", comments: "246", label: "Founder insight" },
   ];
   return (
-    <div className="absolute inset-0 p-5 flex flex-col justify-center gap-3">
+    <div className="absolute inset-0 p-4 sm:p-5 flex flex-col justify-center gap-2.5 sm:gap-3">
       {posts.map((p,i)=>(
         <motion.div key={i}
-          className="bg-white rounded-[10px] border border-[#E8E8E8] flex items-center gap-4 px-4 py-3"
+          className="bg-white rounded-[10px] border border-[#E8E8E8] flex items-center gap-3 sm:gap-4 px-3 sm:px-4 py-3"
           initial={{opacity:0, x:40}} animate={{opacity:1, x:0}}
           transition={{duration:0.5, delay:0.3+i*0.2, ease:[0.22,1,0.36,1]}}>
-          <div className="w-9 h-9 rounded-[6px] bg-[#F2F2F2] border border-[#E8E8E8] flex-shrink-0"/>
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-[6px] bg-[#F2F2F2] border border-[#E8E8E8] flex-shrink-0"/>
           <div className="flex-1 min-w-0">
-            <p className="text-[12px] text-[#1A1A1A] font-medium truncate">{p.label}</p>
-            <div className="flex items-center gap-3 mt-1">
+            <p className="text-[11.5px] sm:text-[12px] text-[#1A1A1A] font-medium truncate">{p.label}</p>
+            <div className="flex items-center gap-2 sm:gap-3 mt-1">
               <span className="text-[10px] text-[#6B6B6B]">♥ {p.likes}</span>
               <span className="text-[10px] text-[#6B6B6B]">💬 {p.comments}</span>
             </div>
           </div>
-          <div className="w-[40px] h-[4px] bg-[#F2F2F2] rounded-full overflow-hidden">
+          <div className="hidden sm:block w-[40px] h-[4px] bg-[#F2F2F2] rounded-full overflow-hidden">
             <motion.div className="h-full bg-[#A88F84] rounded-full"
               initial={{width:0}} animate={{width:"100%"}}
               transition={{duration:0.6, delay:0.6+i*0.2}}/>
           </div>
         </motion.div>
       ))}
-      <motion.div className="flex items-center justify-center gap-6 pt-2"
+      <motion.div className="flex items-center justify-center gap-3 sm:gap-6 pt-2"
         initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.4}}>
         {[{v:"↑ 284%",l:"Reach"},{v:"↑ 91%",l:"Engagement"},{v:"↑ 47%",l:"Conversions"}].map((s,i)=>(
           <div key={i} className="text-center">
-            <div className="text-[12px] font-medium text-[#A88F84]">{s.v}</div>
+            <div className="text-[11px] sm:text-[12px] font-medium text-[#A88F84]">{s.v}</div>
             <div className="text-[9px] text-[#6B6B6B]">{s.l}</div>
           </div>
         ))}

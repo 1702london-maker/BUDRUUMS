@@ -74,11 +74,11 @@ export default function FAQPage() {
         </motion.div>
 
         {/* Live Q&A animation */}
-        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8] h-[260px] sm:h-[320px] lg:h-[400px]"
+        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8] h-[320px] sm:h-[340px] lg:h-[400px]"
           style={{ boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
           initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>
-          <div className="absolute inset-0 flex flex-col justify-center gap-4 px-8 py-6">
+          <div className="absolute inset-0 flex flex-col justify-center gap-3 sm:gap-4 px-4 sm:px-8 py-5 sm:py-6">
             {[
               { side: "left",  label: "Q", text: "How long does a project take?", delay: 0.2 },
               { side: "right", label: "A", text: "Most are delivered within 5–10 working days.", delay: 0.8 },
@@ -92,10 +92,10 @@ export default function FAQPage() {
                 initial={{ opacity: 0, x: msg.side === "left" ? -20 : 20, y: 6 }}
                 animate={{ opacity: 1, x: 0, y: 0 }}
                 transition={{ duration: 0.45, delay: msg.delay, ease: [0.22, 1, 0.36, 1] }}>
-                <div className={`w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] font-bold ${msg.side === "left" ? "bg-[#E8E8E8] text-[#6B6B6B]" : "bg-[#A88F84] text-white"}`}>
+                <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] font-bold ${msg.side === "left" ? "bg-[#E8E8E8] text-[#6B6B6B]" : "bg-[#A88F84] text-white"}`}>
                   {msg.label}
                 </div>
-                <div className={`rounded-[12px] px-4 py-2 max-w-[75%] text-[12.5px] leading-[1.6] ${msg.side === "left" ? "bg-white border border-[#E8E8E8] text-[#1A1A1A] rounded-bl-[4px]" : "bg-[#A88F84]/10 border border-[#A88F84]/20 text-[#1A1A1A] rounded-br-[4px]"}`}>
+                <div className={`rounded-[12px] px-3 sm:px-4 py-2 max-w-[82%] sm:max-w-[75%] text-[11.5px] sm:text-[12.5px] leading-[1.5] sm:leading-[1.6] ${msg.side === "left" ? "bg-white border border-[#E8E8E8] text-[#1A1A1A] rounded-bl-[4px]" : "bg-[#A88F84]/10 border border-[#A88F84]/20 text-[#1A1A1A] rounded-br-[4px]"}`}>
                   {msg.text}
                 </div>
               </motion.div>

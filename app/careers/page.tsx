@@ -54,11 +54,11 @@ export default function CareersPage() {
           </div>
         </motion.div>
 
-        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8] h-[260px] sm:h-[320px] lg:h-[400px]"
+        <motion.div className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8] h-[330px] sm:h-[340px] lg:h-[400px]"
           style={{ boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
           initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}>
-          <div className="absolute inset-0 flex flex-col justify-center gap-[10px] px-7 py-6">
+          <div className="absolute inset-0 flex flex-col justify-center gap-2 sm:gap-[10px] px-4 sm:px-7 py-5 sm:py-6">
             <motion.div className="flex items-center gap-2 mb-1"
               initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }}>
               <div className="w-2 h-2 rounded-full bg-[#A88F84]" />
@@ -74,13 +74,13 @@ export default function CareersPage() {
               { role: "Graphic Designer",    type: "Freelance", status: "Open",  dot: "#22c55e" },
             ].map((r, i) => (
               <motion.div key={r.role}
-                className="flex items-center gap-3 bg-white border border-[#E8E8E8] rounded-[8px] px-4 py-[10px]"
+                className="flex items-center gap-2 sm:gap-3 bg-white border border-[#E8E8E8] rounded-[8px] px-3 sm:px-4 py-2 sm:py-[10px]"
                 initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: 0.3 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}>
                 <div className="w-[6px] h-[6px] rounded-full flex-shrink-0" style={{ background: r.dot }} />
-                <span className="text-[12.5px] font-medium text-[#1A1A1A] flex-1">{r.role}</span>
-                <span className="text-[11px] text-[#6B6B6B]">{r.type}</span>
-                <span className={`text-[10px] px-2 py-[2px] rounded font-medium ${r.status === "Open" ? "bg-[#A88F84]/10 text-[#A88F84]" : "bg-amber-50 text-amber-600"}`}>{r.status}</span>
+                <span className="text-[11.5px] sm:text-[12.5px] font-medium text-[#1A1A1A] flex-1 min-w-0 truncate">{r.role}</span>
+                <span className="hidden sm:inline text-[11px] text-[#6B6B6B]">{r.type}</span>
+                <span className={`text-[9.5px] sm:text-[10px] px-2 py-[2px] rounded font-medium flex-shrink-0 ${r.status === "Open" ? "bg-[#A88F84]/10 text-[#A88F84]" : "bg-amber-50 text-amber-600"}`}>{r.status}</span>
                 <motion.div animate={{ x: [0, 3, 0] }} transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.3 }}>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#A88F84" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </motion.div>

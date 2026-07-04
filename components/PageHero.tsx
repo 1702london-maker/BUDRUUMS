@@ -17,10 +17,10 @@ export default function PageHero({ eyebrow, title, titleAccent, subtitle, bg = "
   if (panel) {
     return (
       <section className={`relative overflow-hidden border-b border-[#E8E8E8] ${bg}
-        px-5 pt-14 pb-10
+        px-5 pt-12 pb-10
         sm:px-8 sm:pt-16 sm:pb-14
         lg:px-14 lg:pt-[92px] lg:pb-[84px]
-        grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[72px] items-center`}>
+        grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-[72px] items-center`}>
         <motion.div className="relative z-10"
           initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: EASE }}>
@@ -37,7 +37,7 @@ export default function PageHero({ eyebrow, title, titleAccent, subtitle, bg = "
 
         {/* Panel — visible on all screen sizes */}
         <motion.div
-          className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8] w-full h-[260px] sm:h-[320px] lg:h-[400px]"
+          className="relative rounded-[14px] overflow-hidden bg-[#F2F2F2] border border-[#E8E8E8] w-full h-[300px] sm:h-[320px] lg:h-[400px]"
           style={{ boxShadow: "0 6px 28px rgba(0,0,0,.09)" }}
           initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.25, ease: EASE }}
