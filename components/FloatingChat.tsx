@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
-const GREET = "Hi! I'm Jen from Budruum. I can answer questions about our services, pricing, or help you figure out which engagement is right for you. How can I help?";
+const GREET = "Hello, I am Jen. How may I help you today?";
 
 export default function FloatingChat() {
   const [open, setOpen] = useState(false);
