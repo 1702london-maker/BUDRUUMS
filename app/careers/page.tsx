@@ -20,9 +20,9 @@ export default function CareersPage() {
     if (!form.fname || !form.email || !form.role) return;
     setStatus("sending");
     try {
-      const r = await fetch("https://padfgbudntpmzfnuiupt.supabase.co/functions/v1/website-handler?action=contact", {
+      const r = await fetch("/api/careers", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: form.fname+" "+form.lname, email: form.email, service: form.role, message: form.message }),
+        body: JSON.stringify({ name: form.fname+" "+form.lname, email: form.email, role: form.role, message: form.message }),
       });
       const d = await r.json();
       setStatus(d.success ? "sent" : "error");

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import PageHero from "@/components/PageHero";
+import { supabase } from "@/lib/supabase";
 
 const STATS = [
   { v: "10%", l: "Commission Rate" },
@@ -12,14 +13,20 @@ const STATS = [
 
 export default function AffiliatePortalPage() {
   const [tab, setTab] = useState<"login" | "apply">("login");
-  const [loginForm, setLoginForm] = useState({ email: "", password: "" });
+  const [loginForm, setLoginForm] = useState({ email: "" });
   const [applyForm, setApplyForm] = useState({ name: "", email: "", website: "", audience: "" });
-  const [loginStatus, setLoginStatus] = useState<"idle" | "sent">("idle");
+  const [loginStatus, setLoginStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [applyStatus, setApplyStatus] = useState<"idle" | "sent">("idle");
 
-  function handleLogin(e: React.FormEvent) {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    setLoginStatus("sent");
+    if (!loginForm.email) return;
+    setLoginStatus("sending");
+    const { error } = await supabase.auth.signInWithOtp({
+      email: loginForm.email,
+      options: { emailRedirectTo: `${window.location.origin}/affiliate-portal/dashboard` },
+    });
+    setLoginStatus(error ? "error" : "sent");
   }
 
   async function handleApply(e: React.FormEvent) {
@@ -91,17 +98,13 @@ export default function AffiliatePortalPage() {
                           className="w-full border border-br rounded px-4 py-3 text-[14px] text-t1 focus:outline-none focus:border-ac transition-colors"
                           placeholder="your@email.com" />
                       </div>
-                      <div>
-                        <label className="block text-[12px] font-medium text-t2 mb-2 uppercase tracking-[0.1em]">Password</label>
-                        <input type="password" required value={loginForm.password}
-                          onChange={e => setLoginForm(f => ({ ...f, password: e.target.value }))}
-                          className="w-full border border-br rounded px-4 py-3 text-[14px] text-t1 focus:outline-none focus:border-ac transition-colors"
-                          placeholder="••••••••" />
-                      </div>
-                      <button type="submit"
-                        className="w-full bg-ac hover:bg-ach text-white text-[13.5px] font-medium py-3.5 rounded transition-all">
-                        Sign In to Dashboard
+                      <button type="submit" disabled={loginStatus === "sending"}
+                        className="w-full bg-ac hover:bg-ach text-white text-[13.5px] font-medium py-3.5 rounded transition-all disabled:opacity-60">
+                        {loginStatus === "sending" ? "Sending link…" : "Send Magic Link"}
                       </button>
+                      {loginStatus === "error" && (
+                        <p className="text-[12.5px] text-red-500 text-center">Something went wrong. Please try again or contact us.</p>
+                      )}
                       <p className="text-center text-[12.5px] text-t2">
                         Not an affiliate yet?{" "}
                         <button type="button" onClick={() => setTab("apply")} className="text-ac hover:underline">Apply to join →</button>
