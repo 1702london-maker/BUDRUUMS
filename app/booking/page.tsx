@@ -102,60 +102,54 @@ const MONTH_NAMES = ["January","February","March","April","May","June","July","A
 type FormState = { fname:string; lname:string; email:string; phone:string; biz:string; msg:string };
 type SvcType = { name:string; dur:string; price:string; isFree:boolean };
 
+const PAYMENT_LINKS: Record<string, string> = {
+  "Strategy Consultation":     "https://buy.stripe.com/28EcN7gP42j527G1zM4ZG01",
+  "Business Planning Session": "https://buy.stripe.com/aFabJ3aqGcXJh2A7Ya4ZG02",
+};
+
 function PayButton({ svc, form, selDateStr, selTime, goToStep }: {
   svc: SvcType; form: FormState; selDateStr: string; selTime: string; goToStep: (n:number) => void;
 }) {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
   async function handleClick() {
-    // Custom quote — just confirm, no Stripe
-    if (svc.price === "Custom") {
+    const link = PAYMENT_LINKS[svc.name];
+    if (link) {
+      // Send notification email then redirect to Stripe Payment Link
+      setLoading(true);
       try {
         await fetch("/api/booking", {
           method: "POST", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name:`${form.fname} ${form.lname}`.trim(), email:form.email, phone:form.phone, service:svc.name, stage:form.biz, message:form.msg, date:selDateStr, time:selTime }),
         });
-      } catch { /* proceed */ }
-      goToStep(5);
+      } catch { /* proceed regardless */ }
+      window.location.href = link;
       return;
     }
-    // Free — confirm immediately
-    if (svc.isFree) {
-      try {
-        await fetch("/api/booking", {
-          method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name:`${form.fname} ${form.lname}`.trim(), email:form.email, phone:form.phone, service:svc.name, stage:form.biz, message:form.msg, date:selDateStr, time:selTime }),
-        });
-      } catch { /* proceed */ }
-      goToStep(5);
-      return;
-    }
-    // Paid — redirect to Stripe Checkout
+    // Free or Custom — confirm on-site
     setLoading(true);
-    setError("");
     try {
-      const res = await fetch("/api/checkout", {
+      await fetch("/api/booking", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ service:svc.name, name:`${form.fname} ${form.lname}`.trim(), email:form.email, phone:form.phone, biz:form.biz, msg:form.msg, date:selDateStr, time:selTime }),
+        body: JSON.stringify({ name:`${form.fname} ${form.lname}`.trim(), email:form.email, phone:form.phone, service:svc.name, stage:form.biz, message:form.msg, date:selDateStr, time:selTime }),
       });
-      const data = await res.json();
-      if (data.url) { window.location.href = data.url; }
-      else setError("Could not start payment. Please try again or contact us.");
-    } catch {
-      setError("Could not start payment. Please try again.");
-    }
+    } catch { /* proceed */ }
     setLoading(false);
+    goToStep(5);
   }
+
+  const label = loading ? "Please wait…"
+    : svc.isFree ? "Confirm Booking"
+    : svc.price === "Custom" ? "Request Consultation"
+    : "Proceed to Payment";
 
   return (
     <div style={{ flex:1 }}>
       <button className="btn-primary" style={{ width:"100%", justifyContent:"center", padding:"14px" }}
         onClick={handleClick} disabled={loading}>
-        {loading ? "Redirecting to payment…" : svc.isFree ? "Confirm Booking" : svc.price === "Custom" ? "Request Consultation" : "Proceed to Payment"}
+        {label}
         {!loading && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>}
       </button>
-      {error && <p style={{ fontSize:"12.5px", color:"#e53e3e", marginTop:"8px", textAlign:"center" }}>{error}</p>}
     </div>
   );
 }
