@@ -98,6 +98,68 @@ function getMonthDays(year: number, month: number) {
 
 const MONTH_NAMES = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
+/* ─── Pay Button ────────────────────────────────────────────── */
+type FormState = { fname:string; lname:string; email:string; phone:string; biz:string; msg:string };
+type SvcType = { name:string; dur:string; price:string; isFree:boolean };
+
+function PayButton({ svc, form, selDateStr, selTime, goToStep }: {
+  svc: SvcType; form: FormState; selDateStr: string; selTime: string; goToStep: (n:number) => void;
+}) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleClick() {
+    // Custom quote — just confirm, no Stripe
+    if (svc.price === "Custom") {
+      try {
+        await fetch("/api/booking", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name:`${form.fname} ${form.lname}`.trim(), email:form.email, phone:form.phone, service:svc.name, stage:form.biz, message:form.msg, date:selDateStr, time:selTime }),
+        });
+      } catch { /* proceed */ }
+      goToStep(5);
+      return;
+    }
+    // Free — confirm immediately
+    if (svc.isFree) {
+      try {
+        await fetch("/api/booking", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name:`${form.fname} ${form.lname}`.trim(), email:form.email, phone:form.phone, service:svc.name, stage:form.biz, message:form.msg, date:selDateStr, time:selTime }),
+        });
+      } catch { /* proceed */ }
+      goToStep(5);
+      return;
+    }
+    // Paid — redirect to Stripe Checkout
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ service:svc.name, name:`${form.fname} ${form.lname}`.trim(), email:form.email, phone:form.phone, biz:form.biz, msg:form.msg, date:selDateStr, time:selTime }),
+      });
+      const data = await res.json();
+      if (data.url) { window.location.href = data.url; }
+      else setError("Could not start payment. Please try again or contact us.");
+    } catch {
+      setError("Could not start payment. Please try again.");
+    }
+    setLoading(false);
+  }
+
+  return (
+    <div style={{ flex:1 }}>
+      <button className="btn-primary" style={{ width:"100%", justifyContent:"center", padding:"14px" }}
+        onClick={handleClick} disabled={loading}>
+        {loading ? "Redirecting to payment…" : svc.isFree ? "Confirm Booking" : svc.price === "Custom" ? "Request Consultation" : "Proceed to Payment"}
+        {!loading && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>}
+      </button>
+      {error && <p style={{ fontSize:"12.5px", color:"#e53e3e", marginTop:"8px", textAlign:"center" }}>{error}</p>}
+    </div>
+  );
+}
+
 /* ─── Page ──────────────────────────────────────────────────── */
 export default function BookingPage() {
   const [step, setStep] = useState(1);
@@ -468,29 +530,7 @@ export default function BookingPage() {
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
                       Back
                     </button>
-                    <button className="btn-primary" style={{ flex:1, justifyContent:"center", padding:"14px" }}
-                      onClick={async () => {
-                        try {
-                          await fetch("/api/booking", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({
-                              name: `${form.fname} ${form.lname}`.trim(),
-                              email: form.email,
-                              phone: form.phone,
-                              service: svc.name,
-                              stage: form.biz,
-                              message: form.msg,
-                              date: selDateStr,
-                              time: selTime,
-                            }),
-                          });
-                        } catch { /* proceed anyway */ }
-                        goToStep(5);
-                      }}>
-                      {svc.isFree ? "Confirm Booking" : "Proceed to Payment"}
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                    </button>
+                    <PayButton svc={svc} form={form} selDateStr={selDateStr} selTime={selTime} goToStep={goToStep} />
                   </div>
                 </motion.div>
               )}
