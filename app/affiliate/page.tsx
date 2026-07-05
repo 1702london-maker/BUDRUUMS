@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const SVC_TABLE = [
   { s: "Business Plan Writing", w: "Founders seeking funding or visa", p: "From £2,000", c: "£200+" },
-  { s: "Financial Forecasting", w: "Startups needing investor-ready projections", p: "From £1,500", c: "£150+" },
+  { s: "Financial Forecasting", w: "Startups needing investor-ready projections", p: "From £3,500", c: "£350+" },
   { s: "Website Development", w: "Businesses needing a professional web presence", p: "From £5,000", c: "£500+" },
   { s: "Startup Consultancy", w: "Early-stage founders building structure", p: "From £2,500", c: "£250+" },
   { s: "Branding & Identity", w: "Businesses launching or rebranding", p: "From £1,000", c: "£100+" },

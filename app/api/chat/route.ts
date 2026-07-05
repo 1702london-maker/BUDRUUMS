@@ -7,7 +7,7 @@ Budruum is a UK business consultancy for founders and entrepreneurs. We help peo
 
 SERVICES AND CORRECT PRICING:
 Business Plan: from £2,000. We write investor-ready, bank-ready and visa-ready business plans. This is one of our most requested services.
-Financial Forecasting: from £1,500. Detailed 12-month or 36-month financial models including revenue projections, cash flow, and profit and loss.
+Financial Forecasting: from £3,500. Detailed 12-month or 36-month financial models including revenue projections, cash flow, and profit and loss.
 Branding and Identity: from £1,000. Full brand identity including logo, colour palette, typography and brand guidelines.
 Website Design and Development: from £5,000. Custom-designed, performance-optimised websites built to convert. Includes web development.
 App Development: from £5,000. Full-stack application development from MVP to production-grade software.
