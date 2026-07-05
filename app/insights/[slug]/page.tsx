@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import ArticleClient, { Article } from "./ArticleClient";
+import { DEFAULT_IMAGE, SITE_NAME, SITE_URL } from "@/app/seo";
 
 /* ─── Article data ─────────────────────────────────────────── */
 
@@ -542,6 +544,40 @@ const ARTICLES: Article[] = [
     ],
   },
 ];
+
+export function generateStaticParams() {
+  return ARTICLES.map((article) => ({ slug: article.slug }));
+}
+
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  const article = ARTICLES.find((item) => item.slug === params.slug);
+  if (!article) return {};
+
+  const title = `${article.title} ${article.titleEm ?? ""}`.replace(/\s+/g, " ").trim();
+  const description = article.subtitle.replace(/<[^>]+>/g, "").slice(0, 158);
+  const url = `${SITE_URL}/insights/${article.slug}`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `/insights/${article.slug}` },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: SITE_NAME,
+      images: [{ url: DEFAULT_IMAGE, width: 1200, height: 630, alt: title }],
+      locale: "en_GB",
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [DEFAULT_IMAGE],
+    },
+  };
+}
 
 export default function InsightArticlePage({ params }: { params: { slug: string } }) {
   const article = ARTICLES.find(a => a.slug === params.slug);

@@ -2,11 +2,9 @@ import Link from "next/link";
 import { Metadata } from "next";
 import VentureConstellation from "@/components/VentureConstellation";
 import EngagementPipeline from "@/components/EngagementPipeline";
+import { metadataFor } from "@/app/seo";
 
-export const metadata: Metadata = {
-  title: "Business Consultancy UK | Build Your Business Properly — Budruum",
-  description: "Budruum is a UK business consultancy helping founders build with strategy and structure. Branding, business plans, financial forecasting, web development and more.",
-};
+export const metadata: Metadata = metadataFor("home");
 
 const SERVICES = [
   { icon: "◈", title: "Brand Identity",         price: "From £1,200",    href: "/services/branding",            desc: "Logo, colour palette, typography and full brand guidelines that set your business apart." },
