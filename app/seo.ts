@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-export const SITE_URL = "https://budruum.co.uk";
+export const SITE_URL = "https://www.budruum.co.uk";
 export const SITE_NAME = "Budruum";
 export const DEFAULT_IMAGE = "/BR.png";
 
@@ -159,6 +159,12 @@ export const SEO: Record<string, SeoEntry> = {
     path: "/referral-portal",
     noIndex: true,
   },
+  bookingSuccess: {
+    title: "Booking Confirmed | Budruum",
+    description: "Booking confirmation page for Budruum consultation payments.",
+    path: "/booking/success",
+    noIndex: true,
+  },
   privacy: {
     title: "Privacy Policy | Budruum",
     description: "Read Budruum's privacy policy and how we handle personal data, enquiries, bookings and website information.",
@@ -207,6 +213,10 @@ export const INSIGHT_SLUGS = [
   "insight-business-plan-vs-forecast",
   "insight-cash-flow-forecast-startups",
   "insight-what-investors-look-for",
+  "insight-startup-costs-checklist",
+  "insight-how-to-write-business-plan-funding",
+  "insight-12-vs-36-month-forecast",
+  "insight-why-startup-plans-fail",
   "insight-business-plan-visa-funding-strategy",
   "insight-idea-to-company-structure",
 ];

@@ -115,7 +115,7 @@ export default function InsightsPage() {
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <h2 className="font-display font-light text-[#1A1A1A] mb-4" style={{ fontSize: "clamp(28px,3.5vw,44px)" }}>Deeper thinking for serious founders.</h2>
           <p className="text-[15px] text-[#6B6B6B] max-w-[500px] mx-auto mb-8 leading-[1.85]">Strategy, branding, finance, growth, mindset and networking — longer-form perspectives for founders building with intention.</p>
-          <Link href="/resources" className="btn-primary inline-flex">Explore Deep Reads <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></Link>
+          <Link href="/insights" className="btn-primary inline-flex">Explore Deep Reads <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></Link>
         </motion.div>
       </section>
 

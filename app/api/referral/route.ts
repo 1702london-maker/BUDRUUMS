@@ -6,11 +6,6 @@ const DARK = "#1A1A1A";
 const LIGHT = "#F8F8F8";
 const GREY = "#6B6B6B";
 
-const supabase = createClient(
-  "https://padfgbudntpmzfnuiupt.supabase.co",
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
-
 function notifyHtml(name: string, email: string, website: string, audience: string) {
   return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/>
 <title>New Referral Application - Budruum</title></head>
@@ -111,6 +106,12 @@ async function sendEmail(from: string, to: string, subject: string, html: string
 export async function POST(req: NextRequest) {
   const { name, email, website, audience } = await req.json();
   if (!name || !email) return NextResponse.json({ success: false, error: "Missing fields" }, { status: 400 });
+
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!supabaseKey)
+    return NextResponse.json({ success: false, error: "Referral applications are temporarily unavailable." }, { status: 500 });
+
+  const supabase = createClient("https://padfgbudntpmzfnuiupt.supabase.co", supabaseKey);
 
   // Save to Supabase
   const { error: dbError } = await supabase

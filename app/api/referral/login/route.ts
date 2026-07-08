@@ -1,15 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  "https://padfgbudntpmzfnuiupt.supabase.co",
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
-
 export async function POST(req: NextRequest) {
   const { email, password } = await req.json();
   if (!email || !password)
     return NextResponse.json({ success: false, error: "Missing credentials" }, { status: 400 });
+
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!supabaseKey)
+    return NextResponse.json({ success: false, error: "Referral login is temporarily unavailable." }, { status: 500 });
+
+  const supabase = createClient("https://padfgbudntpmzfnuiupt.supabase.co", supabaseKey);
 
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
