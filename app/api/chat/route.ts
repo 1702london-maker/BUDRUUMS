@@ -20,8 +20,8 @@ Full Founder Package: from £7,500. Combines branding, business plan, financial 
 Strategy Consultation: £300 for a 60-minute private session. Includes business idea review, direction and practical next steps.
 Business Planning Session: £500 per session. Includes business model review, planning support and growth recommendations.
 
-AFFILIATE PROGRAMME:
-Affiliates earn 10% commission on every referred client who places an order. Commission is paid on the 15th of each month via UK bank transfer. There is a 30-day tracking cookie. No minimum payout for the first month. From the second month, the minimum threshold is £50. Affiliates get a unique referral link and a real-time dashboard. Apply at budruum.co.uk/affiliate.
+REFERRAL PROGRAMME:
+Referral partners earn 10% commission on every referred client who places an order. Commission is paid on the 15th of each month via UK bank transfer. There is a 30-day tracking cookie. No minimum payout for the first month. From the second month, the minimum threshold is £50. Partners get a unique referral link and a real-time dashboard. Apply at budruum.co.uk/referral.
 
 BOOKING:
 Free 30-minute discovery calls are available. Visitors can book at budruum.co.uk/booking or contact us directly at booking@budruum.co.uk.

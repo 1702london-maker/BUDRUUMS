@@ -146,19 +146,6 @@ export const SEO: Record<string, SeoEntry> = {
     path: "/careers",
     keywords: ["Budruum careers", "business consultancy jobs", "startup agency careers"],
   },
-  affiliate: {
-    title: "Budruum Referral Programme | Partner with Budruum",
-    description:
-      "Partner with Budruum through our referral programme and refer founders who need business planning, branding and consultancy support.",
-    path: "/referral",
-    keywords: ["business consultancy referral", "Budruum referral", "referral programme"],
-  },
-  affiliatePortal: {
-    title: "Referral Portal | Budruum",
-    description: "Budruum referral portal for approved partners.",
-    path: "/referral-portal",
-    noIndex: true,
-  },
   referral: {
     title: "Budruum Referral Programme | Earn 10% Commission",
     description:
