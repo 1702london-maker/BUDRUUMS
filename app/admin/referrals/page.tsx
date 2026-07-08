@@ -15,13 +15,20 @@ type Application = {
 };
 
 function getErrorDetail(data: any) {
-  if (typeof data?.error === "string") return data.error;
+  if (typeof data?.details?.message === "string") {
+    return data.stage ? `${data.stage}: ${data.details.message}` : data.details.message;
+  }
+  if (typeof data?.details?.error === "string") {
+    return data.stage ? `${data.stage}: ${data.details.error}` : data.details.error;
+  }
+  if (typeof data?.error === "string" && data.error !== "Referral approval failed") return data.error;
   if (typeof data?.message === "string") return data.message;
   if (typeof data?.error?.message === "string") return data.error.message;
   if (typeof data?.error?.error?.message === "string") return data.error.error.message;
-  if (typeof data?.details?.message === "string") return data.details.message;
-  if (typeof data?.details?.error === "string") return data.details.error;
-  if (Array.isArray(data?.details?.keys)) return `${data.error || "Error"} (${data.details.keys.join(", ")})`;
+  if (Array.isArray(data?.details?.keys)) {
+    const prefix = data.stage ? `${data.stage}: ` : "";
+    return `${prefix}${data.error || "Error"} (${data.details.keys.join(", ")})`;
+  }
   return JSON.stringify(data);
 }
 
