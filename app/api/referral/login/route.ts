@@ -15,7 +15,10 @@ export async function POST(req: NextRequest) {
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error || !data.session)
-    return NextResponse.json({ success: false, error: "Invalid email or password." }, { status: 401 });
+    return NextResponse.json({
+      success: false,
+      error: error?.message || "Invalid email or password.",
+    }, { status: 401 });
 
   // Check user is a referral partner
   const role = data.user?.user_metadata?.role;
