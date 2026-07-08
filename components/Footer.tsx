@@ -10,8 +10,6 @@ const COMPANY_LINKS = [
   { label: "FAQ",               href: "/faq" },
   { label: "Careers",           href: "/careers" },
   { label: "Referral",          href: "/referral" },
-  { label: "Partner Login",     href: "/referral-portal" },
-  { label: "Client Login",      href: "/booking/portal" },
   { label: "Contact",           href: "/contact" },
 ];
 
