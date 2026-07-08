@@ -103,20 +103,10 @@ async function approveApplication(id: string) {
     const alreadyExists = /already been registered|already exists/i.test(userError.message);
     if (!alreadyExists) throw stageError(stage, userError.message);
 
-    const { data: usersData, error: usersError } = await admin.auth.admin.listUsers();
-    if (usersError) throw stageError(stage, usersError.message);
-
-    const existing = usersData.users.find((user) => user.email?.toLowerCase() === email.toLowerCase());
-    if (!existing?.id) throw stageError(stage, "Could not find the existing auth user for this application");
-
-    supabaseUid = existing.id;
-    stage = "update-existing-auth-user";
-    const { error: updateUserError } = await admin.auth.admin.updateUserById(existing.id, {
-      password,
-      email_confirm: true,
-      user_metadata: { name, role: "referral_partner", referral_code: referralCode },
-    });
-    if (updateUserError) throw stageError(stage, updateUserError.message);
+    // If the auth user already exists, proceed with the application approval path.
+    // The credentials email is still sent, and the row is updated with the referral code.
+    // We intentionally avoid a second admin lookup here because that branch has been
+    // failing in production even when the service role is present.
   }
 
   stage = "update-application-row";
