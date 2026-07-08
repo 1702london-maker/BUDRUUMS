@@ -88,38 +88,30 @@ async function approveApplication(id: string) {
   const referralCode = generateReferralCode(name);
 
   let supabaseUid = data.supabase_uid ?? null;
-  stage = "create-auth-user";
-  const { data: userData, error: userError } = await admin.auth.admin.createUser({
-    email,
-    password,
-    email_confirm: true,
-    user_metadata: { name, role: "referral_partner", referral_code: referralCode },
-  });
+  stage = "find-auth-user";
+  const { data: usersData, error: usersError } = await admin.auth.admin.listUsers();
+  if (usersError) throw stageError(stage, formatError(usersError));
+  const existing = usersData.users.find((user) => user.email?.toLowerCase() === email.toLowerCase());
 
-  if (userData?.user?.id) {
-    supabaseUid = userData.user.id;
-  } else if (userError) {
-    stage = "lookup-existing-auth-user";
-    const alreadyExists = /already been registered|already exists/i.test(userError.message);
-    if (!alreadyExists) throw stageError(stage, userError.message);
-
-    let existingUid = supabaseUid;
-    if (!existingUid) {
-      const { data: usersData, error: usersError } = await admin.auth.admin.listUsers();
-      if (usersError) throw stageError(stage, formatError(usersError));
-      existingUid = usersData.users.find((user) => user.email?.toLowerCase() === email.toLowerCase())?.id ?? null;
-    }
-
-    if (!existingUid) throw stageError(stage, "Auth user already exists but could not be found for password reset");
-
+  if (existing?.id) {
+    supabaseUid = existing.id;
     stage = "update-existing-auth-user";
-    const { error: updateUserError } = await admin.auth.admin.updateUserById(existingUid, {
+    const { error: updateUserError } = await admin.auth.admin.updateUserById(existing.id, {
       password,
       email_confirm: true,
       user_metadata: { name, role: "referral_partner", referral_code: referralCode },
     });
     if (updateUserError) throw stageError(stage, updateUserError.message);
-    supabaseUid = existingUid;
+  } else {
+    stage = "create-auth-user";
+    const { data: userData, error: createUserError } = await admin.auth.admin.createUser({
+      email,
+      password,
+      email_confirm: true,
+      user_metadata: { name, role: "referral_partner", referral_code: referralCode },
+    });
+    if (createUserError) throw stageError(stage, createUserError.message);
+    supabaseUid = userData?.user?.id ?? null;
   }
 
   stage = "update-application-row";
