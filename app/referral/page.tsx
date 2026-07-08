@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
@@ -31,6 +32,29 @@ const FAQS = [
 ];
 
 export default function ReferralPage() {
+  const [apply, setApply] = useState({ name: "", email: "", website: "", audience: "" });
+  const [applyLoading, setApplyLoading] = useState(false);
+  const [applyMessage, setApplyMessage] = useState("");
+
+  async function submitApply(e: React.FormEvent) {
+    e.preventDefault();
+    setApplyLoading(true);
+    setApplyMessage("");
+    const res = await fetch("/api/referral", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(apply),
+    });
+    const payload = await res.json().catch(() => ({}));
+    setApplyLoading(false);
+    if (!res.ok || payload?.success === false) {
+      setApplyMessage(payload?.error || "Could not submit application.");
+      return;
+    }
+    setApplyMessage("Application received. We will review it within 1 working day.");
+    setApply({ name: "", email: "", website: "", audience: "" });
+  }
+
   return (
     <main>
       {/* HERO */}
@@ -50,7 +74,7 @@ export default function ReferralPage() {
             Share Budruum with your network — accountants, coaches, startup founders, immigration advisors. Every referral that converts earns you a direct commission. No caps. No complicated tiers.
           </p>
           <div className="flex gap-[14px] flex-wrap">
-            <Link href="/referral-portal" className="btn-primary">Apply to Join <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></Link>
+            <a href="#apply" className="btn-primary">Apply to Join <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
             <a href="#how-it-works" className="btn-outline">See how it works</a>
           </div>
         </motion.div>
@@ -241,10 +265,31 @@ export default function ReferralPage() {
           <h2 className="font-display font-light text-white mb-4" style={{ fontSize: "clamp(32px,4vw,52px)" }}>Ready to start <em className="not-italic text-[#A88F84]">earning?</em></h2>
           <p className="text-[15px] text-white/60 max-w-[420px] mx-auto mb-9 leading-[1.85]">Join Budruum&apos;s referral programme today. Applications take under 2 minutes and we approve within 48 hours.</p>
           <div className="flex gap-[14px] justify-center flex-wrap">
-            <Link href="/referral-portal" className="btn-primary">Apply Now <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></Link>
+            <a href="#apply" className="btn-primary">Apply Now <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
             <Link href="/contact" className="px-7 py-3 border border-white/40 text-white text-[13.5px] font-medium rounded transition-all hover:border-white/80 inline-flex items-center gap-2">Ask a Question</Link>
           </div>
         </motion.div>
+      </section>
+
+      {/* APPLY FORM */}
+      <section id="apply" className="border-b border-[#E8E8E8] px-5 sm:px-8 lg:px-14 py-14 sm:py-16 lg:py-[80px] bg-[#F8F8F8]">
+        <motion.div className="mb-10" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+          <p className="eyebrow">Apply Here</p>
+          <h2 className="font-display font-light text-[#1A1A1A] mb-3" style={{ fontSize: "clamp(28px,3.5vw,44px)" }}>Stay on this page. <em className="not-italic text-[#A88F84]">Apply directly below.</em></h2>
+          <p className="text-[14.5px] text-[#6B6B6B] leading-[1.85] max-w-[560px]">Complete the short form and we will review it in the Supabase table on our side. If approved, credentials are emailed automatically.</p>
+        </motion.div>
+        <div className="max-w-2xl bg-white border border-[#E8E8E8] rounded-[10px] p-6">
+          <form onSubmit={submitApply} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input className="w-full border border-br rounded px-4 py-3" type="text" placeholder="Full name" value={apply.name} onChange={(e) => setApply((s) => ({ ...s, name: e.target.value }))} />
+            <input className="w-full border border-br rounded px-4 py-3" type="email" placeholder="Email address" value={apply.email} onChange={(e) => setApply((s) => ({ ...s, email: e.target.value }))} />
+            <input className="w-full border border-br rounded px-4 py-3 md:col-span-2" type="url" placeholder="Website / profile" value={apply.website} onChange={(e) => setApply((s) => ({ ...s, website: e.target.value }))} />
+            <textarea className="w-full border border-br rounded px-4 py-3 min-h-[120px] md:col-span-2" placeholder="Tell us about your audience" value={apply.audience} onChange={(e) => setApply((s) => ({ ...s, audience: e.target.value }))} />
+            <div className="md:col-span-2 flex flex-col gap-3">
+              <button disabled={applyLoading} className="btn-primary w-full justify-center">{applyLoading ? "Submitting..." : "Submit Application"}</button>
+              {applyMessage && <p className={`text-sm ${applyMessage.startsWith("Application received") ? "text-[#2D7D46]" : "text-red-600"}`}>{applyMessage}</p>}
+            </div>
+          </form>
+        </div>
       </section>
 
       {/* CONTACT STRIP */}
