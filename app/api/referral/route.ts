@@ -6,7 +6,10 @@ const DARK = "#1A1A1A";
 const LIGHT = "#F8F8F8";
 const GREY = "#6B6B6B";
 
-function notifyHtml(name: string, email: string, website: string, audience: string) {
+function notifyHtml(name: string, email: string, website: string, audience: string, id: string, secret: string) {
+  const base = "https://budruum.co.uk/api/referral/action";
+  const approveUrl = `${base}?secret=${secret}&action=approve&id=${id}`;
+  const rejectUrl = `${base}?secret=${secret}&action=reject&id=${id}`;
   return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/>
 <title>New Referral Application - Budruum</title></head>
 <body style="margin:0;padding:0;background:#F2F2F2;font-family:'DM Sans',Helvetica,Arial,sans-serif;">
@@ -18,17 +21,19 @@ function notifyHtml(name: string, email: string, website: string, audience: stri
     <p style="margin:6px 0 0;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45);">New Referral Application</p>
   </td></tr>
   <tr><td style="padding:40px;">
-    <p style="margin:0 0 24px;font-size:15px;color:${DARK};line-height:1.7;">A new referral programme application has been submitted. <strong>Go to Supabase &rarr; referral_applications table and change the status to <span style="color:${TERRACOTTA};">approved</span> to send credentials.</strong></p>
-    <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #E8E8E8;border-radius:6px;overflow:hidden;">
+    <p style="margin:0 0 24px;font-size:15px;color:${DARK};line-height:1.7;">A new referral programme application has been submitted.</p>
+    <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #E8E8E8;border-radius:6px;overflow:hidden;margin-bottom:32px;">
       ${[["Name", name], ["Email", email], ["Website / Platform", website || "Not provided"], ["Audience Description", audience || "Not provided"]].map((r, i) => `
       <tr style="${i > 0 ? "border-top:1px solid #E8E8E8;" : ""}background:${i % 2 === 0 ? LIGHT : "#fff"};">
         <td style="padding:13px 20px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:${TERRACOTTA};width:180px;">${r[0]}</td>
         <td style="padding:13px 20px;font-size:14px;color:${GREY};line-height:1.65;">${r[1]}</td>
       </tr>`).join("")}
     </table>
-    <div style="margin:32px 0 0;padding:20px 24px;background:${LIGHT};border-left:3px solid ${TERRACOTTA};border-radius:0 6px 6px 0;">
-      <p style="margin:0;font-size:13px;color:${GREY};line-height:1.7;">To approve: go to <a href="https://supabase.com/dashboard/project/padfgbudntpmzfnuiupt/editor" style="color:${TERRACOTTA};">Supabase dashboard</a>, find this row in <strong>referral_applications</strong>, and set status to <strong>approved</strong>. Credentials will be sent automatically.</p>
-    </div>
+    <table cellpadding="0" cellspacing="0"><tr>
+      <td style="padding-right:12px;"><a href="${approveUrl}" style="display:inline-block;padding:13px 28px;background:#22c55e;color:#fff;font-size:14px;font-weight:600;text-decoration:none;border-radius:4px;">Approve</a></td>
+      <td><a href="${rejectUrl}" style="display:inline-block;padding:13px 28px;background:#fff;color:#ef4444;font-size:14px;font-weight:600;text-decoration:none;border-radius:4px;border:1px solid #fecaca;">Reject</a></td>
+    </tr></table>
+    <p style="margin:24px 0 0;font-size:12px;color:#B0B0B0;">Clicking Approve sends login credentials to the partner automatically.</p>
   </td></tr>
   <tr><td style="padding:24px 40px;border-top:1px solid #E8E8E8;text-align:center;">
     <p style="margin:0;font-size:12px;color:#B0B0B0;">Budruum Ltd &middot; budruum.co.uk</p>
@@ -107,25 +112,32 @@ export async function POST(req: NextRequest) {
   const { name, email, website, audience } = await req.json();
   if (!name || !email) return NextResponse.json({ success: false, error: "Missing fields" }, { status: 400 });
 
-  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!supabaseKey)
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const webhookSecret = process.env.WEBHOOK_SECRET || "";
+  if (!serviceKey)
     return NextResponse.json({ success: false, error: "Referral applications are temporarily unavailable." }, { status: 500 });
 
-  const supabase = createClient("https://padfgbudntpmzfnuiupt.supabase.co", supabaseKey);
+  const supabase = createClient("https://padfgbudntpmzfnuiupt.supabase.co", serviceKey, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
 
-  // Save to Supabase
-  const { error: dbError } = await supabase
+  // Save to Supabase and get the row id
+  const { data: inserted, error: dbError } = await supabase
     .from("referral_applications")
-    .insert({ name, email, website: website || null, audience: audience || null });
+    .insert({ name, email, website: website || null, audience: audience || null })
+    .select("id")
+    .single();
 
   if (dbError) console.error("Supabase insert error:", dbError.message);
 
-  // Notify admin
+  const rowId = inserted?.id || "";
+
+  // Notify admin with Approve / Reject buttons
   await sendEmail(
     "Budruum <booking@budruum.co.uk>",
     "booking@budruum.co.uk",
     `New Referral Application - ${name}`,
-    notifyHtml(name, email, website, audience),
+    notifyHtml(name, email, website, audience, rowId, webhookSecret),
     email
   );
 
