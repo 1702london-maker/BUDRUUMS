@@ -70,8 +70,10 @@ async function sendEmail(to: string, subject: string, html: string) {
 }
 
 async function approveApplication(id: string) {
+  let stage = "start";
   if (!admin) throw new Error("Missing Supabase service role key");
   if (!RESEND_KEY) throw new Error("Missing Resend API key");
+  stage = "load-application";
   const { data, error } = await admin.from("referral_applications").select("*").eq("id", id).maybeSingle();
   if (error) throw new Error(error.message);
   if (!data) throw new Error("Application not found");
@@ -82,6 +84,7 @@ async function approveApplication(id: string) {
   const referralCode = generateReferralCode(name);
 
   let supabaseUid = data.supabase_uid ?? null;
+  stage = "create-auth-user";
   const { data: userData, error: userError } = await admin.auth.admin.createUser({
     email,
     password,
@@ -92,6 +95,7 @@ async function approveApplication(id: string) {
   if (userData?.user?.id) {
     supabaseUid = userData.user.id;
   } else if (userError) {
+    stage = "lookup-existing-auth-user";
     const alreadyExists = /already been registered|already exists/i.test(userError.message);
     if (!alreadyExists) throw new Error(userError.message);
 
@@ -102,6 +106,7 @@ async function approveApplication(id: string) {
     if (!existing?.id) throw new Error("Could not find the existing auth user for this application");
 
     supabaseUid = existing.id;
+    stage = "update-existing-auth-user";
     const { error: updateUserError } = await admin.auth.admin.updateUserById(existing.id, {
       password,
       email_confirm: true,
@@ -110,6 +115,7 @@ async function approveApplication(id: string) {
     if (updateUserError) throw new Error(updateUserError.message);
   }
 
+  stage = "update-application-row";
   await admin.from("referral_applications").update({
     status: "approved",
     supabase_uid: supabaseUid,
@@ -117,6 +123,7 @@ async function approveApplication(id: string) {
     approved_at: new Date().toISOString(),
   }).eq("id", id);
 
+  stage = "send-email";
   await sendEmail(email, "You're approved - Budruum Referral Partner Credentials", credentialsHtml(name, email, password, referralCode));
   return { referralCode };
 }
