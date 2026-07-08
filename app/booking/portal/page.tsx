@@ -2,102 +2,200 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+
+type Booking = {
+  id: string;
+  service: string;
+  service_label?: string;
+  session_type?: string;
+  date?: string;
+  time?: string;
+  status: string;
+  notes?: string;
+  created_at: string;
+};
+
+const STATUS_COLOUR: Record<string, string> = {
+  pending: "#A88F84",
+  confirmed: "#22c55e",
+  completed: "#6366f1",
+  cancelled: "#ef4444",
+};
 
 export default function BookingPortalPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [signedIn, setSignedIn] = useState(false);
-  const [message, setMessage] = useState("");
-  const [bookings, setBookings] = useState<any[]>([]);
+  const [clientName, setClientName] = useState("Client");
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [checking, setChecking] = useState(true);
 
   useEffect(() => {
-    supabase.auth.getSession().then(async ({ data }) => {
-      if (data.session) {
-        setSignedIn(true);
-        setEmail(data.session.user.email || "");
-        const res = await fetch("/api/booking/portal", { headers: { Authorization: `Bearer ${data.session.access_token}` } });
+    fetch("/api/booking/portal")
+      .then(async (res) => {
         if (res.ok) {
           const payload = await res.json();
-          setBookings(Array.isArray(payload.bookings) ? payload.bookings : []);
+          setClientName(payload.user?.name || "Client");
+          setEmail(payload.user?.email || "");
+          setBookings(payload.bookings || []);
+          setSignedIn(true);
         }
-      }
-    });
+      })
+      .finally(() => setChecking(false));
   }, []);
 
   async function login(e: React.FormEvent) {
     e.preventDefault();
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error || !data.session) return setMessage(error?.message || "Unable to sign in.");
-    setSignedIn(true);
-    setMessage("Signed in.");
-    const res = await fetch("/api/booking/portal", { headers: { Authorization: `Bearer ${data.session.access_token}` } });
-    if (res.ok) {
-      const payload = await res.json();
-      setBookings(Array.isArray(payload.bookings) ? payload.bookings : []);
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/client/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim().toLowerCase(), password: password.trim() }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setError(data.error || "Invalid email or password.");
+        return;
+      }
+      // Load portal data
+      const portal = await fetch("/api/booking/portal");
+      if (portal.ok) {
+        const payload = await portal.json();
+        setClientName(payload.user?.name || "Client");
+        setBookings(payload.bookings || []);
+      }
+      setSignedIn(true);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   }
 
-  async function uploadDocs(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = new FormData(e.currentTarget);
-    const note = String(form.get("note") || "");
-    const files = form.getAll("files").filter(Boolean) as File[];
-    const uploaded = await fetch("/api/booking/portal", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: "Booking Portal Upload",
-        email,
-        note,
-        file_names: files.map((f) => f.name),
-      }),
-    });
-    setMessage(uploaded.ok ? "Documents saved and sent to the Budruum inbox." : "Documents sent to the Budruum inbox.");
-    e.currentTarget.reset();
+  async function logout() {
+    await fetch("/api/client/logout", { method: "POST" });
+    setSignedIn(false);
+    setBookings([]);
+    setPassword("");
+  }
+
+  if (checking) {
+    return <main className="px-5 py-16 flex items-center justify-center min-h-[60vh]"><p className="text-t2 text-sm">Loading...</p></main>;
   }
 
   if (!signedIn) {
     return (
-      <main className="px-5 py-16 max-w-xl mx-auto">
-        <h1 className="font-display text-[34px] mb-2">Client Booking Portal</h1>
-        <p className="text-t2 mb-6">Sign in to view your booking area and send documents securely.</p>
+      <main className="px-5 py-16 max-w-md mx-auto">
+        <p className="eyebrow mb-2">Client Portal</p>
+        <h1 className="font-display text-[34px] mb-2">Sign in to your portal</h1>
+        <p className="text-t2 text-sm mb-8">Use the credentials emailed to you when your consultation was confirmed.</p>
         <form onSubmit={login} className="space-y-4 bg-white border border-br rounded-xl p-6">
-          <input className="w-full border border-br rounded px-4 py-3" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          <input className="w-full border border-br rounded px-4 py-3" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <button className="btn-primary w-full justify-center">Sign in</button>
+          <input
+            className="w-full border border-br rounded px-4 py-3 text-sm"
+            type="email"
+            placeholder="Email address"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            className="w-full border border-br rounded px-4 py-3 text-sm"
+            type="password"
+            placeholder="Password (e.g. Xxxx-Xxxx-Xxxx)"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button disabled={loading} className="btn-primary w-full justify-center">
+            {loading ? "Signing in..." : "Sign In"}
+          </button>
+          {error && <p className="text-sm text-red-600">{error}</p>}
         </form>
-        {message && <p className="mt-4 text-sm text-t2">{message}</p>}
+        <p className="mt-6 text-sm text-t2 text-center">
+          Don&apos;t have a booking yet?{" "}
+          <Link href="/booking" className="text-ac underline">Book a consultation</Link>
+        </p>
       </main>
     );
   }
 
+  const pending = bookings.filter((b) => b.status === "pending");
+  const confirmed = bookings.filter((b) => b.status === "confirmed");
+  const past = bookings.filter((b) => b.status === "completed" || b.status === "cancelled");
+
   return (
-    <main className="px-5 py-16 max-w-3xl mx-auto">
-      <h1 className="font-display text-[34px] mb-2">Your Booking Portal</h1>
-      <p className="text-t2 mb-6">Upload documents, keep session details in one place, and use the same portal after confirmation.</p>
-      <div className="mb-6 bg-white border border-br rounded-xl p-5">
-        <h2 className="font-display text-[22px] mb-3">Upcoming / recent sessions</h2>
-        {bookings.length ? (
-          <div className="space-y-3">
-            {bookings.slice(0, 5).map((b, i) => (
-              <div key={i} className="flex items-center justify-between border-b border-br pb-2 text-sm">
-                <span>{b.service || b.name || "Session"}</span>
-                <span className="text-t2">{b.date || b.created_at || ""}</span>
-              </div>
-            ))}
+    <main className="px-5 sm:px-8 lg:px-14 py-14 lg:py-20 bg-[#F8F8F8] min-h-[70vh]">
+      <div className="max-w-5xl mx-auto">
+        <div className="flex items-start justify-between mb-10">
+          <div>
+            <p className="eyebrow mb-2">Client Portal</p>
+            <h1 className="font-display text-[34px] sm:text-[44px] font-light text-t1 mb-1">
+              Welcome back, {clientName.split(" ")[0]}.
+            </h1>
+            <p className="text-sm text-t2">{email}</p>
           </div>
-        ) : (
-          <p className="text-sm text-t2">No booking records were returned yet.</p>
+          <button onClick={logout} className="text-sm text-t2 underline mt-2">Log out</button>
+        </div>
+
+        {/* Confirmed bookings */}
+        <section className="mb-6">
+          <h2 className="font-display text-xl mb-3">Upcoming Sessions</h2>
+          {confirmed.length === 0 ? (
+            <div className="bg-white border border-br rounded-xl p-6 text-sm text-t2">No confirmed sessions yet.</div>
+          ) : (
+            <div className="space-y-3">
+              {confirmed.map((b) => <BookingCard key={b.id} b={b} />)}
+            </div>
+          )}
+        </section>
+
+        {/* Pending bookings */}
+        {pending.length > 0 && (
+          <section className="mb-6">
+            <h2 className="font-display text-xl mb-3">Pending Confirmation</h2>
+            <div className="space-y-3">
+              {pending.map((b) => <BookingCard key={b.id} b={b} />)}
+            </div>
+          </section>
         )}
-        <Link href="/booking" className="inline-flex mt-4 text-ac underline">Book another session</Link>
+
+        {/* Past */}
+        {past.length > 0 && (
+          <section className="mb-6">
+            <h2 className="font-display text-xl mb-3">Past Sessions</h2>
+            <div className="space-y-3">
+              {past.map((b) => <BookingCard key={b.id} b={b} />)}
+            </div>
+          </section>
+        )}
+
+        <div className="mt-8">
+          <Link href="/booking" className="btn-primary">Book another consultation</Link>
+        </div>
       </div>
-      <form onSubmit={uploadDocs} className="space-y-4 bg-white border border-br rounded-xl p-6">
-        <textarea name="note" className="w-full border border-br rounded px-4 py-3 min-h-[120px]" placeholder="What are these documents for?" />
-        <input name="files" type="file" multiple className="w-full" />
-        <button className="btn-primary w-full justify-center">Send securely</button>
-      </form>
-      {message && <p className="mt-4 text-sm text-t2">{message}</p>}
     </main>
+  );
+}
+
+function BookingCard({ b }: { b: Booking }) {
+  const colour = STATUS_COLOUR[b.status] || "#6B6B6B";
+  const label = b.service_label || b.service || "Consultation";
+  const date = b.date || new Date(b.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  return (
+    <div className="bg-white border border-br rounded-xl p-5 flex items-start justify-between gap-4">
+      <div>
+        <div className="flex items-center gap-2 mb-1">
+          <span className="font-medium text-t1 text-sm">{label}</span>
+          <span style={{ background: colour + "22", color: colour }} className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full capitalize">{b.status}</span>
+        </div>
+        {b.session_type && <p className="text-xs text-t2">{b.session_type}</p>}
+        <p className="text-xs text-t2 mt-1">{date}{b.time ? ` at ${b.time}` : ""}</p>
+        {b.notes && <p className="text-xs text-t2 mt-1">{b.notes}</p>}
+      </div>
+    </div>
   );
 }
