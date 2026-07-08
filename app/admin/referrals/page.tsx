@@ -14,6 +14,14 @@ type Application = {
   approved_at?: string | null;
 };
 
+function getErrorDetail(data: any) {
+  if (typeof data?.error === "string") return data.error;
+  if (typeof data?.message === "string") return data.message;
+  if (typeof data?.error?.message === "string") return data.error.message;
+  if (typeof data?.error?.error?.message === "string") return data.error.error.message;
+  return JSON.stringify(data);
+}
+
 export default function AdminReferralsPage() {
   const [key, setKey] = useState("");
   const [authed, setAuthed] = useState(false);
@@ -49,8 +57,7 @@ export default function AdminReferralsPage() {
       await load(adminKey);
       setMsg(status === "approved" ? "Approved - credentials sent to partner." : "Application rejected.");
     } else {
-      const detail = typeof data.error === "string" ? data.error : JSON.stringify(data.error);
-      setMsg("Error: " + detail);
+      setMsg("Error: " + getErrorDetail(data));
     }
     setActing(null);
   }
