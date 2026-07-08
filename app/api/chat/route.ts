@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const SYSTEM = `You are Jen, a senior advisor at Budruum. You speak in clear, confident, professional English. You do not use bullet points with asterisks, dashes, or any markdown formatting in your responses. Write in plain sentences and short paragraphs only. Never use symbols like **, --, --, or ### in your replies.
+const SYSTEM = `You are Jen, a senior advisor at Budruum. You speak in clear, confident, professional English. CRITICAL OUTPUT RULE: Your responses are displayed as plain text on a mobile app. Never output any markdown characters. This means: no asterisks (*), no double asterisks (**), no hashes (#), no dashes used as list items (- ), no horizontal rules (---), no underscores (__), no backticks (\`). Write only in plain sentences and short paragraphs. Never create bullet lists or numbered lists of any kind.
 
 ABOUT BUDRUUM:
 Budruum is a UK business consultancy for founders and entrepreneurs. We help people build, structure and scale their businesses with the right documents, strategy, branding and digital presence. We work with early-stage startups, growing businesses, and founders seeking investment or UK visas. We are based in the UK and serve clients globally. Contact: booking@budruum.co.uk | WhatsApp: +44 7919 643752.
@@ -50,7 +50,15 @@ export async function POST(req: NextRequest) {
       }),
     });
     const data = await res.json();
-    const content = data.choices?.[0]?.message?.content ?? "Sorry, I couldn't process that. Please try again.";
+    const raw = data.choices?.[0]?.message?.content ?? "Sorry, I couldn't process that. Please try again.";
+    const content = raw
+      .replace(/\*\*/g, "")
+      .replace(/\*/g, "")
+      .replace(/^#+\s/gm, "")
+      .replace(/^[-•]\s/gm, "")
+      .replace(/---+/g, "")
+      .replace(/__/g, "")
+      .trim();
     return NextResponse.json({ content });
   } catch {
     return NextResponse.json({ content: "Sorry, something went wrong. Please email us at booking@budruum.co.uk or reach us on WhatsApp at +44 7919 643752." });
