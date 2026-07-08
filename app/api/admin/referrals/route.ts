@@ -15,6 +15,23 @@ const admin = SERVICE_ROLE
   ? createClient(SUPABASE_URL, SERVICE_ROLE, { auth: { autoRefreshToken: false, persistSession: false } })
   : null;
 
+function formatError(err: unknown): string {
+  if (typeof err === "string") return err;
+  if (err && typeof err === "object") {
+    const e = err as Record<string, unknown>;
+    const message = e.message;
+    if (typeof message === "string" && message.trim()) return message;
+    const error = e.error;
+    if (typeof error === "string" && error.trim()) return error;
+    if (error && typeof error === "object") return formatError(error);
+    try {
+      const json = JSON.stringify(err);
+      if (json && json !== "{}") return json;
+    } catch {}
+  }
+  return String(err);
+}
+
 function isAuthorized(req: NextRequest) {
   return req.headers.get("x-admin-key") === ADMIN_SECRET;
 }
@@ -45,6 +62,7 @@ async function sendEmail(to: string, subject: string, html: string) {
 
 async function approveApplication(id: string) {
   if (!admin) throw new Error("Missing Supabase service role key");
+  if (!RESEND_KEY) throw new Error("Missing Resend API key");
   const { data, error } = await admin.from("referral_applications").select("*").eq("id", id).maybeSingle();
   if (error) throw new Error(error.message);
   if (!data) throw new Error("Application not found");
@@ -117,10 +135,7 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ success: true });
   } catch (err) {
     return NextResponse.json({
-      error: {
-        message: err instanceof Error ? err.message : String(err),
-        name: err instanceof Error ? err.name : "UnknownError",
-      },
+      error: formatError(err),
     }, { status: 500 });
   }
 }
