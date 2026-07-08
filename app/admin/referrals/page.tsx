@@ -49,7 +49,8 @@ export default function AdminReferralsPage() {
       await load(adminKey);
       setMsg(status === "approved" ? "Approved - credentials sent to partner." : "Application rejected.");
     } else {
-      setMsg("Error: " + data.error);
+      const detail = typeof data.error === "string" ? data.error : JSON.stringify(data.error);
+      setMsg("Error: " + detail);
     }
     setActing(null);
   }
