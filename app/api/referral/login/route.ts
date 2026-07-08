@@ -25,5 +25,9 @@ export async function POST(req: NextRequest) {
   if (role !== "referral_partner")
     return NextResponse.json({ success: false, error: "This account does not have referral partner access." }, { status: 403 });
 
-  return NextResponse.json({ success: true, user: { email: data.user.email, name: data.user.user_metadata?.name } });
+  return NextResponse.json({
+    success: true,
+    session: data.session,
+    user: { email: data.user.email, name: data.user.user_metadata?.name },
+  });
 }

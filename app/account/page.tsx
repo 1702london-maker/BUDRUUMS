@@ -40,6 +40,12 @@ export default function AccountPage() {
         setError(payload.error || "Invalid email or password.");
         return;
       }
+      if (payload.session?.access_token && payload.session?.refresh_token) {
+        await supabase.auth.setSession({
+          access_token: payload.session.access_token,
+          refresh_token: payload.session.refresh_token,
+        });
+      }
       window.location.href = "/referral-portal/dashboard";
       return;
     }
