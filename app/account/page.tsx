@@ -26,34 +26,20 @@ export default function AccountPage() {
     e.preventDefault();
     setLoading(true);
     setError("");
-    const res = mode === "affiliate"
-      ? await fetch("/api/referral/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(login),
-        })
-      : null;
-    if (mode === "affiliate" && res) {
-      const payload = await res.json();
-      setLoading(false);
-      if (!res.ok || !payload.success) {
-        setError(payload.error || "Invalid email or password.");
-        return;
-      }
-      if (payload.session?.access_token && payload.session?.refresh_token) {
-        await supabase.auth.setSession({
-          access_token: payload.session.access_token,
-          refresh_token: payload.session.refresh_token,
-        });
-      }
-      window.location.href = "/referral-portal/dashboard";
-      return;
-    }
-
     const { data, error } = await supabase.auth.signInWithPassword(login);
     setLoading(false);
     if (error || !data.session) {
       setError(error?.message || "Invalid email or password.");
+      return;
+    }
+    if (mode === "affiliate") {
+      const role = data.session.user.user_metadata?.role;
+      if (role !== "referral_partner") {
+        await supabase.auth.signOut();
+        setError("This account does not have referral partner access.");
+        return;
+      }
+      window.location.href = "/referral-portal/dashboard";
       return;
     }
     window.location.href = "/booking/portal";
