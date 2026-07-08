@@ -68,30 +68,16 @@ export default function Header() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-3">
-          <div ref={accountRef} className="relative">
-            <button
-              type="button"
-              onClick={() => setAccountOpen((v) => !v)}
-              className="inline-flex items-center justify-center w-11 h-11 border border-br rounded-full text-t1 hover:border-ac hover:text-ac transition-colors"
-              aria-label="Account"
-              aria-expanded={accountOpen}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                <path d="M20 21a8 8 0 0 0-16 0" />
-                <circle cx="12" cy="8" r="4" />
-              </svg>
-            </button>
-            {accountOpen && (
-              <div className="absolute right-0 top-[52px] w-[210px] bg-white border border-br rounded shadow-sm overflow-hidden">
-                <Link href="/referral-portal" onClick={() => setAccountOpen(false)} className="block px-4 py-3 text-[13px] text-t1 hover:bg-[#F8F8F8]">
-                  Affiliate / Partner
-                </Link>
-                <Link href="/booking/portal" onClick={() => setAccountOpen(false)} className="block px-4 py-3 text-[13px] text-t1 hover:bg-[#F8F8F8] border-t border-br">
-                  Client
-                </Link>
-              </div>
-            )}
-          </div>
+          <Link
+            href="/account"
+            className="inline-flex items-center justify-center w-11 h-11 border border-br rounded-full text-t1 hover:border-ac hover:text-ac transition-colors"
+            aria-label="Account"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+              <path d="M20 21a8 8 0 0 0-16 0" />
+              <circle cx="12" cy="8" r="4" />
+            </svg>
+          </Link>
           <Link
             href="/booking"
             className="inline-flex items-center gap-2 bg-ac hover:bg-ach text-white text-[13.5px] font-medium px-6 py-3 rounded transition-all duration-200 hover:-translate-y-px whitespace-nowrap"
@@ -126,16 +112,13 @@ export default function Header() {
               </li>
             ))}
           </ul>
-          <div className="mt-6 border border-br rounded overflow-hidden">
-            <Link href="/referral-portal" onClick={() => setOpen(false)} className="flex items-center justify-between px-4 py-4 text-[15px] text-t1 border-b border-br">
-              <span>Account</span>
-              <span className="text-[12px] text-t2">Affiliate / Partner</span>
-            </Link>
-            <Link href="/booking/portal" onClick={() => setOpen(false)} className="flex items-center justify-between px-4 py-4 text-[15px] text-t1">
-              <span>Account</span>
-              <span className="text-[12px] text-t2">Client</span>
-            </Link>
-          </div>
+          <Link
+            href="/account"
+            onClick={() => setOpen(false)}
+            className="mt-6 inline-flex items-center gap-2 bg-white border border-br text-t1 text-[13.5px] font-medium px-6 py-3 rounded"
+          >
+            Account
+          </Link>
           <Link
             href="/booking"
             onClick={() => setOpen(false)}
