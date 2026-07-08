@@ -1,223 +1,115 @@
 "use client";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import PageHero from "@/components/PageHero";
-
-const STATS = [
-  { v: "10%", l: "Commission Rate" },
-  { v: "30 days", l: "Cookie Window" },
-  { v: "Monthly", l: "Payout Schedule" },
-  { v: "£0", l: "To Join" },
-];
+import { supabase } from "@/lib/supabase";
 
 export default function ReferralPortalPage() {
-  const [tab, setTab] = useState<"login" | "apply">("apply");
-  const [loginForm, setLoginForm] = useState({ email: "", password: "" });
-  const [applyForm, setApplyForm] = useState({ name: "", email: "", website: "", audience: "" });
-  const [loginStatus, setLoginStatus] = useState<"idle" | "sending" | "error">("idle");
-  const [loginError, setLoginError] = useState("");
-  const [applyStatus, setApplyStatus] = useState<"idle" | "sent">("idle");
+  const [tab, setTab] = useState<"apply" | "login">("apply");
+  const [applyDone, setApplyDone] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [login, setLogin] = useState({ email: "", password: "" });
+  const [apply, setApply] = useState({ name: "", email: "", website: "", audience: "" });
 
-  async function handleLogin(e: React.FormEvent) {
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) window.location.href = "/referral-portal/dashboard";
+    });
+  }, []);
+
+  async function submitLogin(e: React.FormEvent) {
     e.preventDefault();
-    if (!loginForm.email || !loginForm.password) return;
-    setLoginStatus("sending");
-    setLoginError("");
-    try {
-      const res = await fetch("/api/referral/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: loginForm.email, password: loginForm.password }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        setLoginError(data.error || "Invalid credentials. Please try again.");
-        setLoginStatus("error");
-      } else {
-        window.location.href = "/referral-portal/dashboard";
-      }
-    } catch {
-      setLoginError("Something went wrong. Please try again.");
-      setLoginStatus("error");
+    setLoading(true);
+    setError("");
+    const { data, error } = await supabase.auth.signInWithPassword(login);
+    setLoading(false);
+    if (error || !data.session) {
+      setError(error?.message || "Invalid email or password.");
+      return;
     }
+    window.location.href = "/referral-portal/dashboard";
   }
 
-  async function handleApply(e: React.FormEvent) {
+  async function submitApply(e: React.FormEvent) {
     e.preventDefault();
+    setLoading(true);
+    setError("");
     try {
       await fetch("/api/referral", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: applyForm.name, email: applyForm.email, website: applyForm.website, audience: applyForm.audience }),
+        body: JSON.stringify(apply),
       });
-    } catch { /* still show success */ }
-    setApplyStatus("sent");
+      setApplyDone(true);
+    } catch {
+      setError("Could not submit application.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
     <main>
       <PageHero
         eyebrow="Referral Portal"
-        title="Earn While You"
-        titleAccent="Refer."
-        subtitle="Sign in to your referral dashboard or apply to join the Budruum referral programme and start earning 10% commission on every referral."
+        title="Apply, get approved,"
+        titleAccent="log in."
+        subtitle="Apply for the referral programme or sign in to your partner dashboard to view your link and earnings."
       />
 
-      <section className="py-16 bg-ac/10 border-y border-ac/20">
-        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
-            {STATS.map((s, i) => (
-              <motion.div key={s.l} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: i * 0.1 }}>
-                <div className="font-display text-[36px] font-light text-ac">{s.v}</div>
-                <div className="text-[13px] text-t2 mt-1">{s.l}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24 bg-gl">
-        <div className="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-14 flex flex-col lg:flex-row gap-16 items-start">
-
-          <motion.div className="flex-1 max-w-[480px]"
-            initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.55 }}>
-
-            <div className="flex border-b border-br mb-8">
+      <section className="px-5 sm:px-8 lg:px-14 py-14 lg:py-20 bg-[#F8F8F8]">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="bg-white border border-br rounded-xl p-6">
+            <div className="flex border-b border-br mb-6">
               {(["apply", "login"] as const).map((t) => (
-                <button key={t} onClick={() => setTab(t)}
-                  className={`px-6 py-3 text-[13.5px] font-medium capitalize transition-colors border-b-2 -mb-px ${tab === t ? "border-ac text-ac" : "border-transparent text-t2 hover:text-t1"}`}>
-                  {t === "login" ? "Partner Login" : "Apply to Join"}
+                <button key={t} onClick={() => setTab(t)} className={`px-4 py-3 text-sm font-medium border-b-2 -mb-px ${tab === t ? "border-ac text-ac" : "border-transparent text-t2"}`}>
+                  {t === "apply" ? "Apply to Join" : "Partner Login"}
                 </button>
               ))}
             </div>
 
             <AnimatePresence mode="wait">
-              {tab === "login" && (
-                <motion.div key="login" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3 }}>
-                  <form onSubmit={handleLogin} className="bg-white rounded-xl p-8 border border-br space-y-5">
-                    <div>
-                      <p className="text-[14px] text-t2 mb-5 leading-relaxed">Log in with the credentials sent to you after your application was approved.</p>
-                    </div>
-                    <div>
-                      <label className="block text-[12px] font-medium text-t2 mb-2 uppercase tracking-[0.1em]">Email Address</label>
-                      <input type="email" required value={loginForm.email}
-                        onChange={e => setLoginForm(f => ({ ...f, email: e.target.value }))}
-                        className="w-full border border-br rounded px-4 py-3 text-[14px] text-t1 focus:outline-none focus:border-ac transition-colors"
-                        placeholder="your@email.com" />
-                    </div>
-                    <div>
-                      <label className="block text-[12px] font-medium text-t2 mb-2 uppercase tracking-[0.1em]">Password</label>
-                      <input type="password" required value={loginForm.password}
-                        onChange={e => setLoginForm(f => ({ ...f, password: e.target.value }))}
-                        className="w-full border border-br rounded px-4 py-3 text-[14px] text-t1 focus:outline-none focus:border-ac transition-colors"
-                        placeholder="••••••••" />
-                    </div>
-                    <button type="submit" disabled={loginStatus === "sending"}
-                      className="w-full bg-ac hover:bg-ach text-white text-[13.5px] font-medium py-3.5 rounded transition-all disabled:opacity-60">
-                      {loginStatus === "sending" ? "Signing in…" : "Sign In"}
-                    </button>
-                    {loginStatus === "error" && (
-                      <p className="text-[12.5px] text-red-500 text-center">{loginError}</p>
-                    )}
-                    <p className="text-center text-[12.5px] text-t2">
-                      Not a partner yet?{" "}
-                      <button type="button" onClick={() => setTab("apply")} className="text-ac hover:underline">Apply to join →</button>
-                    </p>
-                  </form>
+              {tab === "login" ? (
+                <motion.form key="login" onSubmit={submitLogin} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="space-y-4">
+                  <p className="text-sm text-t2">Sign in with the credentials emailed after approval.</p>
+                  <input className="w-full border border-br rounded px-4 py-3" type="email" placeholder="Email" value={login.email} onChange={(e) => setLogin((s) => ({ ...s, email: e.target.value }))} />
+                  <input className="w-full border border-br rounded px-4 py-3" type="password" placeholder="Password" value={login.password} onChange={(e) => setLogin((s) => ({ ...s, password: e.target.value }))} />
+                  <button disabled={loading} className="btn-primary w-full justify-center">{loading ? "Signing in..." : "Sign In"}</button>
+                  {error && <p className="text-sm text-red-600">{error}</p>}
+                  <p className="text-sm text-t2">Not approved yet? <button type="button" className="text-ac underline" onClick={() => setTab("apply")}>Apply instead</button></p>
+                </motion.form>
+              ) : applyDone ? (
+                <motion.div key="done" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
+                  <h2 className="font-display text-2xl">Application received</h2>
+                  <p className="text-sm text-t2">We review applications within 1 working day. If approved, you will receive login details by email.</p>
+                  <Link className="text-ac underline" href="/referral-portal">Go back</Link>
                 </motion.div>
-              )}
-
-              {tab === "apply" && (
-                <motion.div key="apply" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3 }}>
-                  {applyStatus === "sent" ? (
-                    <div className="bg-white rounded-xl p-8 border border-br text-center">
-                      <div className="w-12 h-12 rounded-full bg-ac/10 flex items-center justify-center mx-auto mb-4">
-                        <span className="text-ac text-xl">✓</span>
-                      </div>
-                      <h3 className="font-display text-[22px] text-t1 mb-2">Application received</h3>
-                      <p className="text-[13.5px] text-t2 leading-relaxed">
-                        Thank you, <strong>{applyForm.name.split(" ")[0]}</strong>. We review all applications within <strong>1 working day</strong> and you will hear from us at <strong>{applyForm.email}</strong>.<br /><br />
-                        If approved, we will send your login credentials and referral link directly to your email.
-                      </p>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleApply} className="bg-white rounded-xl p-8 border border-br space-y-5">
-                      <div>
-                        <label className="block text-[12px] font-medium text-t2 mb-2 uppercase tracking-[0.1em]">Full Name</label>
-                        <input type="text" required value={applyForm.name}
-                          onChange={e => setApplyForm(f => ({ ...f, name: e.target.value }))}
-                          className="w-full border border-br rounded px-4 py-3 text-[14px] text-t1 focus:outline-none focus:border-ac transition-colors"
-                          placeholder="Jane Smith" />
-                      </div>
-                      <div>
-                        <label className="block text-[12px] font-medium text-t2 mb-2 uppercase tracking-[0.1em]">Email Address</label>
-                        <input type="email" required value={applyForm.email}
-                          onChange={e => setApplyForm(f => ({ ...f, email: e.target.value }))}
-                          className="w-full border border-br rounded px-4 py-3 text-[14px] text-t1 focus:outline-none focus:border-ac transition-colors"
-                          placeholder="your@email.com" />
-                      </div>
-                      <div>
-                        <label className="block text-[12px] font-medium text-t2 mb-2 uppercase tracking-[0.1em]">Website / Social Profile</label>
-                        <input type="url" value={applyForm.website}
-                          onChange={e => setApplyForm(f => ({ ...f, website: e.target.value }))}
-                          className="w-full border border-br rounded px-4 py-3 text-[14px] text-t1 focus:outline-none focus:border-ac transition-colors"
-                          placeholder="https://yoursite.com" />
-                      </div>
-                      <div>
-                        <label className="block text-[12px] font-medium text-t2 mb-2 uppercase tracking-[0.1em]">Tell us about your audience</label>
-                        <textarea required value={applyForm.audience}
-                          onChange={e => setApplyForm(f => ({ ...f, audience: e.target.value }))}
-                          rows={3}
-                          className="w-full border border-br rounded px-4 py-3 text-[14px] text-t1 focus:outline-none focus:border-ac transition-colors resize-none"
-                          placeholder="Who follows you / reads your content? Size, industry, etc." />
-                      </div>
-                      <button type="submit"
-                        className="w-full bg-ac hover:bg-ach text-white text-[13.5px] font-medium py-3.5 rounded transition-all">
-                        Submit Application
-                      </button>
-                      <p className="text-center text-[12.5px] text-t2">
-                        Already a partner?{" "}
-                        <button type="button" onClick={() => setTab("login")} className="text-ac hover:underline">Sign in →</button>
-                      </p>
-                    </form>
-                  )}
-                </motion.div>
+              ) : (
+                <motion.form key="apply" onSubmit={submitApply} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="space-y-4">
+                  <input className="w-full border border-br rounded px-4 py-3" type="text" placeholder="Full name" value={apply.name} onChange={(e) => setApply((s) => ({ ...s, name: e.target.value }))} />
+                  <input className="w-full border border-br rounded px-4 py-3" type="email" placeholder="Email address" value={apply.email} onChange={(e) => setApply((s) => ({ ...s, email: e.target.value }))} />
+                  <input className="w-full border border-br rounded px-4 py-3" type="url" placeholder="Website / profile" value={apply.website} onChange={(e) => setApply((s) => ({ ...s, website: e.target.value }))} />
+                  <textarea className="w-full border border-br rounded px-4 py-3 min-h-[120px]" placeholder="Tell us about your audience" value={apply.audience} onChange={(e) => setApply((s) => ({ ...s, audience: e.target.value }))} />
+                  <button disabled={loading} className="btn-primary w-full justify-center">{loading ? "Submitting..." : "Submit Application"}</button>
+                  {error && <p className="text-sm text-red-600">{error}</p>}
+                </motion.form>
               )}
             </AnimatePresence>
-          </motion.div>
+          </div>
 
-          <motion.div className="flex-1 space-y-6"
-            initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.55, delay: 0.15 }}>
-            <div>
-              <p className="eyebrow mb-3">How It Works</p>
-              <h2 className="font-display text-[32px] font-light text-t1 mb-6">Three steps to earning</h2>
+          <div className="space-y-4">
+            <div className="bg-white border border-br rounded-xl p-6">
+              <h2 className="font-display text-2xl mb-2">What happens after approval</h2>
+              <p className="text-sm text-t2 leading-relaxed">After you are approved, you receive a password email, then use that to sign in and see your referral link, earnings, and conversion activity.</p>
             </div>
-            {[
-              { n: "01", t: "Apply & Get Approved", d: "Submit your application. We review within 1 working day. If approved, your login credentials and referral link arrive by email." },
-              { n: "02", t: "Share Your Link", d: "Share your unique link with your audience, clients, or network. Track clicks and conversions in your dashboard." },
-              { n: "03", t: "Earn 10% Commission", d: "Every time a referred client signs up and pays, you earn 10% of that invoice — paid monthly on the 15th via UK bank transfer." },
-            ].map((s, i) => (
-              <motion.div key={s.n}
-                className="flex gap-5 items-start bg-white rounded-xl p-6 border border-br"
-                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: i * 0.1 }}>
-                <div className="w-10 h-10 rounded-full bg-ac/10 border border-ac/20 flex items-center justify-center shrink-0">
-                  <span className="text-[11px] font-medium text-ac">{s.n}</span>
-                </div>
-                <div>
-                  <h3 className="font-display text-[18px] font-medium text-t1 mb-1">{s.t}</h3>
-                  <p className="text-[13px] text-t2 leading-relaxed">{s.d}</p>
-                </div>
-              </motion.div>
-            ))}
-
-            <div className="bg-ac/5 border border-ac/20 rounded-xl p-6 mt-4">
-              <p className="text-[13px] text-t2 leading-relaxed">
-                <strong className="text-t1">Questions?</strong> Email us at{" "}
-                <a href="mailto:booking@budruum.co.uk" className="text-ac hover:underline">booking@budruum.co.uk</a>{" "}
-                and we will get back to you within 24 hours.
-              </p>
+            <div className="bg-white border border-br rounded-xl p-6">
+              <h2 className="font-display text-2xl mb-2">Need help?</h2>
+              <p className="text-sm text-t2 leading-relaxed">Email <a className="text-ac underline" href="mailto:booking@budruum.co.uk">booking@budruum.co.uk</a> and we will confirm next steps.</p>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
     </main>
