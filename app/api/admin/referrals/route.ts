@@ -24,6 +24,15 @@ function formatError(err: unknown): string {
     const error = e.error;
     if (typeof error === "string" && error.trim()) return error;
     if (error && typeof error === "object") return formatError(error);
+    const ownProps = Object.getOwnPropertyNames(err as object);
+    for (const prop of ownProps) {
+      const value = (err as Record<string, unknown>)[prop];
+      if (typeof value === "string" && value.trim()) return value;
+      if (value && typeof value === "object") {
+        const nested = formatError(value);
+        if (nested && nested !== "[object Object]" && nested !== "{}") return nested;
+      }
+    }
     try {
       const json = JSON.stringify(err);
       if (json && json !== "{}") return json;
@@ -134,8 +143,17 @@ export async function PATCH(req: NextRequest) {
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
     return NextResponse.json({ success: true });
   } catch (err) {
+    console.error("Referral approval failed", err);
+    const details = err && typeof err === "object"
+      ? {
+          name: (err as Record<string, unknown>).name ?? "UnknownError",
+          message: formatError(err),
+          keys: Object.getOwnPropertyNames(err as object),
+        }
+      : { name: "UnknownError", message: formatError(err), keys: [] };
     return NextResponse.json({
-      error: formatError(err),
+      error: "Referral approval failed",
+      details,
     }, { status: 500 });
   }
 }
