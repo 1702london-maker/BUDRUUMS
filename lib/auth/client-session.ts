@@ -19,16 +19,11 @@ export function createClientSessionValue(id: string, email: string, name: string
   return `${payload}.${sig}`;
 }
 
-export async function getClientSession(): Promise<ClientSession | null> {
-  const cookieStore = await cookies();
-  const raw = cookieStore.get(CLIENT_SESSION_COOKIE)?.value;
-  if (!raw) return null;
-
+export function verifyClientSessionToken(raw: string): ClientSession | null {
   const dotIdx = raw.lastIndexOf(".");
   if (dotIdx === -1) return null;
   const payload = raw.slice(0, dotIdx);
   const sig = raw.slice(dotIdx + 1);
-
   const expected = createHmac("sha256", SECRET).update(payload).digest("base64url");
   try {
     if (!timingSafeEqual(Buffer.from(sig, "base64url"), Buffer.from(expected, "base64url")))
@@ -36,7 +31,6 @@ export async function getClientSession(): Promise<ClientSession | null> {
   } catch {
     return null;
   }
-
   try {
     const data = JSON.parse(Buffer.from(payload, "base64url").toString("utf8"));
     if (!data.exp || data.exp < Date.now()) return null;
@@ -44,6 +38,13 @@ export async function getClientSession(): Promise<ClientSession | null> {
   } catch {
     return null;
   }
+}
+
+export async function getClientSession(): Promise<ClientSession | null> {
+  const cookieStore = await cookies();
+  const raw = cookieStore.get(CLIENT_SESSION_COOKIE)?.value;
+  if (!raw) return null;
+  return verifyClientSessionToken(raw);
 }
 
 export function generateClientPassword(): string {

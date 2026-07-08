@@ -69,17 +69,14 @@ export async function POST(req: NextRequest) {
     clientId = created.id;
   }
 
-  const response = NextResponse.json({ success: true });
-  response.cookies.set(
-    CLIENT_SESSION_COOKIE,
-    createClientSessionValue(clientId, email, name),
-    {
-      httpOnly: true,
-      maxAge: CLIENT_SESSION_MAX_AGE,
-      path: "/",
-      sameSite: "lax",
-      secure: origin.startsWith("https://"),
-    }
-  );
+  const token = createClientSessionValue(clientId, email, name);
+  const response = NextResponse.json({ success: true, token });
+  response.cookies.set(CLIENT_SESSION_COOKIE, token, {
+    httpOnly: true,
+    maxAge: CLIENT_SESSION_MAX_AGE,
+    path: "/",
+    sameSite: "lax",
+    secure: origin.startsWith("https://"),
+  });
   return response;
 }

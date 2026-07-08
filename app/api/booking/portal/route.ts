@@ -1,11 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { getClientSession } from "@/lib/auth/client-session";
+import { getClientSession, verifyClientSessionToken } from "@/lib/auth/client-session";
 
 const SUPABASE_URL = "https://padfgbudntpmzfnuiupt.supabase.co";
 
-export async function GET(_req: NextRequest) {
-  const session = await getClientSession();
+export async function GET(req: NextRequest) {
+  // Accept Bearer token (mobile app) or httpOnly cookie (web)
+  const authHeader = req.headers.get("authorization") || "";
+  const bearerToken = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : null;
+  const session = bearerToken ? verifyClientSessionToken(bearerToken) : await getClientSession();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;

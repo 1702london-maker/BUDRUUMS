@@ -48,17 +48,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid email or password." }, { status: 401 });
   }
 
-  const response = NextResponse.json({ success: true });
-  response.cookies.set(
-    CLIENT_SESSION_COOKIE,
-    createClientSessionValue(row.id, row.email, row.full_name || "Client"),
-    {
-      httpOnly: true,
-      maxAge: CLIENT_SESSION_MAX_AGE,
-      path: "/",
-      sameSite: "lax",
-      secure: origin.startsWith("https://"),
-    }
-  );
+  const token = createClientSessionValue(row.id, row.email, row.full_name || "Client");
+  const response = NextResponse.json({ success: true, token });
+  response.cookies.set(CLIENT_SESSION_COOKIE, token, {
+    httpOnly: true,
+    maxAge: CLIENT_SESSION_MAX_AGE,
+    path: "/",
+    sameSite: "lax",
+    secure: origin.startsWith("https://"),
+  });
   return response;
 }
