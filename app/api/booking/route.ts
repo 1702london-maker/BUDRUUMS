@@ -52,6 +52,12 @@ function notifyHtml(d: Record<string, string>, bookingId: string, secret: string
 }
 
 function confirmHtml(name: string, service: string) {
+  const firstName = name.split(" ")[0];
+  const steps = [
+    "We review your request and confirm within 24 hours",
+    "Log in to your portal any time to check your booking status",
+    "Your session runs, focused and actionable",
+  ];
   return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><title>Booking Received - Budruum</title></head>
 <body style="margin:0;padding:0;background:#F2F2F2;font-family:'DM Sans',Helvetica,Arial,sans-serif;">
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#F2F2F2;padding:40px 0;">
@@ -62,12 +68,15 @@ function confirmHtml(name: string, service: string) {
     <p style="margin:6px 0 0;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45);">Consultation Request Received</p>
   </td></tr>
   <tr><td style="padding:40px;">
-    <h2 style="margin:0 0 16px;font-family:Georgia,serif;font-size:24px;font-weight:300;color:${DARK};">Your request is in, ${name.split(" ")[0]}.</h2>
-    <p style="margin:0 0 16px;font-size:15px;color:${GREY};line-height:1.8;">Thank you for booking a <strong style="color:${DARK};">${service}</strong> consultation with Budruum. We will review your request and get back to you within <strong style="color:${DARK};">24 hours</strong> to confirm.</p>
-    <p style="margin:0 0 32px;font-size:15px;color:${GREY};line-height:1.8;">Once confirmed, you will receive your client portal login so you can track your session and share documents securely.</p>
+    <h2 style="margin:0 0 16px;font-family:Georgia,serif;font-size:24px;font-weight:300;color:${DARK};">Your request is in, ${firstName}.</h2>
+    <p style="margin:0 0 16px;font-size:15px;color:${GREY};line-height:1.8;">Thank you for booking a <strong style="color:${DARK};">${service}</strong> with Budruum. We will review your request and get back to you within <strong style="color:${DARK};">24 hours</strong> to confirm.</p>
+    <p style="margin:0 0 24px;font-size:15px;color:${GREY};line-height:1.8;">You can already create your client portal account and set your own password — no need to wait for us. Register now to track your booking.</p>
+    <table cellpadding="0" cellspacing="0" style="margin-bottom:28px;"><tr>
+      <td><a href="https://budruum.co.uk/booking/portal" style="display:inline-block;padding:13px 28px;background:${DARK};color:#fff;font-size:14px;font-weight:600;text-decoration:none;border-radius:4px;">Create Your Portal Account</a></td>
+    </tr></table>
     <div style="padding:20px 24px;background:${LIGHT};border-radius:6px;border:1px solid #E8E8E8;">
       <p style="margin:0 0 10px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:${TERRACOTTA};">What happens next</p>
-      ${["We review your brief and confirm a time slot within 24 hours","You receive your portal login and a calendar invite","Your session runs, focused and actionable"].map(s => `<p style="margin:8px 0 0;font-size:14px;color:${GREY};line-height:1.7;padding-left:14px;border-left:2px solid ${TERRACOTTA};">${s}</p>`).join("")}
+      ${steps.map(s => `<p style="margin:8px 0 0;font-size:14px;color:${GREY};line-height:1.7;padding-left:14px;border-left:2px solid ${TERRACOTTA};">${s}</p>`).join("")}
     </div>
   </td></tr>
   <tr><td style="padding:24px 40px;border-top:1px solid #E8E8E8;">
