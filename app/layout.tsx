@@ -35,6 +35,15 @@ export const metadata: Metadata = {
   publisher: SITE_NAME,
   category: "Business consultancy",
   alternates: { canonical: "/" },
+  icons: {
+    icon: [
+      { url: "/BR.png", type: "image/png", sizes: "any" },
+    ],
+    apple: [
+      { url: "/BR.png", type: "image/png" },
+    ],
+    shortcut: "/BR.png",
+  },
   openGraph: {
     title: "Budruum | UK Business Consultancy for Founders",
     description:
