@@ -1,56 +1,38 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { getReferralSession } from "@/lib/auth/referral-session";
 
 const SUPABASE_URL = "https://padfgbudntpmzfnuiupt.supabase.co";
 
-function serviceClient() {
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!key) return null;
-  return createClient(SUPABASE_URL, key, { auth: { autoRefreshToken: false, persistSession: false } });
-}
+export async function GET(_req: NextRequest) {
+  const session = await getReferralSession();
+  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-async function pickFirst<T>(tries: Array<() => Promise<T | null>>) {
-  for (const fn of tries) {
-    try {
-      const out = await fn();
-      if (out) return out;
-    } catch {}
-  }
-  return null;
-}
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!serviceKey) return NextResponse.json({ error: "Server error." }, { status: 500 });
 
-export async function GET(req: NextRequest) {
-  const auth = req.headers.get("authorization");
-  const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  const admin = serviceClient();
-  if (!auth || !anon || !admin) return NextResponse.json({ error: "Unavailable" }, { status: 500 });
+  const admin = createClient(SUPABASE_URL, serviceKey, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
 
-  const authClient = createClient(SUPABASE_URL, anon, { global: { headers: { Authorization: auth } } });
-  const { data: userData } = await authClient.auth.getUser();
-  const user = userData.user;
-  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-  const email = user.email || "";
-  const profile = await pickFirst([
-    async () => {
-      const { data } = await admin.from("referral_applications").select("*").eq("email", email).maybeSingle();
-      return data as any;
-    },
-  ]);
+  const { data: profile } = await admin
+    .from("referral_applications")
+    .select("*")
+    .eq("id", session.id)
+    .maybeSingle();
 
   return NextResponse.json({
     user: {
-      email,
-      name: user.user_metadata?.name || profile?.name || "Partner",
-      referral_code: user.user_metadata?.referral_code || profile?.referral_code || "BUD-XXXX",
+      email: session.email,
+      name: session.name,
+      referral_code: session.code,
     },
-    profile,
     metrics: {
-      clicks: profile?.clicks ?? profile?.total_clicks ?? profile?.visits ?? 0,
-      conversions: profile?.conversions ?? profile?.sales ?? 0,
-      earnings: profile?.earnings ?? profile?.commission_total ?? 0,
-      payout_status: profile?.payout_status ?? profile?.status ?? "Pending",
+      clicks: profile?.clicks ?? 0,
+      conversions: profile?.conversions ?? 0,
+      earnings: profile?.earnings ?? 0,
+      payout_status: "Pending",
     },
-    recent: profile?.recent_referrals ?? profile?.referrals ?? [],
+    recent: [],
   });
 }

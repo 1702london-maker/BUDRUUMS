@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import PageHero from "@/components/PageHero";
-import { supabase } from "@/lib/supabase";
 
 export default function ReferralPortalPage() {
   const [tab, setTab] = useState<"apply" | "login">("apply");
@@ -15,8 +14,9 @@ export default function ReferralPortalPage() {
   const [apply, setApply] = useState({ name: "", email: "", website: "", audience: "" });
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) window.location.href = "/referral-portal/dashboard";
+    // Check if already logged in via session cookie
+    fetch("/api/referral/dashboard").then((res) => {
+      if (res.ok) window.location.href = "/referral-portal/dashboard";
     });
   }, []);
 
@@ -24,13 +24,23 @@ export default function ReferralPortalPage() {
     e.preventDefault();
     setLoading(true);
     setError("");
-    const { data, error } = await supabase.auth.signInWithPassword(login);
-    setLoading(false);
-    if (error || !data.session) {
-      setError(error?.message || "Invalid email or password.");
-      return;
+    try {
+      const res = await fetch("/api/referral/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: login.email.trim().toLowerCase(), password: login.password.trim() }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setError(data.error || "Invalid email or password.");
+        return;
+      }
+      window.location.href = "/referral-portal/dashboard";
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
-    window.location.href = "/referral-portal/dashboard";
   }
 
   async function submitApply(e: React.FormEvent) {
@@ -75,11 +85,32 @@ export default function ReferralPortalPage() {
               {tab === "login" ? (
                 <motion.form key="login" onSubmit={submitLogin} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="space-y-4">
                   <p className="text-sm text-t2">Sign in with the credentials emailed after approval.</p>
-                  <input className="w-full border border-br rounded px-4 py-3" type="email" placeholder="Email" value={login.email} onChange={(e) => setLogin((s) => ({ ...s, email: e.target.value }))} />
-                  <input className="w-full border border-br rounded px-4 py-3" type="password" placeholder="Password" value={login.password} onChange={(e) => setLogin((s) => ({ ...s, password: e.target.value }))} />
-                  <button disabled={loading} className="btn-primary w-full justify-center">{loading ? "Signing in..." : "Sign In"}</button>
+                  <input
+                    className="w-full border border-br rounded px-4 py-3"
+                    type="email"
+                    placeholder="Email"
+                    required
+                    value={login.email}
+                    onChange={(e) => setLogin((s) => ({ ...s, email: e.target.value }))}
+                  />
+                  <input
+                    className="w-full border border-br rounded px-4 py-3"
+                    type="password"
+                    placeholder="Password (e.g. Kx7m-N2pQ-9vR)"
+                    required
+                    value={login.password}
+                    onChange={(e) => setLogin((s) => ({ ...s, password: e.target.value }))}
+                  />
+                  <button disabled={loading} className="btn-primary w-full justify-center">
+                    {loading ? "Signing in..." : "Sign In"}
+                  </button>
                   {error && <p className="text-sm text-red-600">{error}</p>}
-                  <p className="text-sm text-t2">Not approved yet? <button type="button" className="text-ac underline" onClick={() => setTab("apply")}>Apply instead</button></p>
+                  <p className="text-sm text-t2">
+                    Not approved yet?{" "}
+                    <button type="button" className="text-ac underline" onClick={() => setTab("apply")}>
+                      Apply instead
+                    </button>
+                  </p>
                 </motion.form>
               ) : applyDone ? (
                 <motion.div key="done" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
@@ -89,11 +120,13 @@ export default function ReferralPortalPage() {
                 </motion.div>
               ) : (
                 <motion.form key="apply" onSubmit={submitApply} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="space-y-4">
-                  <input className="w-full border border-br rounded px-4 py-3" type="text" placeholder="Full name" value={apply.name} onChange={(e) => setApply((s) => ({ ...s, name: e.target.value }))} />
-                  <input className="w-full border border-br rounded px-4 py-3" type="email" placeholder="Email address" value={apply.email} onChange={(e) => setApply((s) => ({ ...s, email: e.target.value }))} />
+                  <input className="w-full border border-br rounded px-4 py-3" type="text" placeholder="Full name" required value={apply.name} onChange={(e) => setApply((s) => ({ ...s, name: e.target.value }))} />
+                  <input className="w-full border border-br rounded px-4 py-3" type="email" placeholder="Email address" required value={apply.email} onChange={(e) => setApply((s) => ({ ...s, email: e.target.value }))} />
                   <input className="w-full border border-br rounded px-4 py-3" type="url" placeholder="Website / profile" value={apply.website} onChange={(e) => setApply((s) => ({ ...s, website: e.target.value }))} />
                   <textarea className="w-full border border-br rounded px-4 py-3 min-h-[120px]" placeholder="Tell us about your audience" value={apply.audience} onChange={(e) => setApply((s) => ({ ...s, audience: e.target.value }))} />
-                  <button disabled={loading} className="btn-primary w-full justify-center">{loading ? "Submitting..." : "Submit Application"}</button>
+                  <button disabled={loading} className="btn-primary w-full justify-center">
+                    {loading ? "Submitting..." : "Submit Application"}
+                  </button>
                   {error && <p className="text-sm text-red-600">{error}</p>}
                 </motion.form>
               )}
@@ -103,7 +136,7 @@ export default function ReferralPortalPage() {
           <div className="space-y-4">
             <div className="bg-white border border-br rounded-xl p-6">
               <h2 className="font-display text-2xl mb-2">What happens after approval</h2>
-              <p className="text-sm text-t2 leading-relaxed">After you are approved, you receive a password email, then use that to sign in and see your referral link, earnings, and conversion activity.</p>
+              <p className="text-sm text-t2 leading-relaxed">After you are approved, you receive a password email. Use that password to sign in and access your referral link, earnings, and conversion activity.</p>
             </div>
             <div className="bg-white border border-br rounded-xl p-6">
               <h2 className="font-display text-2xl mb-2">Need help?</h2>
