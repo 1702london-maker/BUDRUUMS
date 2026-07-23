@@ -31,6 +31,10 @@ export default function BookingPortalPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [checking, setChecking] = useState(true);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleteText, setDeleteText] = useState("");
+  const [deleteMessage, setDeleteMessage] = useState("");
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     fetch("/api/booking/portal")
@@ -99,6 +103,36 @@ export default function BookingPortalPage() {
     setSignedIn(false);
     setBookings([]);
     setForm({ name: "", email: "", password: "", confirm: "" });
+  }
+
+  async function deleteAccount() {
+    if (deleteText.trim().toUpperCase() !== "DELETE") {
+      setDeleteMessage("Type DELETE to confirm account deletion.");
+      return;
+    }
+
+    setDeleting(true);
+    setDeleteMessage("");
+    try {
+      const res = await fetch("/api/client/delete", { method: "POST" });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setDeleteMessage(data.error || "Unable to delete account. Please try again.");
+        return;
+      }
+      setDeleteMessage("Your account has been deleted.");
+      setTimeout(() => {
+        setSignedIn(false);
+        setBookings([]);
+        setForm({ name: "", email: "", password: "", confirm: "" });
+        setDeleteOpen(false);
+        setDeleteText("");
+      }, 1200);
+    } catch {
+      setDeleteMessage("Unable to delete account. Please try again.");
+    } finally {
+      setDeleting(false);
+    }
   }
 
   if (checking) {
@@ -234,6 +268,47 @@ export default function BookingPortalPage() {
         <div className="mt-8">
           <Link href="/booking" className="btn-primary">Book another consultation</Link>
         </div>
+
+        <section className="mt-10 bg-white border border-br rounded-xl p-6">
+          <h2 className="font-display text-2xl font-light text-t1 mb-2">Account settings</h2>
+          <p className="text-sm text-t2 leading-relaxed mb-4">
+            You can permanently delete your client account and remove access to this portal.
+          </p>
+
+          {!deleteOpen ? (
+            <button onClick={() => { setDeleteOpen(true); setDeleteMessage(""); }} className="text-sm text-red-600 underline">
+              Delete account
+            </button>
+          ) : (
+            <div className="border border-red-200 bg-red-50 rounded-lg p-4">
+              <p className="text-sm text-red-700 leading-relaxed mb-3">
+                This permanently deletes your client account. Type <strong>DELETE</strong> to confirm.
+              </p>
+              <input
+                className="w-full border border-red-200 rounded px-4 py-3 text-sm bg-white mb-3"
+                value={deleteText}
+                onChange={(e) => { setDeleteText(e.target.value); setDeleteMessage(""); }}
+                placeholder="Type DELETE"
+              />
+              <div className="flex flex-wrap gap-3">
+                <button
+                  onClick={deleteAccount}
+                  disabled={deleting}
+                  className="px-4 py-2 rounded bg-red-600 text-white text-sm font-medium disabled:opacity-60"
+                >
+                  {deleting ? "Deleting..." : "Confirm delete account"}
+                </button>
+                <button
+                  onClick={() => { setDeleteOpen(false); setDeleteText(""); setDeleteMessage(""); }}
+                  className="px-4 py-2 rounded border border-br bg-white text-sm text-t2"
+                >
+                  Cancel
+                </button>
+              </div>
+              {deleteMessage && <p className="text-sm text-red-700 mt-3">{deleteMessage}</p>}
+            </div>
+          )}
+        </section>
       </div>
     </main>
   );
