@@ -31,7 +31,7 @@ const FOUNDERS_LINKS = [
   { label: "Book a Consultation",  href: "/booking" },
 ];
 
-const PLAY_STORE_URL = "https://play.google.com/store/search?q=Budruum&c=apps";
+const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.budruum.app";
 
 function FooterLink({ label, href }: { label: string; href: string }) {
   return (
