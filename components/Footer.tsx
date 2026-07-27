@@ -31,6 +31,8 @@ const FOUNDERS_LINKS = [
   { label: "Book a Consultation",  href: "/booking" },
 ];
 
+const PLAY_STORE_URL = "https://play.google.com/store/search?q=Budruum&c=apps";
+
 function FooterLink({ label, href }: { label: string; href: string }) {
   return (
     <li>
@@ -104,6 +106,33 @@ export default function Footer() {
           width: 16px;
           transform: translateX(0);
         }
+        .store-button {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          min-height: 42px;
+          padding: 9px 12px;
+          border: 1px solid #E8E8E8;
+          border-radius: 6px;
+          color: #1A1A1A;
+          background: #fff;
+          text-decoration: none;
+          transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+        .store-button:hover {
+          border-color: #A88F84;
+          box-shadow: 0 8px 22px rgba(26, 26, 26, 0.07);
+          transform: translateY(-1px);
+        }
+        .store-button-disabled {
+          opacity: 0.68;
+          cursor: default;
+        }
+        .store-button-disabled:hover {
+          border-color: #E8E8E8;
+          box-shadow: none;
+          transform: none;
+        }
       `}</style>
 
       <footer style={{ background: "#fff", borderTop: "1px solid #E8E8E8" }}>
@@ -162,6 +191,32 @@ export default function Footer() {
               Insights, strategies and updates to help your business grow.
             </p>
             <NewsletterForm />
+            <div className="mt-6">
+              <h6 className="text-[11px] font-medium tracking-[0.18em] uppercase text-[#1A1A1A] mb-3">Download App</h6>
+              <div className="flex flex-col gap-2 max-w-[220px]">
+                <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer" className="store-button">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4.5 3.2v17.6c0 .6.7 1 1.2.6l9.7-8.8c.4-.3.4-.9 0-1.2L5.7 2.6c-.5-.4-1.2 0-1.2.6Z" fill="#34A853"/>
+                    <path d="m15.3 11.4 2.8-2.5L6.1 2.4l9.2 9Z" fill="#FBBC04"/>
+                    <path d="m15.3 12.6-9.2 9 12-6.5-2.8-2.5Z" fill="#4285F4"/>
+                    <path d="m18.1 8.9-2.8 2.5c-.4.3-.4.9 0 1.2l2.8 2.5 2.3-1.2c1.2-.7 1.2-2.4 0-3l-2.3-2Z" fill="#EA4335"/>
+                  </svg>
+                  <span>
+                    <span className="block text-[10px] uppercase tracking-[0.12em] text-[#6B6B6B] leading-none">Get it on</span>
+                    <span className="block text-[14px] font-medium leading-tight mt-1">Google Play</span>
+                  </span>
+                </a>
+                <span className="store-button store-button-disabled" aria-disabled="true">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M16.8 12.9c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.8-3.5.8-.8 0-1.9-.8-3.1-.8-1.6 0-3.1 1-3.9 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3.1 2.4 1.2-.1 1.7-.8 3.1-.8 1.5 0 1.9.8 3.2.8 1.3 0 2.2-1.2 3-2.4.9-1.3 1.3-2.6 1.3-2.7-.1 0-2.9-1.1-3-4.2ZM14.5 6.1c.7-.8 1.1-1.9 1-3.1-1 .1-2.1.7-2.8 1.5-.6.7-1.2 1.9-1 3 1 .1 2.1-.5 2.8-1.4Z"/>
+                  </svg>
+                  <span>
+                    <span className="block text-[10px] uppercase tracking-[0.12em] text-[#6B6B6B] leading-none">Coming soon</span>
+                    <span className="block text-[14px] font-medium leading-tight mt-1">App Store Pending</span>
+                  </span>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
