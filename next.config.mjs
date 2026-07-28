@@ -55,6 +55,16 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/privacy.html",
+        destination: "/privacy",
+        permanent: true,
+      },
+      {
+        source: "/terms.html",
+        destination: "/terms",
+        permanent: true,
+      },
+      {
         source: "/send-booking.php",
         destination: "/booking",
         permanent: true,
@@ -117,6 +127,11 @@ const nextConfig = {
       {
         source: "/project.html",
         destination: "/portfolio",
+        permanent: true,
+      },
+      {
+        source: "/insight.html",
+        destination: "/insights",
         permanent: true,
       },
       {
